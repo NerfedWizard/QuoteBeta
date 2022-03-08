@@ -1,0 +1,60 @@
+@import url("https://fonts.googleapis.com/css2?family=BioRhyme:wght@200&family=Charmonman&family=Lobster+Two&family=Offside&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Monoton&family=Rock+Salt&family=Shalimar&family=Yuji+Mai&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@900&family=Roboto:ital,wght@0,900;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Fuzzy+Bubbles:wght@700&display=swap");
+
+.fuzzyBubbles {
+	font-family: "Fuzzy Bubbles", cursive;
+	font-weight: 700, bold;
+	text-shadow: 1px 1px 2px rgb(110, 10, 10), 0 0 25px rgb(195, 73, 185),
+		0 0 5px rgb(100, 20, 110);
+	color: #6fe4a9;
+	font-size: 30px;
+}
+.alsoFuzzy {
+	font-family: "Fuzzy Bubbles", cursive;
+	font-weight: 700;
+	font-size: 20px;
+	text-shadow: 1px 1px 2px rgb(110, 10, 10), 0 0 25px rgb(195, 73, 185),
+		0 0 5px rgb(100, 20, 110);
+	color: #bdc6d6;
+}
+.App {
+	text-align: center;
+}
+
+.App-logo {
+	height: 40vmin;
+	pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+	.App-logo {
+		animation: App-logo-spin infinite 20s linear;
+	}
+}
+
+.App-header {
+	background-color: #282c34;
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	font-size: calc(10px + 2vmin);
+	color: white;
+}
+
+.App-link {
+	color: #ecde14;
+}
+
+@keyframes App-logo-spin {
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(360deg);
+	}
+}
