@@ -10,15 +10,16 @@ import org.springframework.stereotype.Service;
 import com.loeln.quoteapp.domain.Quote;
 import com.loeln.quoteapp.repository.QuoteRepository;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+
 @Service
+@AllArgsConstructor
+@NoArgsConstructor
 public class QuoteService {
 
 	@Autowired
 	QuoteRepository quoteRepo;
-
-	public QuoteService() {
-
-	}
 
 	public List<Quote> getQuoteByAuthor(String author) {
 		return quoteRepo.findByQuoteAuthor(capitalFirstLetter(author));
@@ -30,6 +31,10 @@ public class QuoteService {
 
 	public Iterable<Quote> getQuotes() {
 		return quoteRepo.findAll();
+	}
+
+	public Quote getQuoteById(String quoteIdentifier) {
+		return quoteRepo.findQuoteByIdentifier(quoteIdentifier);
 	}
 
 	public String capitalFirstLetter(String word) {

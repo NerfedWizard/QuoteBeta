@@ -16,7 +16,6 @@ public interface QuoteRepository extends CrudRepository<Quote, Long> {
 
 	List<Quote> findByQuotePopularity(String popularity);
 
-//
-	Quote findQuoteById(Integer id);
+	Quote findQuoteByIdentifier(String quoteId);
 
 }
