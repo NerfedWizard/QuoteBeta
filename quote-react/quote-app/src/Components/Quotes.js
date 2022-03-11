@@ -1,30 +1,29 @@
-import React, { useState } from "react";
-import axios from "axios";
+import React from 'react';
+import axios from 'axios';
 
-function Quotes() {
-    const [quote, setQuote] = useState("");
-    const [author, setAuthor] = useState("");
-    const [category, setCategory] = useState("");
-    const [popularity, setPopularity] = useState("");
-
-    function getQuote() {
-        axios.get("http://localhost:8080/quote", { crossdomain: true }).then(response => {
-            setAuthor(response.data.author);
-            setQuote(response.data.Quotes);
-            setCategory(response.data.category);
-            setPopularity(response.data.category);
-        });
+export default class Quotes extends React.Component {
+    state = {
+        quotes: []
     }
-    return (
-        <div>
-            <button onClick={getQuote}>
-                Generate Quote
-            </button>
-            <h1>{author}</h1>
-            <h3>{"-" + quote}</h3>
-            <h5>{category}</h5>
-            <h6>{popularity}</h6>
-        </div>
-    )
+
+    componentDidMount() {
+        axios.get(`http://localhost:8080/api/quote/all`)
+            .then(res => {
+                const quotes = res.data;
+                this.setState({ quotes });
+            })
+    }
+
+    render() {
+        return (
+            <ul>
+                {
+                    this.state.quotes
+                        .map(quote =>
+                            <li key={quote.id}>{quote.quoteAuthor}</li>
+                        )
+                }
+            </ul>
+        )
+    }
 }
-export default Quotes;

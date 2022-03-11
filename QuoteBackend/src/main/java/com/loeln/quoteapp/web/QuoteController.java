@@ -15,7 +15,7 @@ import com.loeln.quoteapp.domain.Quote;
 import com.loeln.quoteapp.service.QuoteService;
 
 @Controller
-@RequestMapping("/quote")
+@RequestMapping("/api/quote")
 public class QuoteController {
 
 	@Autowired
@@ -42,3 +42,4 @@ public class QuoteController {
 		return new ResponseEntity<Quote>(quote, HttpStatus.OK);
 	}
 }
+ 
