@@ -1,4 +1,0 @@
-export const GET_QUOTES = "GET_QUOTES";
-export const GET_QUOTES_AUTHOR = "GET_QUOTES_AUTHOR";
-export const GET_QUOTES_CATEGORY = "GET_QUOTES_CATEGORY"
-export const GET_QUOTE = "GET_QUOTE"
