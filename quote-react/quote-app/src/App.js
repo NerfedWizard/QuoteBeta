@@ -1,6 +1,9 @@
 import './App.css';
 import logo from './logo.svg';
 import getQuote from './Actions/QuoteAction'
+import { Component } from 'react';
+import SearchAppBar from './Components/Navbar';
+
 
 const axios = require('axios');
 async function getUser() {
@@ -13,12 +16,14 @@ async function getUser() {
 }
 
 function App() {
+
   return (
     <div className="App">
       <header className="App-header">
+        {/* <SearchAppBar /> */}
         <img src={logo} className="App-logo" alt="logo" />
         <p className="alsoFuzzy">
-         Not sure what to do
+          Not sure what to do
         </p>
         <a
           className="App-link fuzzyBubbles"

@@ -36,10 +36,9 @@ public class QuoteController {
 		return quoteService.getQuoteByAuthor(author);
 	}
 
-	@GetMapping("/{identifier}")
-	public ResponseEntity<?> getQuoteById(@PathVariable String identifier) {
-		Quote quote = quoteService.getQuoteById(identifier);
+	@GetMapping("/{quoteId}")
+	public ResponseEntity<?> getQuoteById(@PathVariable String quoteId) {
+		Quote quote = quoteService.getQuoteById(quoteId);
 		return new ResponseEntity<Quote>(quote, HttpStatus.OK);
 	}
 }
- 
