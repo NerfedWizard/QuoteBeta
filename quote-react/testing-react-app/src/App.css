@@ -41,17 +41,18 @@
 }
 
 .hurricane-font {
-  font-family: 'Hurricane', cursive;
+	font-family: 'Hurricane', cursive;
+	color: #61dafb;
 }
-.dancing-font{
-  font-family: 'Dancing Script', cursive;
+.dancing-font {
+	font-family: 'Dancing Script', cursive;
 }
-.indie-flower-font{
-  font-family: 'Indie Flower', cursive;
+.indie-flower-font {
+	font-family: 'Indie Flower', cursive;
 }
-.permanent-font{
-  font-family: 'Permanent Marker', cursive;
+.permanent-font {
+	font-family: 'Permanent Marker', cursive;
 }
-.smokum-font{
-  font-family: 'Smokum', cursive;
+.smokum-font {
+	font-family: 'Smokum', cursive;
 }
