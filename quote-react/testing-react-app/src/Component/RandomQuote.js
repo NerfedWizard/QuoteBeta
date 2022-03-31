@@ -1,14 +1,11 @@
-import React from 'react'
-import CssBaseline from '@mui/material/CssBaseline';
-import Box from '@mui/material/Box';
-import Container from '@mui/material/Container';
-import Button from '@mui/material/Button';
+import React from 'react';
+import { Container, Box, CssBaseline, Button, Paper } from '@mui/material';
 import { useState } from 'react';
 
 export default function RandomQuote() {
     const axios = require('axios');
     const [quote, setQuote] = useState([]);
-    // const [author, setAuthor] = useState([]);
+    const [author, setAuthor] = useState([]);
     async function GetQuotes() {
         const min = 1;
         const max = 37489;
@@ -19,31 +16,31 @@ export default function RandomQuote() {
         quoteList.push(identifier.data.quoteAuthor);
         quoteList.push("\n");
         quoteList.push(identifier.data.quoted);
-        setQuote(quoteList);
-        // setQuote(JSON.stringify(identifier.data, ['quoteAuthor', 'quoted'], 2));
-        // setAuthor(identifier.data[3].quoteAuthor);
-        // let author = identifier.data.author;
-        // console.log(author);
-        // console.log(identifier.data);
-        // for (let i = 0; i < quote.length; i++) {
-        //     console.log(identifier.data[i]);
-        // }
+        setAuthor(quoteList[0]);
+        setQuote(quoteList[2]);
     }
-    // function RandomQuote() {
-    //     for (let i = 0; i < quote.length; i++) {
-    //         console.log(quote[i]);
-    //         return quote[i];
-    //     }
-    // }
     return (
         <React.Fragment>
             <CssBaseline />
             <Container maxWidth="lg" className="permanent-font">
-                <Box sx={{ bgcolor: '#cfe8fc' }}>
-                    <Button variant="contained" color="error" onClick={GetQuotes}>Random Quote</Button>
-                    <h1>
-                        {quote}
-                    </h1>
+                <Box sx={{
+                    bgcolor: '#000000',
+                    boxShadow: 1,
+                    borderRadius: 2,
+                    p: 2,
+                    minWidth: 300,
+                }}>
+                    <Paper variant="outlined" >
+                        <h1 font="hurricane-font">Random Inspiration</h1>
+                        <Button variant="contained" color="error" onClick={GetQuotes}>Random Quote</Button>
+
+                        <h1>
+                            {author}
+                        </h1>
+                        <h2 className="smokum-font">
+                            {quote}
+                        </h2>
+                    </Paper>
                 </Box>
             </Container>
         </React.Fragment>

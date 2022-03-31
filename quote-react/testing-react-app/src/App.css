@@ -1,43 +1,84 @@
 .App {
 	text-align: center;
 }
-
-.App-logo {
-	height: 40vmin;
-	pointer-events: none;
+@media (min-width: 1200px) {
 }
 
-@media (prefers-reduced-motion: no-preference) {
-	.App-logo {
-		animation: App-logo-spin infinite 20s linear;
+#shine-background {
+	/* background-size: cover; */
+	position: relative;
+	top: -50%;
+	left: -50%;
+	width: 100%;
+	height: 100%;
+	background-color: #363495;
+	background: radial-gradient(
+			farthest-corner at top,
+			#ffffff 0%,
+			#5726c2 4%,
+			#41284e 12.25%,
+			#25213a 22.25%,
+			#33187c 50%
+		)
+		top right/200% 200%;
+	display: flow-root;
+	justify-content: center;
+	align-items: center;
+	color: rgb(243, 62, 228);
+	font-weight: bold;
+	animation: colorChange 5s infinite alternate;
+}
+@keyframes colorChange {
+	to {
+		background-position: top left;
 	}
+}
+@keyframes move_eye {
+	from {
+		margin-left: -20%;
+	}
+	to {
+		margin-left: 100%;
+	}
+}
+.dark-overlay {
+  position: relative;
+  top: 0%;
+  left: 0%;
+  width: 100%;
+  height: 100%;
+  background-color: #363495;
+  background: radial-gradient(
+      farthest-corner at top,
+      #ffffff 0%,
+      #501481 4%,
+      #3e1753 12.25%,
+      #7314c0 22.25%,
+      #322458 50%
+    )
+    top right/200% 200%;
+  justify-content: center;
+  align-items: center;
+  color: rgb(243, 62, 228);
+  font-weight: bold;
+  animation: colorChange 5s infinite alternate;
 }
 
 .App-header {
-	background-color: #282c34;
+	background-color: #282c34 !important;
 	min-height: 100vh;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
 	font-size: calc(10px + 2vmin);
-	color: white;
-}
-
-.App-link {
-	color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-	from {
-		transform: rotate(0deg);
-	}
-	to {
-		transform: rotate(360deg);
-	}
+	color: rgb(0, 0, 0);
 }
 .palette-mosaic {
 	font-family: 'Palette Mosaic', cursive;
+}
+.css-17vsgdu-MuiPaper-root {
+	background-color: #000000 !important;
 }
 
 .hurricane-font {
