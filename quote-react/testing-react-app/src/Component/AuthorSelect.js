@@ -1,26 +1,31 @@
 import React from 'react'
 import { useState } from 'react';
-import { styled, Card, Box, Paper, Grid, Select, CardActions, CssBaseline, Typography, Button, Container, OutlinedInput, FormHelperText } from '@mui/material';
+import { styled, Box, Paper, CssBaseline, Button, Container, OutlinedInput, FormHelperText, Stack } from '@mui/material';
 import FormControl, { useFormControl } from '@mui/material/FormControl';
-import { purple, pink } from '@mui/material/colors';
+import { purple, pink, red, blue, black, white, yellow } from '@mui/material/colors';
 
 const ColorButton = styled(Button)(({ theme }) => ({
-    color: theme.palette.getContrastText(pink[500]),
-    backgroundColor: "darkred",
+    color: 'black',
+    font: 'bold',
+    fontSize: '1.5rem',
+    fontWeight: 'bold',
+    fontFamily: 'Indie Flower',
+    backgroundColor: "seagreen",
     '&:hover': {
-        backgroundColor: "pink",
+        backgroundColor: "darkgreen",
     },
 }));
 const Item = styled(Paper)(({ theme }) => ({
-    backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+    backgroundColor: '#708090',
     ...theme.typography.body2,
     padding: theme.spacing(1),
-    textAlign: 'center',
+    elevation: 24,
+    textAlign: 'left',
     color: theme.palette.text.secondary,
 }));
 const CustomInput = styled(OutlinedInput)(({ theme }) => ({
-    color: theme.palette.getContrastText(pink[500]),
-    backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+    color: "black",
+    backgroundColor: "#696969",
     '&:hover': {
         backgroundColor: "#F5F5F5",
     },
@@ -73,21 +78,23 @@ export default function AuthorSelect() {
             <Container maxWidth="lg">
                 <Box sx={{
                     bgcolor: '#000000',
-                    boxShadow: 1,
+                    boxShadow: 8,
                     borderRadius: 2,
                     p: 2,
                     minWidth: 300,
                 }}>
-                    <Paper sx={{ color: '#000000', fontSize: 20, fontWeight: 'medium' }}>
-                        <h1>Choose a Quote by Author</h1>
-                        <FormControl sx={{ width: '25ch' }}>
-                            <CustomInput variant="filled" onChange={handleChange} placeholder="Please enter text" sx={{ color: "black", bgcolor: "#696969" }} />
-                            <MyFormHelperText />
-                        </FormControl>
-                        <ColorButton onClick={handleClick}>See more from {choice}</ColorButton>
-                        <h1>{quote}</h1>
-                        <h2>{category}</h2>
-                    </Paper>
+                    <Item>
+                        <Stack>
+                            <h1>Choose a Quote by Author</h1>
+                            <FormControl sx={{ width: '25ch' }}>
+                                <CustomInput variant="filled" onChange={handleChange} placeholder="Please enter text" />
+                                <MyFormHelperText />
+                            </FormControl>
+                            <ColorButton onClick={handleClick} sx={{ width: 300 }}>See more from {choice}</ColorButton>
+                            <h1>{quote}</h1>
+                            <h2>{category}</h2>
+                        </Stack>
+                    </Item>
                 </Box>
             </Container>
         </React.Fragment>

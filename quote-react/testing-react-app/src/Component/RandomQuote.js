@@ -1,7 +1,25 @@
 import React from 'react';
-import { Container, Box, CssBaseline, Button, Paper } from '@mui/material';
+import { Container, Box, CssBaseline, Button, Paper, styled } from '@mui/material';
 import { useState } from 'react';
 
+const Item = styled(Paper)(({ theme }) => ({
+    backgroundColor: '#708090',
+    ...theme.typography.body2,
+    padding: theme.spacing(1),
+    textAlign: 'left',
+    color: theme.palette.text.secondary,
+}));
+const ColorButton = styled(Button)(({ theme }) => ({
+    color: 'black',
+    font: 'bold',
+    fontSize: '1.5rem',
+    fontWeight: 'bold',
+    fontFamily: 'Indie Flower',
+    backgroundColor: "seagreen",
+    '&:hover': {
+        backgroundColor: "darkgreen",
+    },
+}));
 export default function RandomQuote() {
     const axios = require('axios');
     const [quote, setQuote] = useState([]);
@@ -22,25 +40,24 @@ export default function RandomQuote() {
     return (
         <React.Fragment>
             <CssBaseline />
-            <Container maxWidth="lg" className="permanent-font">
+            <Container maxWidth="lg">
                 <Box sx={{
                     bgcolor: '#000000',
-                    boxShadow: 1,
+                    boxShadow: 3,
                     borderRadius: 2,
                     p: 2,
                     minWidth: 300,
                 }}>
-                    <Paper variant="outlined" >
-                        <h1 font="hurricane-font">Random Inspiration</h1>
-                        <Button variant="contained" color="error" onClick={GetQuotes}>Random Quote</Button>
-
+                    <Item variant="outlined" >
+                        <Item variant='contained' sx={{ fontFamily: 'Indie Flower', fontWeight: 'bold', fontSize: 40 }}>Random Inspiration</Item>
+                        <ColorButton variant="contained" onClick={GetQuotes} sx={{ width: 300 }}>Random Quote</ColorButton>
                         <h1>
-                            {author}
-                        </h1>
-                        <h2 className="smokum-font">
                             {quote}
+                        </h1>
+                        <h2>
+                            {author}
                         </h2>
-                    </Paper>
+                    </Item>
                 </Box>
             </Container>
         </React.Fragment>

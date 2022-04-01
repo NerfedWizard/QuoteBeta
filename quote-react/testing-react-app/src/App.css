@@ -1,6 +1,3 @@
-.App {
-	text-align: center;
-}
 @media (min-width: 1200px) {
 }
 
@@ -41,44 +38,17 @@
 		margin-left: 100%;
 	}
 }
-.dark-overlay {
-  position: relative;
-  top: 0%;
-  left: 0%;
-  width: 100%;
-  height: 100%;
-  background-color: #363495;
-  background: radial-gradient(
-      farthest-corner at top,
-      #ffffff 0%,
-      #501481 4%,
-      #3e1753 12.25%,
-      #7314c0 22.25%,
-      #322458 50%
-    )
-    top right/200% 200%;
-  justify-content: center;
-  align-items: center;
-  color: rgb(243, 62, 228);
-  font-weight: bold;
-  animation: colorChange 5s infinite alternate;
+@keyframes move_mouth {
+	from {
+		margin-left: -20%;
+	}
+	to {
+		margin-left: 100%;
+	}
 }
 
-.App-header {
-	background-color: #282c34 !important;
-	min-height: 100vh;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	font-size: calc(10px + 2vmin);
-	color: rgb(0, 0, 0);
-}
 .palette-mosaic {
 	font-family: 'Palette Mosaic', cursive;
-}
-.css-17vsgdu-MuiPaper-root {
-	background-color: #000000 !important;
 }
 
 .hurricane-font {

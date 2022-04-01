@@ -1,16 +1,44 @@
 import * as React from 'react';
-import { InputLabel, MenuItem, Select, Container, Box, CssBaseline, Button, Paper, ThemeProvider, createTheme, FormControl, styled } from '@mui/material';
+import { InputLabel, MenuItem, Select, Container, Box, CssBaseline, Button, Paper, ThemeProvider, createTheme, styled, Stack, Autocomplete, TextField } from '@mui/material';
 import axios from 'axios';
+import FormControl, { useFormControl } from '@mui/material/FormControl';
+import { purple, pink, red, blue, black, white, yellow } from '@mui/material/colors';
 
+const Item = styled(Paper)(({ theme }) => ({
+    backgroundColor: '#708090',
+    ...theme.typography.body2,
+    padding: theme.spacing(1),
+    textAlign: 'left',
+    color: theme.palette.text.secondary,
+}));
+const ColorButton = styled(Button)(({ theme }) => ({
+    color: 'black',
+    font: 'bold',
+    fontSize: '1.5rem',
+    fontWeight: 'bold',
+    fontFamily: 'Indie Flower',
+    backgroundColor: "seagreen",
+    '&:hover': {
+        backgroundColor: "darkgreen",
+    },
+}));
 
+const CustomSelect = styled(Select)(({ theme }) => ({
+    color: "black",
+    backgroundColor: "#696969",
+    '&:hover': {
+        backgroundColor: "#F5F5F5",
+    },
+}));
 
 export default function SelectVariants() {
-    const [choice, setChoice] = React.useState('');
+    const [choice, setChoice] = React.useState(qCategory[0]);
     const [quote, setQuote] = React.useState([]);
     const [author, setAuthor] = React.useState([]);
-
-
-
+    const defaultProps = {
+        options: qCategory,
+        getOptionLabel: (option) => option,
+    };
     const handleChange = (event) => {
         setChoice(event.target.value);
         GetQuoteByCategory(event.target.value);
@@ -31,11 +59,11 @@ export default function SelectVariants() {
         const rand = Math.floor(Math.random() * (max - min)) + min;
         setAuthor(authorList[rand]);
         setQuote(quoteList[rand]);
+        // setChoice(event);
     }
     return (
 
         <React.Fragment>
-
             <CssBaseline />
             <Container maxWidth="lg">
                 <Box sx={{
@@ -45,69 +73,63 @@ export default function SelectVariants() {
                     p: 2,
                     minWidth: 300,
                 }}>
-                    <Paper sx={{ color: '#000000', fontSize: 20, fontWeight: 'medium' }}>
-                        <h1>Choose a Quote by Category</h1>
-                        {/* <InputLabel className="smokum-font">Category</InputLabel> */}
-                        <FormControl autoWidth>
-                            <InputLabel>Category</InputLabel>
-                            <Select
+                    <Item>
+                        <Item variant='contained' sx={{ fontFamily: 'Dancing Script', fontWeight: 'bold', fontSize: 40 }}>Choose a Quote by Category</Item>
+                        <FormControl sx={{ width: '25ch' }}>
+                            <Autocomplete
                                 value={choice}
-                                onChange={handleChange}
-
-                                label="Category"
-                                variant="filled"
-                                sx={{ bgcolor: "#696969" }}>
-                                <MenuItem value="" label="Category">
-
-                                </MenuItem>
-                                <MenuItem value={'life'}>Life</MenuItem>
-                                <MenuItem value={'love'}>Love</MenuItem>
-                                <MenuItem value={'inspiration'}>Inspiration</MenuItem>
-                                <MenuItem value={'humor'}>Humor</MenuItem>
-                                <MenuItem value={'wildcard'}>Wildcard</MenuItem>
-                                <MenuItem value={'soul'}>Soul</MenuItem>
-                                <MenuItem value={'truth'}>Truth</MenuItem>
-                                <MenuItem value={'poetry'}>Poetry</MenuItem>
-                                <MenuItem value={'wisdom'}>Wisdom</MenuItem>
-                                <MenuItem value={'friendship'}>Friendship</MenuItem>
-                                <MenuItem value={'happiness'}>Happiness</MenuItem>
-                                <MenuItem value={'books'}>Books</MenuItem>
-                                <MenuItem value={'romance'}>Romance</MenuItem>
-                                <MenuItem value={'writing'}>Writing</MenuItem>
-                                <MenuItem value={'success'}>Success</MenuItem>
-                                <MenuItem value={'hope'}>Hope</MenuItem>
-                                <MenuItem value={'arts'}>Arts</MenuItem>
-                                <MenuItem value={'education'}>Education</MenuItem>
-                                <MenuItem value={'motivation'}>Motivation</MenuItem>
-                                <MenuItem value={'death'}>Death</MenuItem>
-                                <MenuItem value={'faith'}>Faith</MenuItem>
-                                <MenuItem value={'philosophy'}>Philosophy</MenuItem>
-                                <MenuItem value={'mind'}>Mind</MenuItem>
-                                <MenuItem value={'god'}>God</MenuItem>
-                                <MenuItem value={'funny'}>Funny</MenuItem>
-                                <MenuItem value={'relationship'}>Relationship</MenuItem>
-                                <MenuItem value={'religion'}>Religion</MenuItem>
-                                <MenuItem value={'science'}>Science</MenuItem>
-                                <MenuItem value={'knowledge'}>Knowledge</MenuItem>
-                                <MenuItem value={'quotes'}>Quotes</MenuItem>
-                                <MenuItem value={'purpose'}>Purpose</MenuItem>
-                                <MenuItem value={'positive'}>Positive</MenuItem>
-                                <MenuItem value={'dad'}>Dad</MenuItem>
-                            </Select>
-                            <Button variant="contained" color="error" onClick={handleClick}>
-                                Next Quote about {choice}
-                            </Button>
-
-                            <h1>
-                                {author}
-                            </h1>
-                            <h2>
-                                {quote}
-                            </h2>
+                                onChange={(event, newChoice) => {
+                                    setChoice(newChoice);
+                                    GetQuoteByCategory(newChoice);
+                                }}
+                                id="combo-box-demo"
+                                options={qCategory}
+                                sx={{ width: 300 }}
+                                renderInput={(params) => <TextField {...params} label="Category" />}
+                            />
+                            <br />
+                            <ColorButton onClick={handleClick} sx={{ width: 400 }}> Next Quote about {choice}</ColorButton>
+                            <Item variant='contained' sx={{ fontFamily: 'Dancing Script', fontWeight: 'bold', fontSize: 40, width: 800, color: 'navajowhite' }}>{author}</Item>
+                            <Item variant='contained' sx={{ fontFamily: ', width: 800', fontWeight: 'bold', fontSize: 30, width: 800, color: 'silver' }}>{quote}</Item>
                         </FormControl>
-                    </Paper>
+                    </Item>
                 </Box>
             </Container>
         </React.Fragment>
     );
 }
+const qCategory = [
+    'life',
+    'love',
+    'inspiration',
+    'humor',
+    'wildcard',
+    'soul',
+    'truth',
+    'poetry',
+    'wisdom',
+    'friendship',
+    'happiness',
+    'books',
+    'romance',
+    'writing',
+    'success',
+    'hope',
+    'arts',
+    'education',
+    'motivation',
+    'death',
+    'faith',
+    'philosophy',
+    'mind',
+    'god',
+    'funny',
+    'relationship',
+    'religion',
+    'science',
+    'knowledge',
+    'quotes',
+    'purpose',
+    'positive',
+    'dad',
+];
