@@ -2,27 +2,29 @@
 }
 
 #shine-background {
-	/* background-size: cover; */
+	background-color: royalblue;
 	position: relative;
-	top: -50%;
-	left: -50%;
+	top: 0%;
+	left: 0%;
 	width: 100%;
 	height: 100%;
-	background-color: #363495;
 	background: radial-gradient(
 			farthest-corner at top,
-			#ffffff 0%,
-			#5726c2 4%,
-			#41284e 12.25%,
-			#25213a 22.25%,
-			#33187c 50%
+			white 0.5%,
+			lightblue 5%,
+			midnightblue 10%,
+			indigo 20%,
+			darkblue 30%,
+			darkviolet 40%,
+			darkmagenta 50%,
+			darkred 60%,
+			darkorange 70%,
+			darkgoldenrod 80%,
+			darkgreen 90%,
+			darkblue 100%
 		)
 		top right/200% 200%;
-	display: flow-root;
-	justify-content: center;
-	align-items: center;
-	color: rgb(243, 62, 228);
-	font-weight: bold;
+	color: lavenderblush;
 	animation: colorChange 5s infinite alternate;
 }
 @keyframes colorChange {
