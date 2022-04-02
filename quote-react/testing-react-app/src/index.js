@@ -39,7 +39,7 @@ const PlusOne = () => {
                         <Item variant='contained'>
                             It's Time For Quotes.....
                         </Item>
-                        <RandomQuote />
+                        <Route exact path='/' component={RandomQuote} />
                         {/* <Route exact path='/' */}
                         <Route exact path='/category' component={SelectVariants} />
                         <Route exact path='/author' component={AuthorSelect} />

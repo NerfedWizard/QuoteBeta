@@ -1,10 +1,10 @@
 import React from 'react';
 import { Container, Box, CssBaseline, Button, Paper, styled } from '@mui/material';
 import { useState } from 'react';
+import { Link } from "react-router-dom";
 
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: 'oldlace',
-    // backgroundImage: 'linear-gradient(to left, ghostwhite 4%, papayawhip 12.25%, peachpuff 22.25%, mintcream 30%, darkviolet 40%, darkmagenta 50%, darkred 60%, darkorange 70%, darkgoldenrod 80%, darkgreen 90%, darkblue 100%)',
     ...theme.typography.body2,
     padding: theme.spacing(1),
     fontFamily: 'Bitter',
@@ -45,6 +45,9 @@ export default function RandomQuote() {
         <React.Fragment>
             <CssBaseline />
             <Container maxWidth="lg">
+
+
+
                 <Box sx={{
                     bgcolor: 'rgb(0,0,0,.6)',
                     boxShadow: 3,
@@ -56,11 +59,27 @@ export default function RandomQuote() {
                     <Item>
                         {/* <Item variant='contained' sx={{ fontWeight: 'bold', fontSize: 20 }}>Random Inspiration</Item> */}
 
-                        <Item variant='contained' sx={{ fontFamily: 'Caveat', color: 'darkslategrey', fontSize: 40, fontWeight: 'bold', width: 800, p: 0 }}>{quote}</Item>
-                        <Item variant='contained' sx={{ fontFamily: 'Satisfy', color: 'slateblue', fontSize: 35, width: 800 }}>{author}</Item>
-                        <ColorButton onClick={GetQuotes} sx={{ p: 0 }}>Next Quote</ColorButton>
+                        <Item variant='contained' sx={{ fontFamily: 'Caveat', color: 'darkslategrey', fontSize: 40, fontWeight: 'bold', width: 800, p: 0 }}>
+                            {quote}
+                        </Item>
+                        <Item variant='contained' sx={{ fontFamily: 'Satisfy', color: 'slateblue', fontSize: 35, width: 800 }}>
+                            {author}
+                        </Item>
+                        <ColorButton onClick={GetQuotes} sx={{ p: 0 }}>
+                            Next Quote
+                        </ColorButton>
                     </Item>
                 </Box>
+                <Link to='/author'>
+                    <ColorButton>
+                        Author
+                    </ColorButton>
+                </Link>
+                <Link to='/category'>
+                    <ColorButton>
+                        Category
+                    </ColorButton>
+                </Link>
             </Container>
         </React.Fragment>
     );

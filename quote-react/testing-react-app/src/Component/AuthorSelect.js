@@ -2,6 +2,7 @@ import React from 'react'
 import { useState } from 'react';
 import { styled, Box, Paper, CssBaseline, Button, Container, FormHelperText, Stack, Autocomplete, TextField } from '@mui/material';
 import FormControl, { useFormControl } from '@mui/material/FormControl';
+import { Link } from 'react-router-dom';
 
 
 const ColorButton = styled(Button)(({ theme }) => ({
@@ -33,6 +34,7 @@ const CustomInput = styled(Autocomplete)(({ theme }) => ({
         backgroundColor: "#F5F5F5",
     },
 }));
+
 // function MyFormHelperText() {
 //     const { focused } = useFormControl() || {};
 
@@ -61,6 +63,19 @@ export default function AuthorSelect() {
     const handleClick = (event) => {
         GetQuoteByAuthor(choice);
     };
+    const changeGreeting = () => {
+        if (choice != '') {
+            console.log(choice);
+            return choice;
+        }
+        return "Choose an Author";
+    }
+    const changeCategory = () => {
+        if (category != '') {
+            return category;
+        }
+        return "";
+    }
     async function GetQuoteByAuthor(event) {
         let category = await axios.get(`/api/quote/author/${event}`);
         // eslint-disable-next-line
@@ -89,14 +104,11 @@ export default function AuthorSelect() {
                     minWidth: 300,
                 }}>
                     <Item>
-
-                        <Item variant='contained' sx={{ fontWeight: 'bold', fontSize: 20 }}>Choose a Quote by Author</Item>
-
-
+                        <Item variant='contained' sx={{ fontWeight: 'bold', fontSize: 20 }}>{changeGreeting()}</Item>
                         <Item variant='contained' sx={{ fontFamily: 'Caveat', color: 'darkslategrey', fontSize: 40, fontWeight: 'bold', width: 800, p: 0 }}>{quote}</Item>
-                        <Item variant='contained' sx={{ fontFamily: 'Bitter', fontWeight: 'bold', color: 'slateblue', fontSize: 20, width: 800 }}>Category: {category}</Item>
+                        <Item variant='contained' sx={{ fontFamily: 'Bitter', fontWeight: 'bold', color: 'slateblue', fontSize: 20, width: 800 }}>{changeCategory()}</Item>
+                        <br />
                         <Stack spacing={2} direction="row">
-
                             <CustomInput
                                 value={choice}
                                 onChange={(event, newChoice) => {
@@ -108,12 +120,19 @@ export default function AuthorSelect() {
                                 renderInput={(params) => <TextField {...params} label="Author" />} />
                             {/* <MyFormHelperText /> */}
                             <ColorButton onClick={handleClick} sx={{ p: 0 }}>Next Quote</ColorButton>
-
                         </Stack>
-                        {/* <ColorButton onClick={handleClick} sx={{ p: 0 }}>See more from {choice}</ColorButton> */}
-
                     </Item>
                 </Box>
+                <Link to='/'>
+                    <ColorButton>
+                        Random
+                    </ColorButton>
+                </Link>
+                <Link to='/category'>
+                    <ColorButton>
+                        Category
+                    </ColorButton>
+                </Link>
             </Container>
         </React.Fragment>
     );

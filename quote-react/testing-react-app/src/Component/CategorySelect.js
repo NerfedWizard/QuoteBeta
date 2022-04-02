@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Stack, Container, Box, CssBaseline, Button, Paper, styled, Autocomplete, TextField, FormControl } from '@mui/material';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 
 
@@ -54,6 +55,13 @@ export default function SelectVariants() {
     const handleClick = (event) => {
         GetQuoteByCategory(choice);
     };
+    const changeGreeting = () => {
+        if (choice != '') {
+            console.log(choice);
+            return author;
+        }
+        return "";
+    }
     async function GetQuoteByCategory(event) {
         let category = await axios.get(`/api/quote/category/${event}`);
         // eslint-disable-next-line
@@ -69,7 +77,7 @@ export default function SelectVariants() {
         const rand = Math.floor(Math.random() * (max - min)) + min;
         setAuthor(authorList[rand]);
         setQuote("\"" + quoteList[rand] + "\"");
-        // setChoice(event);
+
     }
     return (
 
@@ -84,13 +92,11 @@ export default function SelectVariants() {
                     minWidth: 300,
                 }}>
                     <Item>
-                        {/* <Item variant='contained' sx={{ fontWeight: 'bold', fontSize: 20 }}>Choose a Quote by Category</Item> */}
-                        {/* <FormControl sx={{ width: '30ch' }}> */}
-
+                        <Item variant='contained' sx={{ fontWeight: 'bold', fontSize: 20 }}>{changeGreeting()}</Item>
                         <br />
 
                         <Item variant='contained' sx={{ fontFamily: 'Caveat', color: 'darkslategrey', fontSize: 40, fontWeight: 'bold', width: 800, p: 0 }}>{quote}</Item>
-                        <Item variant='contained' sx={{ fontFamily: 'Satisfy', color: 'slateblue', fontSize: 35, width: 800 }}>{author}</Item>
+                        <Item variant='contained' sx={{ fontFamily: 'Satisfy', color: 'slateblue', fontSize: 35, width: 800 }}>{choice}</Item>
                         <Stack spacing={2} direction="row">
                             <CustomAutoComplete
                                 value={choice}
@@ -101,14 +107,23 @@ export default function SelectVariants() {
                                 id="combo-box-demo"
                                 options={qCategory}
                                 renderInput={(params) => <TextField {...params} label="Category" />} />
-
-                            <ColorButton onClick={handleClick} sx={{ p: 0 }}> Next Quote about {choice}</ColorButton>
+                            <br />
+                            <ColorButton onClick={handleClick} sx={{ p: 0 }}> Next Quote</ColorButton>
                         </Stack>
-                        {/* </FormControl> */}
                     </Item>
                 </BetterBox>
+                <Link to='/author'>
+                    <ColorButton>
+                        Author
+                    </ColorButton>
+                </Link>
+                <Link to='/'>
+                    <ColorButton>
+                        Random
+                    </ColorButton>
+                </Link>
             </Container>
-        </React.Fragment >
+        </React.Fragment>
     );
 }
 const qCategory = [

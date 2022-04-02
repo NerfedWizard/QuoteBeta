@@ -10,9 +10,9 @@
 	height: 100%;
 	background: radial-gradient(
 			farthest-corner at top,
-			white 0.5%,
-			lightblue 5%,
-			midnightblue 10%,
+			rgb(120, 119, 165) 0.5%,
+			rgb(82, 150, 175) 5%,
+			rgb(26, 26, 151) 10%,
 			indigo 20%,
 			darkblue 30%,
 			darkviolet 40%,
@@ -25,7 +25,7 @@
 		)
 		top right/200% 200%;
 	color: lavenderblush;
-	animation: colorChange 5s infinite alternate;
+	animation: colorChange 20s infinite alternate;
 }
 @keyframes colorChange {
 	to {
