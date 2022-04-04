@@ -70,16 +70,18 @@ export default function RandomQuote() {
                         </ColorButton>
                     </Item>
                 </Box>
-                <Link to='/author'>
-                    <ColorButton>
-                        Author
-                    </ColorButton>
-                </Link>
-                <Link to='/category'>
-                    <ColorButton>
-                        Category
-                    </ColorButton>
-                </Link>
+                <Box sx={{ p: 25 }}>
+                    <Link to='/author'>
+                        <ColorButton> 
+                            Author
+                        </ColorButton>
+                    </Link>
+                    <Link to='/category'>
+                        <ColorButton>
+                            Category
+                        </ColorButton>
+                    </Link>
+                </Box>
             </Container>
         </React.Fragment>
     );
