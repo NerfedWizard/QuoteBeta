@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { Stack, Container, Box, CssBaseline, Button, Paper, styled, Autocomplete, TextField, FormControl } from '@mui/material';
+import { Stack, Container, Box, CssBaseline, Button, Paper, styled, Autocomplete, TextField } from '@mui/material';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
 
+import { CatButtons } from './NavButtons';
 
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -56,7 +56,7 @@ export default function SelectVariants() {
         GetQuoteByCategory(choice);
     };
     const changeGreeting = () => {
-        if (choice != '') {
+        if (choice !== '') {
             console.log(choice);
             return author;
         }
@@ -112,16 +112,7 @@ export default function SelectVariants() {
                         </Stack>
                     </Item>
                 </BetterBox>
-                <Link to='/author'>
-                    <ColorButton>
-                        Author
-                    </ColorButton>
-                </Link>
-                <Link to='/'>
-                    <ColorButton>
-                        Random
-                    </ColorButton>
-                </Link>
+                <CatButtons />
             </Container>
         </React.Fragment>
     );

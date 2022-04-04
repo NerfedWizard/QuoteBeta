@@ -9,7 +9,7 @@ import { MDBAnimation } from "mdbreact";
 import './App.css';
 
 const Item = styled(Paper)(({ theme }) => ({
-    backgroundColor: 'rgba(86, 11, 184, 0.111)',
+    backgroundColor: 'rgba(86, 11, 184, 0.0)',
     ...theme.typography.body2,
     padding: theme.spacing(0.5),
     position: 'relative',
@@ -22,17 +22,19 @@ const Item = styled(Paper)(({ theme }) => ({
     color: 'antiquewhite',
 }));
 const FullscreenBox = styled(Box)(({ theme }) => ({
-    flex: '1',
-    justifyContent: 'space-around',
+    // flex: '1',
+    // justifyContent: 'space-around',
     display: 'flex',
+    // size: '100vh',
 }));
 
 const PlusOne = () => {
 
 
     return (
-        <div display='flex' flex='1' style={{ height: '150vh', margin: 0, padding: 0 }} id='shine-background'>
-            <FullscreenBox sx={{ height: '20vh' }}>
+        // <div display='flex' flex='1' style={{ height: '150vh', margin: 0, padding: 0 }} id='shine-background'>
+        <FullscreenBox id='shine-background' style={{ height: '100vh', margin: 0, padding: 0 }}>
+            <React.StrictMode>
                 <Router>
                     <Container >
                         <CssBaseline />
@@ -40,15 +42,13 @@ const PlusOne = () => {
                             It's Time For Quotes.....
                         </Item>
                         <Route exact path='/' component={RandomQuote} />
-                        {/* <Route exact path='/' */}
                         <Route exact path='/category' component={SelectVariants} />
                         <Route exact path='/author' component={AuthorSelect} />
-                        {/* <SelectVariants />
-                    <AuthorSelect /> */}
                     </Container>
                 </Router>
-            </FullscreenBox>
-        </div >
+            </React.StrictMode>
+        </FullscreenBox>
+        // </div >
     );
 }
 ReactDOM.render(<PlusOne />, document.getElementById('root'));

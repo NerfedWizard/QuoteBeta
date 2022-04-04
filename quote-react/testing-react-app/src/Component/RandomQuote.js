@@ -1,16 +1,40 @@
 import React from 'react';
-import { Container, Box, CssBaseline, Button, Paper, styled } from '@mui/material';
+import { Box, CssBaseline, Button, Paper, styled, Stack } from '@mui/material';
 import { useState } from 'react';
-import { Link } from "react-router-dom";
+// import 'C:/Users/loeln/OneDrive/Desktop/QuoteBeta/quote-react/testing-react-app/src/App.css';
+import NavButtons from './NavButtons';
 
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: 'oldlace',
     ...theme.typography.body2,
-    padding: theme.spacing(1),
-    fontFamily: 'Bitter',
+    padding: theme.spacing(2),
+    display: 'flex',
+    fontFamily: 'Satisfy',
+    color: 'slateblue',
+    fontSize: '200%',
+    maxWidth: "800%",
+}));
+const QuoteStack = styled(Stack)(({ theme }) => ({
+    direction: 'column',
+    spacing: 5,
+    marginBottom: '5vh',
+
+
+}));
+const ItemQuote = styled(Paper)(({ theme }) => ({
+    backgroundColor: 'oldlace',
+    ...theme.typography.body2,
+    padding: theme.spacing(2),
+    display: 'flex',
     textAlign: 'left',
-    color: 'darkslategrey',
     justifyContent: 'center',
+    fontFamily: 'Caveat',
+    color: 'darkslategrey',
+    fontSize: '250%',
+    fontWeight: 'bold',
+    maxWidth: '800%',
+    square: true,
+    p: 0
 }));
 const ColorButton = styled(Button)(({ theme }) => ({
     color: 'black',
@@ -25,64 +49,72 @@ const ColorButton = styled(Button)(({ theme }) => ({
 }));
 export default function RandomQuote() {
     const axios = require('axios');
-    const [quote, setQuote] = useState([]);
-    const [author, setAuthor] = useState([]);
+    const [quote, setQuote] = useState(['Welcome to the Quote Machine']);
+    const [author, setAuthor] = useState(['By Loel Nelson']);
+    const min = 1;
+    const max = 37489;
+    const rand = Math.floor(Math.random() * (max - min)) + min;
+    // const [counter, setCounter] = useState('');
+
+
     async function GetQuotes() {
-        const min = 1;
-        const max = 37489;
-        const rand = Math.floor(Math.random() * (max - min)) + min;
+
         const ident = "ID" + rand;
+        // setLast(ident);
+        // setCounter(ident);
         let identifier = await axios.get(`/api/quote/${ident}`);
         // eslint-disable-next-line
         const quoteList = new Array();
         quoteList.push(identifier.data.quoteAuthor);
-        quoteList.push("\n");
         quoteList.push(identifier.data.quoted);
-        setAuthor(quoteList[0]);
-        setQuote("\"" + quoteList[2] + "\"");
+        displayQuote("\"" + quoteList[1] + "\"", quoteList[0]);
+
+    }
+    // async function GetLastQuote() {
+    //     const ident = counter;
+    //     let identifier = await axios.get(`/api/quote/${ident}`);
+    //     console.log(identifier);
+    //     // eslint-disable-next-line
+    //     const quoteList = new Array();
+    //     quoteList.push(identifier.data.quoteAuthor);
+    //     quoteList.push(identifier.data.quoted);
+    //     displayQuote(quoteList[1], quoteList[0]);
+    // }
+    function displayQuote(theQuote, theAuthor) {
+        setQuote(theQuote);
+        setAuthor(theAuthor);
     }
     return (
         <React.Fragment>
             <CssBaseline />
-            <Container maxWidth="lg">
-
-
-
-                <Box sx={{
-                    bgcolor: 'rgb(0,0,0,.6)',
-                    boxShadow: 3,
-                    borderRadius: 2,
-                    p: 2,
-                    minWidth: 300,
-                    justifyContent: 'center',
-                }}>
-                    <Item>
-                        {/* <Item variant='contained' sx={{ fontWeight: 'bold', fontSize: 20 }}>Random Inspiration</Item> */}
-
-                        <Item variant='contained' sx={{ fontFamily: 'Caveat', color: 'darkslategrey', fontSize: 40, fontWeight: 'bold', width: 800, p: 0 }}>
-                            {quote}
-                        </Item>
-                        <Item variant='contained' sx={{ fontFamily: 'Satisfy', color: 'slateblue', fontSize: 35, width: 800 }}>
-                            {author}
-                        </Item>
-                        <ColorButton onClick={GetQuotes} sx={{ p: 0 }}>
-                            Next Quote
-                        </ColorButton>
+            <Box sx={{
+                bgcolor: 'rgb(0,0,0,.6)',
+                boxShadow: 3,
+                borderRadius: 2,
+                p: 2,
+                minWidth: 300,
+                justifyContent: 'center',
+            }}>
+                <QuoteStack >
+                    <ItemQuote variant='contained'>
+                        {quote}
+                    </ItemQuote>
+                    <Item variant='contained'>
+                        {author}
                     </Item>
-                </Box>
-                <Box sx={{ p: 25 }}>
-                    <Link to='/author'>
-                        <ColorButton> 
-                            Author
-                        </ColorButton>
-                    </Link>
-                    <Link to='/category'>
-                        <ColorButton>
-                            Category
-                        </ColorButton>
-                    </Link>
-                </Box>
-            </Container>
+                </QuoteStack>
+                <Stack direction="row"
+                    justifyContent="space-evenly"
+                    spacing={32}>
+                    {/* <ColorButton onClick={GetLastQuote}>
+                        Last Quote
+                    </ColorButton> */}
+                    <ColorButton onClick={GetQuotes}>
+                        Next Quote
+                    </ColorButton>
+                </Stack>
+            </Box>
+            <NavButtons />
         </React.Fragment>
     );
 }

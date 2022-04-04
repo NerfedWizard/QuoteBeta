@@ -1,8 +1,10 @@
 import React from 'react'
 import { useState } from 'react';
-import { styled, Box, Paper, CssBaseline, Button, Container, FormHelperText, Stack, Autocomplete, TextField } from '@mui/material';
-import FormControl, { useFormControl } from '@mui/material/FormControl';
-import { Link } from 'react-router-dom';
+import { styled, Box, Paper, CssBaseline, Button, Container,  Stack, Autocomplete, TextField } from '@mui/material';
+
+
+import { AuthorButtons } from './NavButtons';
+
 
 
 const ColorButton = styled(Button)(({ theme }) => ({
@@ -64,14 +66,14 @@ export default function AuthorSelect() {
         GetQuoteByAuthor(choice);
     };
     const changeGreeting = () => {
-        if (choice != '') {
+        if (choice !== '') {
             console.log(choice);
             return choice;
         }
         return "Choose an Author";
     }
     const changeCategory = () => {
-        if (category != '') {
+        if (category !== '') {
             return category;
         }
         return "";
@@ -123,16 +125,7 @@ export default function AuthorSelect() {
                         </Stack>
                     </Item>
                 </Box>
-                <Link to='/'>
-                    <ColorButton>
-                        Random
-                    </ColorButton>
-                </Link>
-                <Link to='/category'>
-                    <ColorButton>
-                        Category
-                    </ColorButton>
-                </Link>
+                <AuthorButtons />
             </Container>
         </React.Fragment>
     );

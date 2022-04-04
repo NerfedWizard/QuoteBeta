@@ -4,17 +4,21 @@
 #shine-background {
 	background-color: royalblue;
 	position: relative;
+	/* padding: 10%; */
 	top: 0%;
 	left: 0%;
 	width: 100%;
 	height: 100%;
+	background-size: cover;
+	/* background-repeat: no-repeat; */
+	/* background-size: cover; */
 	background: radial-gradient(
-			farthest-corner at top,
+			farthest-corner at bottom,
 			rgb(120, 119, 165) 0.5%,
 			rgb(82, 150, 175) 5%,
-			rgb(26, 26, 151) 10%,
+			rgb(59, 26, 151) 10%,
 			indigo 20%,
-			darkblue 30%,
+			rgb(31, 126, 78) 30%,
 			darkviolet 40%,
 			darkmagenta 50%,
 			darkred 60%,
@@ -25,7 +29,7 @@
 		)
 		top right/200% 200%;
 	color: lavenderblush;
-	animation: colorChange 20s infinite alternate;
+	animation: colorChange 10s infinite alternate;
 }
 @keyframes colorChange {
 	to {
@@ -47,6 +51,19 @@
 	to {
 		margin-left: 100%;
 	}
+}
+.backButton {
+	width: 20%;
+	overflow: hidden;
+	border-bottom: 1px solid #ccc;
+	/* clear: both; */
+	position: bottom-right;
+}
+p {
+	margin-bottom: 10px !important;
+}
+input.right {
+	float: right !important;
 }
 
 .palette-mosaic {
