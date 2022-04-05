@@ -33,6 +33,9 @@ public class QuoteController {
 
 	@GetMapping("/author/{author}")
 	public @ResponseBody List<Quote> getAuthorQuotes(@PathVariable String author) {
+		for (int i = 0; i < author.split(",").length; i++) {
+			author = author.split(",")[0] + "%";
+		}
 		return quoteService.getQuoteByAuthor(author);
 	}
 

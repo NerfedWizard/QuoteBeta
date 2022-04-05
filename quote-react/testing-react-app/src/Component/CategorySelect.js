@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Stack, Container, Box, CssBaseline, Button, Paper, styled, Autocomplete, TextField } from '@mui/material';
+import { Stack, Box, CssBaseline, Button, Paper, styled, Autocomplete, TextField } from '@mui/material';
 import axios from 'axios';
 
 import { CatButtons } from './NavButtons';
@@ -28,19 +28,14 @@ const ColorButton = styled(Button)(({ theme }) => ({
 }));
 
 const CustomAutoComplete = styled(Autocomplete)(({ theme }) => ({
-    color: 'white',
-    backgroundColor: "lightgrey",
-    width: 450,
-    fontFamily: 'Bitter',
+    color: "cyan",
+    backgroundColor: "azure",
+    width: 575,
+    fontWeight: 'bold',
+    fontFamily: 'Caveat',
     '&:hover': {
-        backgroundColor: 'white',
-        color: "black",
+        backgroundColor: "lightgreen",
     },
-}));
-const BetterBox = styled(Box)(({ theme }) => ({
-    flex: '1',
-    justifyContent: 'space-around',
-    display: 'relative',
 }));
 
 export default function SelectVariants() {
@@ -57,10 +52,9 @@ export default function SelectVariants() {
     };
     const changeGreeting = () => {
         if (choice !== '') {
-            console.log(choice);
             return author;
         }
-        return "";
+        return "Choose a Category";
     }
     async function GetQuoteByCategory(event) {
         let category = await axios.get(`/api/quote/category/${event}`);
@@ -83,37 +77,34 @@ export default function SelectVariants() {
 
         <React.Fragment>
             <CssBaseline />
-            <Container maxWidth="lg">
-                <BetterBox sx={{
-                    bgcolor: 'rgb(0,0,0,.6)',
-                    boxShadow: 1,
-                    borderRadius: 2,
-                    p: 2,
-                    minWidth: 300,
-                }}>
-                    <Item>
-                        <Item variant='contained' sx={{ fontWeight: 'bold', fontSize: 20 }}>{changeGreeting()}</Item>
-                        <br />
 
-                        <Item variant='contained' sx={{ fontFamily: 'Caveat', color: 'darkslategrey', fontSize: 40, fontWeight: 'bold', width: 800, p: 0 }}>{quote}</Item>
-                        <Item variant='contained' sx={{ fontFamily: 'Satisfy', color: 'slateblue', fontSize: 35, width: 800 }}>{choice}</Item>
-                        <Stack spacing={2} direction="row">
-                            <CustomAutoComplete
-                                value={choice}
-                                onChange={(event, newChoice) => {
-                                    setChoice(newChoice);
-                                    GetQuoteByCategory(newChoice);
-                                }}
-                                id="combo-box-demo"
-                                options={qCategory}
-                                renderInput={(params) => <TextField {...params} label="Category" />} />
-                            <br />
-                            <ColorButton onClick={handleClick} sx={{ p: 0 }}> Next Quote</ColorButton>
-                        </Stack>
-                    </Item>
-                </BetterBox>
-                <CatButtons />
-            </Container>
+            <Box sx={{
+                bgcolor: 'rgb(0, 206, 209,.3)',
+                boxShadow: 5,
+                borderRadius: 2,
+                p: 2,
+                minWidth: 300,
+                justifyContent: 'center',
+            }}>
+                <Stack spacing={2} direction="row" justifyContent="flex-end" sx={{ p: 3 }}>
+                    <CustomAutoComplete
+                        value={choice}
+                        onChange={(event, newChoice) => {
+                            setChoice(newChoice);
+                            GetQuoteByCategory(newChoice);
+                        }}
+                        selectOnFocus
+                        options={qCategory.sort()}
+                        renderInput={(params) => <TextField {...params} label="Category" variant="standard" />} />
+                    <ColorButton onClick={handleClick} sx={{ p: 0 }}> Next Quote</ColorButton>
+                </Stack>
+                <Item>
+                    <Item variant='contained' sx={{ fontWeight: 'bold', fontSize: 20 }}>{changeGreeting()}</Item>
+                    <Item variant='contained' sx={{ fontFamily: 'Caveat', color: 'darkslategrey', fontSize: 40, fontWeight: 'bold', width: 800, p: 0 }}>{quote}</Item>
+                </Item>
+            </Box>
+            <CatButtons />
+
         </React.Fragment>
     );
 }

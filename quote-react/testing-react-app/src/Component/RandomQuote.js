@@ -54,15 +54,13 @@ export default function RandomQuote() {
     const min = 1;
     const max = 37489;
     const rand = Math.floor(Math.random() * (max - min)) + min;
-    // const [counter, setCounter] = useState('');
+   
 
 
     async function GetQuotes() {
 
         const ident = "ID" + rand;
-        // setLast(ident);
-        // setCounter(ident);
-        let identifier = await axios.get(`/api/quote/${ident}`);
+           let identifier = await axios.get(`/api/quote/${ident}`);
         // eslint-disable-next-line
         const quoteList = new Array();
         quoteList.push(identifier.data.quoteAuthor);
@@ -95,6 +93,13 @@ export default function RandomQuote() {
                 minWidth: 300,
                 justifyContent: 'center',
             }}>
+                <Stack direction="row"
+                    justifyContent="flex-end"
+                    spacing={32}>
+                    <ColorButton onClick={GetQuotes}>
+                        Next Quote
+                    </ColorButton>
+                </Stack>
                 <QuoteStack >
                     <ItemQuote variant='contained'>
                         {quote}
@@ -103,16 +108,6 @@ export default function RandomQuote() {
                         {author}
                     </Item>
                 </QuoteStack>
-                <Stack direction="row"
-                    justifyContent="space-evenly"
-                    spacing={32}>
-                    {/* <ColorButton onClick={GetLastQuote}>
-                        Last Quote
-                    </ColorButton> */}
-                    <ColorButton onClick={GetQuotes}>
-                        Next Quote
-                    </ColorButton>
-                </Stack>
             </Box>
             <NavButtons />
         </React.Fragment>

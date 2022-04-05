@@ -4,6 +4,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,8 +23,9 @@ public class QuoteService {
 	@Autowired
 	QuoteRepository quoteRepo;
 
+	@Transactional
 	public List<Quote> getQuoteByAuthor(String author) {
-		return quoteRepo.findByQuoteAuthor(capitalFirstLetter(author));
+		return quoteRepo.findByQuoteAuthor(capitalFirstLetter(author)).collect(Collectors.toList());
 	}
 
 	public List<Quote> getQuoteByCategory(String category) {

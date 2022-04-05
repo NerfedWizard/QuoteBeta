@@ -1,11 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { Box, Container, CssBaseline, Paper, styled, Skeleton } from '@mui/material';
+import { BrowserRouter as Router, Route } from "react-router-dom";
+import { Box, Container, CssBaseline, Paper, styled } from '@mui/material';
 import SelectVariants from './Component/CategorySelect';
 import RandomQuote from './Component/RandomQuote';
 import AuthorSelect from './Component/AuthorSelect';
-import { MDBAnimation } from "mdbreact";
 import './App.css';
 
 const Item = styled(Paper)(({ theme }) => ({
