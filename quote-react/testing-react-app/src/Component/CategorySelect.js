@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Stack, Box, CssBaseline, Button, Paper, styled, Autocomplete, TextField } from '@mui/material';
 import axios from 'axios';
-import { RandomNum } from '../Actions/RandomNumber';
+
 import { CatButtons } from './NavButtons';
 
 
@@ -37,7 +37,12 @@ const CustomAutoComplete = styled(Autocomplete)(({ theme }) => ({
         backgroundColor: "lightgreen",
     },
 }));
-
+function RandomNum(length) {
+    const min = 0;
+    const max = length;
+    const rand = Math.floor(Math.random() * (max - min)) + min;
+    return (rand);
+}
 export default function SelectVariants() {
     const [choice, setChoice] = React.useState('');
     const [quote, setQuote] = React.useState([]);

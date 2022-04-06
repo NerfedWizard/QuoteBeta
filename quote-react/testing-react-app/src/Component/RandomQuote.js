@@ -3,7 +3,7 @@ import { Box, CssBaseline, Button, Paper, styled, Stack } from '@mui/material';
 import { useState } from 'react';
 // import 'C:/Users/loeln/OneDrive/Desktop/QuoteBeta/quote-react/testing-react-app/src/App.css';
 import NavButtons from './NavButtons';
-import RandomNumber from '../Actions/RandomNumber';
+// import RandomNumber from '../Actions/RandomNumber';
 
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: 'oldlace',
@@ -48,6 +48,12 @@ const ColorButton = styled(Button)(({ theme }) => ({
         backgroundColor: "darkgreen",
     },
 }));
+function RandomNumber() {
+    const min = 1;
+    const max = 37489;
+    const rand = Math.floor(Math.random() * (max - min)) + min;
+    return (rand);
+}
 export default function RandomQuote() {
     const axios = require('axios');
     const [quote, setQuote] = useState(['Welcome to the Quote Machine']);
