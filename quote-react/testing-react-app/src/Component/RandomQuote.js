@@ -54,13 +54,13 @@ export default function RandomQuote() {
     const min = 1;
     const max = 37489;
     const rand = Math.floor(Math.random() * (max - min)) + min;
-   
+
 
 
     async function GetQuotes() {
 
         const ident = "ID" + rand;
-           let identifier = await axios.get(`/api/quote/${ident}`);
+        let identifier = await axios.get(`/api/quote/${ident}`);
         // eslint-disable-next-line
         const quoteList = new Array();
         quoteList.push(identifier.data.quoteAuthor);
@@ -68,16 +68,6 @@ export default function RandomQuote() {
         displayQuote("\"" + quoteList[1] + "\"", quoteList[0]);
 
     }
-    // async function GetLastQuote() {
-    //     const ident = counter;
-    //     let identifier = await axios.get(`/api/quote/${ident}`);
-    //     console.log(identifier);
-    //     // eslint-disable-next-line
-    //     const quoteList = new Array();
-    //     quoteList.push(identifier.data.quoteAuthor);
-    //     quoteList.push(identifier.data.quoted);
-    //     displayQuote(quoteList[1], quoteList[0]);
-    // }
     function displayQuote(theQuote, theAuthor) {
         setQuote(theQuote);
         setAuthor(theAuthor);

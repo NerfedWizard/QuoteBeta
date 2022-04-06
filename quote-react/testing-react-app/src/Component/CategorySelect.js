@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Stack, Box, CssBaseline, Button, Paper, styled, Autocomplete, TextField } from '@mui/material';
 import axios from 'axios';
-
+import { RandomNum } from '../Actions/RandomNumber';
 import { CatButtons } from './NavButtons';
 
 
@@ -66,18 +66,15 @@ export default function SelectVariants() {
             quoteList.push(category.data[i].quoted);
             authorList.push(category.data[i].quoteAuthor);
         }
-        const min = 0;
-        const max = category.data.length;
-        const rand = Math.floor(Math.random() * (max - min)) + min;
-        setAuthor(authorList[rand]);
-        setQuote("\"" + quoteList[rand] + "\"");
+        const num = RandomNum(category.data.length);
+        setAuthor(authorList[num]);
+        setQuote("\"" + quoteList[num] + "\"");
 
     }
     return (
 
         <React.Fragment>
             <CssBaseline />
-
             <Box sx={{
                 bgcolor: 'rgb(0, 206, 209,.3)',
                 boxShadow: 5,

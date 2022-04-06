@@ -1,8 +1,8 @@
 import React from 'react'
 import { useState } from 'react';
 import { styled, Box, Paper, CssBaseline, Button, Stack, Autocomplete, TextField } from '@mui/material';
-
-
+// import { ColorButton } from './CustomButtons'; 
+import { RandomNum } from '../Actions/RandomNumber';
 import { AuthorButtons } from './NavButtons';
 
 
@@ -73,15 +73,14 @@ export default function AuthorSelect() {
             catList.push(category.data[i].quoteCategory);
             authorList.push(category.data[i].quoteAuthor);
         }
-        const min = 0;
-        const max = category.data.length;
-        const rand = Math.floor(Math.random() * (max - min)) + min;
-        if (quoteList[rand] === undefined) {
-            quoteList[rand] = "No quotes found";
+        const num = RandomNum(category.data.length);
+
+        if (quoteList[num] === undefined) {
+            quoteList[num] = "No quotes found";
         }
-        setCategory(catList[rand]);
-        setQuote("\"" + quoteList[rand] + "\"");
-        setAuthor(authorList[rand]);
+        setCategory(catList[num]);
+        setQuote("\"" + quoteList[num] + "\"");
+        setAuthor(authorList[num]);
     }
     return (
         <React.Fragment>
@@ -5067,7 +5066,6 @@ const authors = ["Dr. Seuss",
     "Ronald E. Osborn",
     "Mark Green",
     "John Lithgow",
-    "Mahmoud Darwish,  ?? ???? ???? ??????? ?? ?????",
     "Philip James Bailey,  Festus: A Poem",
     "Harry Styles",
     "Woody Guthrie",
@@ -5593,7 +5591,6 @@ const authors = ["Dr. Seuss",
     "Barbara Johnson",
     "Samuel Beckett,  I Can't Go On, I'll Go On: A Samuel Beckett Reader",
     "Philip K. Dick",
-    "Abdul Rahman Munif,  ??????? ??????? ?????",
     "Ellen Hopkins,  Crank",
     "Samuel Taylor Coleridge,  The Complete Poems",
     "John Kennedy Toole,  A Confederacy of Dunces",
@@ -13282,7 +13279,6 @@ const authors = ["Dr. Seuss",
     "Jake Vander Ark,  The Day I Wore Purple",
     "Oliver Hassencamp",
     "Richard Holbrooke,  To End a War",
-    "Octavio Paz,  ????????? ????",
     "Judah Freed,  GLOBAL SENSE",
     "Mo",
     "Dona Wording",

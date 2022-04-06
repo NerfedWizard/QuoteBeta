@@ -1,5 +1,5 @@
 import React from 'react';
-import {   Button, styled, Stack } from '@mui/material';
+import { Button, styled, Stack } from '@mui/material';
 import { Link } from "react-router-dom";
 
 const ColorButton = styled(Button)(({ theme }) => ({
