@@ -2,7 +2,6 @@ import React from 'react'
 import { useState } from 'react';
 import { styled, Box, Paper, CssBaseline, Button, Stack, Autocomplete, TextField } from '@mui/material';
 // import { ColorButton } from './CustomButtons'; 
-import { RandomNum } from '../Actions/RandomNumber';
 import { AuthorButtons } from './NavButtons';
 
 
@@ -36,7 +35,12 @@ const CustomInput = styled(Autocomplete)(({ theme }) => ({
         backgroundColor: "lightgreen",
     },
 }));
-
+function RandomNum(length) {
+    const min = 0;
+    const max = length;
+    const rand = Math.floor(Math.random() * (max - min)) + min;
+    return (rand);
+}
 export default function AuthorSelect() {
 
     const axios = require('axios');
@@ -113,7 +117,6 @@ export default function AuthorSelect() {
                     <Item variant='contained' sx={{ fontFamily: 'Caveat', color: 'darkslategrey', fontSize: 40, fontWeight: 'bold', width: 800, p: 0 }}>{quote}</Item>
                     <Item variant='contained' sx={{ fontFamily: 'Bitter', fontWeight: 'bold', color: 'slateblue', fontSize: 20, width: 800 }}>{changeCategory()}</Item>
                     <br />
-
                 </Item>
             </Box>
             <AuthorButtons />

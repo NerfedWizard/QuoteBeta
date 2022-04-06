@@ -8,7 +8,10 @@ const ColorButton = styled(Button)(({ theme }) => ({
     fontSize: '1.5rem',
     fontWeight: 'bold',
     fontFamily: 'Bitter',
+<<<<<<< HEAD
     underline: 'none',
+=======
+>>>>>>> apr6
     '&:hover': {
         background: "cyan",
         variant: 'outlined',
@@ -20,17 +23,24 @@ export function CatButtons() {
         <React.Fragment>
             <Stack
                 direction="row"
-                spacing={20}
-                justifyContent="space-between"
+                spacing={2}
                 alignItems="flex-end">
                 <Link to='/author'>
                     <ColorButton>
+<<<<<<< HEAD
                         Author
+=======
+                        Search by Author
+>>>>>>> apr6
                     </ColorButton>
                 </Link>
                 <Link to='/'>
                     <ColorButton>
+<<<<<<< HEAD
                         Random
+=======
+                        Random Quote
+>>>>>>> apr6
                     </ColorButton>
                 </Link>
             </Stack>
@@ -45,7 +55,11 @@ export function AuthorButtons() {
                 spacing={2}
                 alignItems="flex-end">
                 <Link to='/'>
+<<<<<<< HEAD
                     <ColorButton >
+=======
+                    <ColorButton>
+>>>>>>> apr6
                         Random Quote
                     </ColorButton>
                 </Link>
@@ -65,7 +79,6 @@ export default function NavButtons() {
                 direction="row"
                 spacing={2}
                 alignItems="flex-end">
-
                 <Link to='/author'>
                     <ColorButton>
                         Author

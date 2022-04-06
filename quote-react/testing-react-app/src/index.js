@@ -1,12 +1,9 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { BrowserRouter as Router, Route } from "react-router-dom";
-import { Box, Container, CssBaseline, Paper, styled } from '@mui/material';
-import SelectVariants from './Component/CategorySelect';
-import RandomQuote from './Component/RandomQuote';
-import AuthorSelect from './Component/AuthorSelect';
-import './App.css';
+import React from "react";
+import { render } from "react-dom";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
 
+<<<<<<< HEAD
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: 'rgba(86, 11, 184, 0.0)',
     ...theme.typography.body2,
@@ -47,3 +44,12 @@ const PlusOne = () => {
     );
 }
 ReactDOM.render(<PlusOne />, document.getElementById('root'));
+=======
+render(
+    <React.StrictMode>
+        <App />
+    </React.StrictMode>,
+    document.getElementById("root")
+);
+reportWebVitals(console.log);
+>>>>>>> apr6
