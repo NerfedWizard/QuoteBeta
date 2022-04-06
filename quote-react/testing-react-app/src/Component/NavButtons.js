@@ -8,12 +8,10 @@ const ColorButton = styled(Button)(({ theme }) => ({
     fontSize: '1.5rem',
     fontWeight: 'bold',
     fontFamily: 'Bitter',
-    // backgroundColor: 'rgb(20, 191, 255,0.4)',
     '&:hover': {
         background: "cyan",
         variant: 'outlined',
         focusRipple: true,
-
     },
 }));
 export function CatButtons() {
@@ -21,19 +19,15 @@ export function CatButtons() {
         <React.Fragment>
             <Stack
                 direction="row"
-                spacing={20}
-                justifyContent="space-between"
+                spacing={2}
                 alignItems="flex-end">
-
                 <Link to='/author'>
-                    <ColorButton color="secondary"
-                    >
+                    <ColorButton>
                         Search by Author
                     </ColorButton>
                 </Link>
                 <Link to='/'>
-                    <ColorButton
-                    >
+                    <ColorButton>
                         Random Quote
                     </ColorButton>
                 </Link>
@@ -41,25 +35,20 @@ export function CatButtons() {
         </React.Fragment>
     )
 }
-
 export function AuthorButtons() {
     return (
         <React.Fragment>
             <Stack
                 direction="row"
-                spacing={20}
-                justifyContent="space-between"
+                spacing={2}
                 alignItems="flex-end">
-
                 <Link to='/'>
-                    <ColorButton color="secondary"
-                    >
+                    <ColorButton>
                         Random Quote
                     </ColorButton>
                 </Link>
                 <Link to='/category'>
-                    <ColorButton
-                    >
+                    <ColorButton>
                         Search by Category
                     </ColorButton>
                 </Link>
@@ -74,20 +63,16 @@ export default function NavButtons() {
         <React.Fragment>
             <Stack
                 direction="row"
-                spacing={20}
-                justifyContent="space-between"
+                spacing={2}
                 alignItems="flex-end">
-
                 <Link to='/author'>
-                    <ColorButton color="secondary"
-                    >
-                        Search by Author
+                    <ColorButton>
+                        Author
                     </ColorButton>
                 </Link>
                 <Link to='/category'>
-                    <ColorButton
-                    >
-                        Search by Category
+                    <ColorButton>
+                        Category
                     </ColorButton>
                 </Link>
             </Stack>

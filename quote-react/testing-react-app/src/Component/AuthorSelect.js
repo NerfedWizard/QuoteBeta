@@ -114,7 +114,6 @@ export default function AuthorSelect() {
                     <Item variant='contained' sx={{ fontFamily: 'Caveat', color: 'darkslategrey', fontSize: 40, fontWeight: 'bold', width: 800, p: 0 }}>{quote}</Item>
                     <Item variant='contained' sx={{ fontFamily: 'Bitter', fontWeight: 'bold', color: 'slateblue', fontSize: 20, width: 800 }}>{changeCategory()}</Item>
                     <br />
-
                 </Item>
             </Box>
             <AuthorButtons />

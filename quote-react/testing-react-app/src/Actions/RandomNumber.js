@@ -5,9 +5,9 @@ export default function RandomNumber() {
     return (rand);
 }
 
-export function RandomNum(authorLength) {
+export function RandomNum(length) {
     const min = 0;
-    const max = authorLength;
+    const max = length;
     const rand = Math.floor(Math.random() * (max - min)) + min;
     return (rand);
 }

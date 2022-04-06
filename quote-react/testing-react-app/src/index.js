@@ -21,17 +21,15 @@ const Item = styled(Paper)(({ theme }) => ({
     color: 'antiquewhite',
 }));
 const FullscreenBox = styled(Box)(({ theme }) => ({
-    // flex: '1',
-    // justifyContent: 'space-around',
+    id: 'shine-background',
     display: 'flex',
-    // size: '100vh',
+
 }));
 
 const PlusOne = () => {
 
 
     return (
-        // <div display='flex' flex='1' style={{ height: '150vh', margin: 0, padding: 0 }} id='shine-background'>
         <FullscreenBox id='shine-background' style={{ height: '100vh', margin: 0, padding: 0 }}>
             <React.StrictMode>
                 <Router>
@@ -47,7 +45,6 @@ const PlusOne = () => {
                 </Router>
             </React.StrictMode>
         </FullscreenBox>
-        // </div >
     );
 }
 ReactDOM.render(<PlusOne />, document.getElementById('root'));
