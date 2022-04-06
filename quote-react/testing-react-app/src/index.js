@@ -28,10 +28,7 @@ const FullscreenBox = styled(Box)(({ theme }) => ({
 }));
 
 const PlusOne = () => {
-
-
     return (
-        // <div display='flex' flex='1' style={{ height: '150vh', margin: 0, padding: 0 }} id='shine-background'>
         <FullscreenBox id='shine-background' style={{ height: '100vh', margin: 0, padding: 0 }}>
             <React.StrictMode>
                 <Router>
@@ -40,14 +37,13 @@ const PlusOne = () => {
                         <Item variant='contained'>
                             It's Time For Quotes.....
                         </Item>
-                        <Route exact path='/' component={RandomQuote} />
-                        <Route exact path='/category' component={SelectVariants} />
-                        <Route exact path='/author' component={AuthorSelect} />
+                        <Route path='/' component={RandomQuote} />
+                        <Route path='/category' component={SelectVariants} />
+                        <Route path='/author' component={AuthorSelect} />
                     </Container>
                 </Router>
             </React.StrictMode>
         </FullscreenBox>
-        // </div >
     );
 }
 ReactDOM.render(<PlusOne />, document.getElementById('root'));

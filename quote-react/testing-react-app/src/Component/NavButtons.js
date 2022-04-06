@@ -8,12 +8,11 @@ const ColorButton = styled(Button)(({ theme }) => ({
     fontSize: '1.5rem',
     fontWeight: 'bold',
     fontFamily: 'Bitter',
-    // backgroundColor: 'rgb(20, 191, 255,0.4)',
+    underline: 'none',
     '&:hover': {
         background: "cyan",
         variant: 'outlined',
         focusRipple: true,
-
     },
 }));
 export function CatButtons() {
@@ -24,42 +23,34 @@ export function CatButtons() {
                 spacing={20}
                 justifyContent="space-between"
                 alignItems="flex-end">
-
                 <Link to='/author'>
-                    <ColorButton color="secondary"
-                    >
-                        Search by Author
+                    <ColorButton>
+                        Author
                     </ColorButton>
                 </Link>
                 <Link to='/'>
-                    <ColorButton
-                    >
-                        Random Quote
+                    <ColorButton>
+                        Random
                     </ColorButton>
                 </Link>
             </Stack>
         </React.Fragment>
     )
 }
-
 export function AuthorButtons() {
     return (
         <React.Fragment>
             <Stack
                 direction="row"
-                spacing={20}
-                justifyContent="space-between"
+                spacing={2}
                 alignItems="flex-end">
-
                 <Link to='/'>
-                    <ColorButton color="secondary"
-                    >
+                    <ColorButton >
                         Random Quote
                     </ColorButton>
                 </Link>
                 <Link to='/category'>
-                    <ColorButton
-                    >
+                    <ColorButton>
                         Search by Category
                     </ColorButton>
                 </Link>
@@ -67,27 +58,22 @@ export function AuthorButtons() {
         </React.Fragment>
     )
 }
-
-
 export default function NavButtons() {
     return (
         <React.Fragment>
             <Stack
                 direction="row"
-                spacing={20}
-                justifyContent="space-between"
+                spacing={2}
                 alignItems="flex-end">
 
                 <Link to='/author'>
-                    <ColorButton color="secondary"
-                    >
-                        Search by Author
+                    <ColorButton>
+                        Author
                     </ColorButton>
                 </Link>
                 <Link to='/category'>
-                    <ColorButton
-                    >
-                        Search by Category
+                    <ColorButton>
+                        Category
                     </ColorButton>
                 </Link>
             </Stack>

@@ -85,7 +85,6 @@ export default function AuthorSelect() {
     return (
         <React.Fragment>
             <CssBaseline />
-
             <Box sx={{
                 bgcolor: 'rgb(0, 206, 209,.3)',
                 boxShadow: 5,

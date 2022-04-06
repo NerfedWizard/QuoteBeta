@@ -72,7 +72,6 @@ export default function SelectVariants() {
 
     }
     return (
-
         <React.Fragment>
             <CssBaseline />
             <Box sx={{
