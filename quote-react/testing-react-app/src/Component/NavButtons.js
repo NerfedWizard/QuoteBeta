@@ -13,11 +13,12 @@ const ColorButton = styled(Button)(({ theme }) => ({
 =======
 >>>>>>> apr6
     '&:hover': {
-        background: "cyan",
+        background: "rgb(0, 206, 209,.3)",
         variant: 'outlined',
         focusRipple: true,
     },
 }));
+<<<<<<< HEAD
 export function CatButtons() {
     return (
         <React.Fragment>
@@ -92,4 +93,100 @@ export default function NavButtons() {
             </Stack>
         </React.Fragment>
     )
+=======
+
+export default function NavButtons(from) {
+    if (from === 'random') {
+        return (
+            <>
+                <Stack
+                    direction="row"
+                    spacing={2}
+                    alignItems="space-evenly">
+                    <Link to='/author'>
+                        <ColorButton>
+                            Author
+                        </ColorButton>
+                    </Link>
+                    <Link to='/category'>
+                        <ColorButton>
+                            Category
+                        </ColorButton>
+                    </Link>
+                </Stack>
+            </>
+        )
+    }
+    else if (from === 'author') {
+        return (
+            <>
+                <Stack
+                    direction="row"
+                    spacing={2}
+                    alignItems="flex-start">
+                    <Link to='/random'>
+                        <ColorButton>
+                            Random
+                        </ColorButton>
+                    </Link>
+                    <Link to='/category'>
+                        <ColorButton>
+                            Category
+                        </ColorButton>
+                    </Link>
+                </Stack>
+            </>
+        )
+    }
+    else if (from === 'category') {
+        return (
+            <>
+                <Stack
+                    direction="row"
+                    spacing={2}
+                    alignItems="flex-end">
+                    <Link to='/random'>
+                        <ColorButton>
+                            Random
+                        </ColorButton>
+                    </Link>
+                    <Link to='/author'>
+                        <ColorButton>
+                            Author
+                        </ColorButton>
+                    </Link>
+                </Stack>
+            </>
+        )
+    }
+    else {
+        return (
+            <>
+                <Stack
+                    direction="row"
+                    spacing={5}
+                    alignItems="flex-end">
+                    <Link to='/random'>
+                        <ColorButton>
+                            Random
+                        </ColorButton>
+                    </Link>
+                    <Link to='/author'>
+                        <ColorButton>
+                            Author
+                        </ColorButton>
+                    </Link>
+                    <Link to='/category'>
+                        <ColorButton>
+                            Category
+                        </ColorButton>
+                    </Link>
+                </Stack>
+            </>
+        )
+    }
+}
+export function LandingButtons() {
+
+>>>>>>> apr7
 }

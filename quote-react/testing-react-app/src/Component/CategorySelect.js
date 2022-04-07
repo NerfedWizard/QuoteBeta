@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { Stack, Box, CssBaseline, Button, Paper, styled, Autocomplete, TextField } from '@mui/material';
+import { Stack, Box, Button, Paper, styled, Autocomplete, TextField } from '@mui/material';
 import axios from 'axios';
 
-import { CatButtons } from './NavButtons';
+import NavButtons from './NavButtons';
 
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -11,9 +11,10 @@ const Item = styled(Paper)(({ theme }) => ({
     padding: theme.spacing(1),
     fontFamily: 'Bitter',
     textAlign: 'left',
-    // display: 'fixed',
-    // width: 300,
+    fontWeight: 'bold',
     color: 'darkslategrey',
+    maxWidth: 800,
+    minWidth: 200,
 }));
 const ColorButton = styled(Button)(({ theme }) => ({
     color: 'black',
@@ -30,7 +31,8 @@ const ColorButton = styled(Button)(({ theme }) => ({
 const CustomAutoComplete = styled(Autocomplete)(({ theme }) => ({
     color: "cyan",
     backgroundColor: "azure",
-    width: 575,
+    maxWidth: 575,
+    minWidth: 300,
     fontWeight: 'bold',
     fontFamily: 'Caveat',
     '&:hover': {
@@ -77,36 +79,48 @@ export default function SelectVariants() {
 
     }
     return (
+<<<<<<< HEAD
         <React.Fragment>
             <CssBaseline />
+=======
+
+        <>
+>>>>>>> apr7
             <Box sx={{
-                bgcolor: 'rgb(0, 206, 209,.3)',
                 boxShadow: 5,
                 borderRadius: 2,
                 p: 2,
-                minWidth: 300,
+                m: 'auto',
+                maxWidth: 800,
+                minWidth: 200,
                 justifyContent: 'center',
             }}>
-                <Stack spacing={2} direction="row" justifyContent="flex-end" sx={{ p: 3 }}>
+                <Stack spacing={2} direction="row" justifyContent="flex-start" >
                     <CustomAutoComplete
                         value={choice}
                         onChange={(event, newChoice) => {
                             setChoice(newChoice);
                             GetQuoteByCategory(newChoice);
                         }}
+                        isOptionEqualToValue={(option, value) => option.value === value.value}
                         selectOnFocus
                         options={qCategory.sort()}
                         renderInput={(params) => <TextField {...params} label="Category" variant="standard" />} />
                     <ColorButton onClick={handleClick} sx={{ p: 0 }}> Next Quote</ColorButton>
                 </Stack>
+                <br />
                 <Item>
-                    <Item variant='contained' sx={{ fontWeight: 'bold', fontSize: 20 }}>{changeGreeting()}</Item>
-                    <Item variant='contained' sx={{ fontFamily: 'Caveat', color: 'darkslategrey', fontSize: 40, fontWeight: 'bold', width: 800, p: 0 }}>{quote}</Item>
+                    <Item variant='contained' sx={{ fontSize: 20 }}>{changeGreeting()}</Item>
+                    <Item variant='contained' sx={{ fontFamily: 'Caveat', color: 'darkslategrey', fontSize: 40, p: 0 }}>{quote}</Item>
                 </Item>
+                <Stack direction="row"
+                    justifyContent="space-evenly"
+                    alignItems="center"
+                    spacing={5}>
+                    {NavButtons('category')}
+                </Stack>
             </Box>
-            <CatButtons />
-
-        </React.Fragment>
+        </>
     );
 }
 const qCategory = [

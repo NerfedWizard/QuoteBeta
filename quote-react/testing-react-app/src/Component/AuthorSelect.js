@@ -2,7 +2,7 @@ import React from 'react'
 import { useState } from 'react';
 import { styled, Box, Paper, CssBaseline, Button, Stack, Autocomplete, TextField } from '@mui/material';
 // import { ColorButton } from './CustomButtons'; 
-import { AuthorButtons } from './NavButtons';
+import NavButtons from './NavButtons';
 
 
 
@@ -24,11 +24,15 @@ const Item = styled(Paper)(({ theme }) => ({
     fontFamily: 'Bitter',
     textAlign: 'left',
     color: 'darkslategrey',
+    fontWeight: 'bold',
+    maxWidth: 800,
+    minWidth: 200,
 }));
 const CustomInput = styled(Autocomplete)(({ theme }) => ({
     color: "cyan",
     backgroundColor: "azure",
-    width: 575,
+    maxWidth: 575,
+    minWidth: 300,
     fontWeight: 'bold',
     fontFamily: 'Caveat',
     '&:hover': {
@@ -82,46 +86,61 @@ export default function AuthorSelect() {
         if (quoteList[num] === undefined) {
             quoteList[num] = "No quotes found";
         }
-        setCategory(catList[num]);
-        setQuote("\"" + quoteList[num] + "\"");
-        setAuthor(authorList[num]);
+        // setCategory(catList[num]);
+        // setQuote("\"" + quoteList[num] + "\"");
+        // setAuthor(authorList[num]);
+        displayQuote("\"" + quoteList[num] + "\"", authorList[num], catList[num]);
+    }
+    function displayQuote(theQuote, theAuthor, theCategory) {
+        setQuote(theQuote);
+        setAuthor(theAuthor);
+        setCategory(theCategory);
     }
     return (
+<<<<<<< HEAD
         <React.Fragment>
             <CssBaseline />
+=======
+        <>
+>>>>>>> apr7
             <Box sx={{
-                bgcolor: 'rgb(0, 206, 209,.3)',
                 boxShadow: 5,
                 borderRadius: 2,
                 p: 2,
-                minWidth: 300,
-                justifyContent: 'center',
+                m: 'auto',
+                maxWidth: 800,
+                minWidth: 200,
+                justifyContent: 'center'
             }}>
-                <Stack spacing={3} direction="row" sx={{ p: 3 }}>
+                <CssBaseline />
+                <Stack spacing={3} direction="row" >
                     <CustomInput
                         value={choice}
                         onChange={(event, newChoice) => {
                             setChoice(newChoice);
                             GetQuoteByAuthor(newChoice);
                         }}
+                        isOptionEqualToValue={(option, value) => option.value === value.value}
                         selectOnFocus
                         options={authors.sort()}
-                        renderInput={(params) => <TextField {...params} label="Author" variant="standard" />}
-
-                    />
-                    {/* <MyFormHelperText /> */}
+                        renderInput={(params) => <TextField {...params} label="Author" variant="standard" />} />
                     <ColorButton onClick={handleClick} sx={{ p: 0 }}>Next Quote</ColorButton>
                 </Stack>
+                <br />
                 <Item>
-                    <Item variant='contained' sx={{ fontWeight: 'bold', fontSize: 20 }}>{author}</Item>
-                    <Item variant='contained' sx={{ fontFamily: 'Caveat', color: 'darkslategrey', fontSize: 40, fontWeight: 'bold', width: 800, p: 0 }}>{quote}</Item>
-                    <Item variant='contained' sx={{ fontFamily: 'Bitter', fontWeight: 'bold', color: 'slateblue', fontSize: 20, width: 800 }}>{changeCategory()}</Item>
+                    <Item variant='contained' sx={{ fontSize: 20 }}>{author}</Item>
+                    <Item variant='contained' sx={{ fontFamily: 'Caveat', color: 'darkslategrey', fontSize: 40, fontWeight: 'bold', maxWidth: 800, p: 0 }}>{quote}</Item>
+                    <Item variant='contained' sx={{ fontFamily: 'Bitter', fontWeight: 'bold', color: 'slateblue', fontSize: 20, maxWidth: 800 }}>{changeCategory()}</Item>
                     <br />
                 </Item>
+                <Stack direction="row"
+                    justifyContent="space-between"
+                    alignItems="center"
+                    spacing={5}>
+                    {NavButtons('author')}
+                </Stack>
             </Box>
-            <AuthorButtons />
-
-        </React.Fragment>
+        </>
     );
 }
 
