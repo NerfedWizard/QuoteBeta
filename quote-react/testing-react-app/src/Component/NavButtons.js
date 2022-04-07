@@ -9,73 +9,103 @@ const ColorButton = styled(Button)(({ theme }) => ({
     fontWeight: 'bold',
     fontFamily: 'Bitter',
     '&:hover': {
-        background: "cyan",
+        background: "rgb(0, 206, 209,.3)",
         variant: 'outlined',
         focusRipple: true,
     },
 }));
-export function CatButtons() {
-    return (
-        <React.Fragment>
-            <Stack
-                direction="row"
-                spacing={2}
-                alignItems="flex-end">
-                <Link to='/author'>
-                    <ColorButton>
-                        Search by Author
-                    </ColorButton>
-                </Link>
-                <Link to='/'>
-                    <ColorButton>
-                        Random Quote
-                    </ColorButton>
-                </Link>
-            </Stack>
-        </React.Fragment>
-    )
-}
-export function AuthorButtons() {
-    return (
-        <React.Fragment>
-            <Stack
-                direction="row"
-                spacing={2}
-                alignItems="flex-end">
-                <Link to='/'>
-                    <ColorButton>
-                        Random Quote
-                    </ColorButton>
-                </Link>
-                <Link to='/category'>
-                    <ColorButton>
-                        Search by Category
-                    </ColorButton>
-                </Link>
-            </Stack>
-        </React.Fragment>
-    )
-}
 
+export default function NavButtons(from) {
+    if (from === 'random') {
+        return (
+            <>
+                <Stack
+                    direction="row"
+                    spacing={2}
+                    alignItems="space-evenly">
+                    <Link to='/author'>
+                        <ColorButton>
+                            Author
+                        </ColorButton>
+                    </Link>
+                    <Link to='/category'>
+                        <ColorButton>
+                            Category
+                        </ColorButton>
+                    </Link>
+                </Stack>
+            </>
+        )
+    }
+    else if (from === 'author') {
+        return (
+            <>
+                <Stack
+                    direction="row"
+                    spacing={2}
+                    alignItems="flex-start">
+                    <Link to='/random'>
+                        <ColorButton>
+                            Random
+                        </ColorButton>
+                    </Link>
+                    <Link to='/category'>
+                        <ColorButton>
+                            Category
+                        </ColorButton>
+                    </Link>
+                </Stack>
+            </>
+        )
+    }
+    else if (from === 'category') {
+        return (
+            <>
+                <Stack
+                    direction="row"
+                    spacing={2}
+                    alignItems="flex-end">
+                    <Link to='/random'>
+                        <ColorButton>
+                            Random
+                        </ColorButton>
+                    </Link>
+                    <Link to='/author'>
+                        <ColorButton>
+                            Author
+                        </ColorButton>
+                    </Link>
+                </Stack>
+            </>
+        )
+    }
+    else {
+        return (
+            <>
+                <Stack
+                    direction="row"
+                    spacing={5}
+                    alignItems="flex-end">
+                    <Link to='/random'>
+                        <ColorButton>
+                            Random
+                        </ColorButton>
+                    </Link>
+                    <Link to='/author'>
+                        <ColorButton>
+                            Author
+                        </ColorButton>
+                    </Link>
+                    <Link to='/category'>
+                        <ColorButton>
+                            Category
+                        </ColorButton>
+                    </Link>
+                </Stack>
+            </>
+        )
+    }
+}
+export function LandingButtons() {
 
-export default function NavButtons() {
-    return (
-        <React.Fragment>
-            <Stack
-                direction="row"
-                spacing={2}
-                alignItems="flex-end">
-                <Link to='/author'>
-                    <ColorButton>
-                        Author
-                    </ColorButton>
-                </Link>
-                <Link to='/category'>
-                    <ColorButton>
-                        Category
-                    </ColorButton>
-                </Link>
-            </Stack>
-        </React.Fragment>
-    )
 }
