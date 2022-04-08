@@ -97,9 +97,9 @@ export default function RandomQuote() {
                     <ColorButton onClick={GetQuotes}>Next Quote</ColorButton>
                 </Stack>
                 <Item>
-                    <Item variant='contained' sx={{ fontFamily: 'Bitter', color: 'slateblue', fontSize: 28, maxWidth: 800 }}>{author}</Item>
-                    <Item variant='contained' sx={{ fontFamily: 'Caveat', fontSize: 40, maxWidth: 800, p: 0 }}>{quote}</Item>
-                    <Item variant='contained' sx={{ fontFamily: 'Bitter', fontWeight: 'bold', color: 'lightpink', fontSize: 20, maxWidth: 800 }}>{category}</Item>
+                    <Item variant='contained' sx={{ color: 'slateblue', fontSize: 28 }}>{author}</Item>
+                    <Item variant='contained' sx={{ fontFamily: 'Caveat', fontSize: 40, p: 0 }}>{quote}</Item>
+                    <Item variant='contained' sx={{ color: 'lightpink', fontSize: 20 }}>{category}</Item>
                 </Item>
                 {NavButtons('random')}
             </Box>

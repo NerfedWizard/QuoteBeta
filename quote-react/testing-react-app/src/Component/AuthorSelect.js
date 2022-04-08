@@ -97,12 +97,7 @@ export default function AuthorSelect() {
         setCategory(theCategory);
     }
     return (
-<<<<<<< HEAD
-        <React.Fragment>
-            <CssBaseline />
-=======
         <>
->>>>>>> apr7
             <Box sx={{
                 boxShadow: 5,
                 borderRadius: 2,

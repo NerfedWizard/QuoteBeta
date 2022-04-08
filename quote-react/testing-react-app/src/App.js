@@ -50,10 +50,6 @@ const App = () => {
                     </Routes>
                 </Container>
             </Router>
-
-
-
-
         </Box>
         // </div >
     );

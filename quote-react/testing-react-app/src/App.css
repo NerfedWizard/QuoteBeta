@@ -89,7 +89,7 @@ input.right {
 
 /* Demo Backgrounds maybe use some for dark mode */
 #gradient-shift {
-	background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+	background: linear-gradient(-45deg, #76ee52, #e73c7e, #23a6d5, #6723d5);
 	background-size: 400% 400%;
 	animation: gradient 15s ease infinite;
 	height: 100vh;
@@ -107,7 +107,7 @@ input.right {
 	}
 }
 /* Going through stars */
-.bg {
+/* .bg {
 	background: url(https://i.ibb.co/87GbbFP/2799006.jpg) no-repeat;
 	background-size: cover;
 	height: 100%;
@@ -219,7 +219,7 @@ input.right {
 }
 .star-field .layer:nth-child(3) {
 	animation: sf-fly-by-3 5s linear infinite;
-}
+} */
 
 /* Color Drops */
 
@@ -293,7 +293,7 @@ body {
 } */
 
 /* MoonClouds Background */
-@keyframes move-background {
+/* @keyframes move-background {
   from {
 		-webkit-transform: translate3d(0px, 0px, 0px);
 	}
@@ -389,7 +389,7 @@ img{
   position: absolute;
   z-index: 3;
   right: 20px;
-}
+} */
 
 /* Bubble Background */
 /* body {

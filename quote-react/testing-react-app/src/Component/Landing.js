@@ -1,12 +1,10 @@
 import React from 'react';
-import { Box, CssBaseline, Stack } from '@mui/material';
+import { Stack } from '@mui/material';
 import NavButtons from './NavButtons';
 
 function Landing() {
     return (
         <>
-            <CssBaseline />
-            Would Like to add sign in here
             {/* <Box sx={{
                 boxShadow: 3,
                 maxWidth: '50%',
