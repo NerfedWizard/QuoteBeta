@@ -7,6 +7,7 @@ import RandomQuote from './Component/RandomQuote';
 import AuthorSelect from './Component/AuthorSelect';
 import './App.css';
 import Landing from './Component/Landing';
+import NavButtons from './Component/NavButtons';
 
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -37,13 +38,17 @@ const App = () => {
         //                 <div className='layer'></div></div></div></div>
         <Box id='gradient-shift' display='flex' style={{ height: '100vh', margin: 0, padding: 0 }}>
             <Router>
-                <Container >
+                <Container sx={{
+                    p: 0,
+                    m: 'auto',
+                }}>
                     <CssBaseline />
                     <Item variant='contained'>
                         It's Time For Quotes.....
                     </Item>
                     <Routes>
                         <Route exact path='/' element={<Landing />} />
+                        <Route exact path='/loginsuccess' element={<NavButtons />} />
                         <Route exact path='/random' element={<RandomQuote />} />
                         <Route exact path='/category' element={<SelectVariants />} />
                         <Route exact path='/author' element={<AuthorSelect />} />

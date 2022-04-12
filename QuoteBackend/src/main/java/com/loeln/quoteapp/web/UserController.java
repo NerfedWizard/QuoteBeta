@@ -19,19 +19,14 @@ public class UserController {
 	private UserService userService;
 
 	/**
-	 * Doesn't Work need something to make it so it just checks the username and
-	 * logs them in Might just have to add security
+	 * Works for registering the user which is really all I would want. Just seeing
+	 * who uses the site and maybe a way to see what quotes they look at. Keep
+	 * working on how to secure it. Since it is going on live site.
 	 */
-
-	@PostMapping("/login")
-	public ResponseEntity<?> logUserIn(@RequestBody String login) {
-		return ResponseEntity.ok(null);
-	}
 
 	@PostMapping("/register")
 	public ResponseEntity<?> registerUser(@RequestBody User user) {
 		User newUser = userService.saveUser(user);
-
 		return new ResponseEntity<User>(newUser, HttpStatus.CREATED);
 	}
 

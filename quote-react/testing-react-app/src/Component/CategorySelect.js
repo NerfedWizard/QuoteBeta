@@ -83,7 +83,7 @@ export default function SelectVariants() {
         <>
             <Box sx={{
                 boxShadow: 5,
-                borderRadius: 2,
+                borderRadius: 10,
                 p: 2,
                 m: 'auto',
                 maxWidth: 800,

@@ -5,6 +5,7 @@ import { useState } from 'react';
 import NavButtons from './NavButtons';
 import RandomNumber from '../Actions/RandomNumber';
 
+
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: 'oldlace',
     ...theme.typography.body2,
@@ -16,28 +17,7 @@ const Item = styled(Paper)(({ theme }) => ({
     maxWidth: 800,
     minWidth: 200,
 }));
-// const QuoteStack = styled(Stack)(({ theme }) => ({
-//     direction: 'column',
-//     spacing: 5,
-//     marginBottom: '5vh',
 
-
-// }));
-// const ItemQuote = styled(Paper)(({ theme }) => ({
-//     backgroundColor: 'oldlace',
-//     ...theme.typography.body2,
-//     padding: theme.spacing(2),
-//     display: 'flex',
-//     textAlign: 'left',
-//     justifyContent: 'center',
-//     fontFamily: 'Caveat',
-//     color: 'darkslategrey',
-//     fontSize: '250%',
-//     fontWeight: 'bold',
-//     maxWidth: '800%',
-//     square: true,
-//     p: 0
-// }));
 const ColorButton = styled(Button)(({ theme }) => ({
     color: 'black',
     font: 'bold',
@@ -49,12 +29,7 @@ const ColorButton = styled(Button)(({ theme }) => ({
         backgroundColor: "darkgreen",
     },
 }));
-// function RandomNumber() {
-//     const min = 1;
-//     const max = 37489;
-//     const rand = Math.floor(Math.random() * (max - min)) + min;
-//     return (rand);
-// }
+
 export default function RandomQuote() {
     const axios = require('axios');
     const [quote, setQuote] = useState(['Welcome to the Quote Machine']);
@@ -84,7 +59,7 @@ export default function RandomQuote() {
 
             <Box sx={{
                 boxShadow: 5,
-                borderRadius: 2,
+                borderRadius: 10,
                 p: 2,
                 m: 'auto',
                 maxWidth: 800,

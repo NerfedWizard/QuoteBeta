@@ -7,7 +7,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.PrePersist;
-import javax.persistence.PreUpdate;
 import javax.validation.constraints.NotBlank;
 
 import lombok.AllArgsConstructor;
@@ -23,21 +22,18 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
+
 	@NotBlank(message = "Need a username Boss and make it clever")
 	private String username;
+
 	@NotBlank(message = "You're not Prince, going to need your full name")
 	private String fullName;
 
 	private Date create_At;
-	private Date update_At;
 
 	@PrePersist
 	protected void onCreate() {
 		this.create_At = new Date();
 	}
 
-	@PreUpdate
-	protected void onUpdate() {
-		this.update_At = new Date();
-	}
 }
