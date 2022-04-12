@@ -2,6 +2,9 @@ package com.loeln.quoteapp.payload;
 
 import javax.validation.constraints.NotBlank;
 
+import lombok.Data;
+
+@Data
 public class LoginRequest {
 
 	@NotBlank(message = "Gotta type something Sherlock")
@@ -9,19 +12,4 @@ public class LoginRequest {
 	@NotBlank(message = "Blank is a little to easy to guess try typing a password")
 	private String password;
 
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
 }

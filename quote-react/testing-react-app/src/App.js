@@ -1,13 +1,24 @@
+// import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+// import SelectVariants from './Component/QuoteManagement/CategorySelect';
+// import RandomQuote from './Component/QuoteManagement/RandomQuote';
+// import AuthorSelect from './Component/QuoteManagement/AuthorSelect';
+// import NavButtons from './Component/Layout/NavButtons';
+// import Landing from './Component/Layout/Landing';
+// import Register from './Component/UserManagement/Register';
+// import Login from './Component/UserManagement/Login';
+// import SecureRoute from "./SecurityUtils/SecureRoute";
+
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { Box, Container, CssBaseline, Paper, styled } from '@mui/material';
-import SelectVariants from './Component/CategorySelect';
-import RandomQuote from './Component/RandomQuote';
-// import Nav Buttons from './Component/NavButtons';
-import AuthorSelect from './Component/AuthorSelect';
 import './App.css';
-import Landing from './Component/Landing';
-import NavButtons from './Component/NavButtons';
+import { Outlet, Link } from "react-router-dom";
+import { Provider } from "react-redux";
+import { SET_CURRENT_USER } from "./Actions/types";
+import setJWTToken from "./SecurityUtils/setJWTToken";
+import store from "./store";
+import jwt_decode from "jwt-decode";
+import { logout } from "./Actions/securityActions";
+
 
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -23,40 +34,52 @@ const Item = styled(Paper)(({ theme }) => ({
     square: false,
     color: 'antiquewhite',
 }));
-// const FullscreenBox = styled(Box)(({ theme }) => ({
-//     display: 'flex',
-// }));
+const jwtToken = localStorage.jwtToken;
 
+if (jwtToken) {
+    setJWTToken(jwtToken);
+    const decoded_jwtToken = jwt_decode(jwtToken);
+    store.dispatch({
+        type: SET_CURRENT_USER,
+        payload: decoded_jwtToken,
+    });
+
+    const currentTime = Date.now() / 1000;
+    if (decoded_jwtToken.exp < currentTime) {
+        store.dispatch(logout());
+        window.location.href = "/";
+    }
+}
 const App = () => {
 
     return (
-        // <div className="background-container">
-        //     <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1231630/moon2.png" alt=""></img>
-        //     <div className='stars'>
-        //         <div className='twinkling'>
-        //             <div className='clouds'>
-        //                 <div className='layer'></div></div></div></div>
+
         <Box id='gradient-shift' display='flex' style={{ height: '100vh', margin: 0, padding: 0 }}>
-            <Router>
+            <Provider store={store}>
+
                 <Container sx={{
                     p: 0,
                     m: 'auto',
-                }}>
-                    <CssBaseline />
+                }}><CssBaseline />
                     <Item variant='contained'>
                         It's Time For Quotes.....
                     </Item>
-                    <Routes>
-                        <Route exact path='/' element={<Landing />} />
-                        <Route exact path='/loginsuccess' element={<NavButtons />} />
-                        <Route exact path='/random' element={<RandomQuote />} />
-                        <Route exact path='/category' element={<SelectVariants />} />
-                        <Route exact path='/author' element={<AuthorSelect />} />
-                    </Routes>
+                    <nav>
+                        <Link to="/landing">Landing</Link>>
+                        <Link to="/login">Login</Link>>
+                        <Link to="/register">Register</Link>>
+
+                        {/* Secure Routes */}
+
+                        <Link to="/loginsuccess">Login Success</Link>
+                        <Link to="/random">Random</Link>
+                        <Link to="/category">Category</Link>
+                        <Link to="/author">Author</Link>
+                    </nav>
+                    <Outlet />
                 </Container>
-            </Router>
+            </Provider>
         </Box>
-        // </div >
     );
 }
 export default App;
