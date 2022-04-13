@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Navigate } from "react-router-dom";
+import { Route, Navigate} from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
@@ -10,7 +10,7 @@ const SecureRoute = ({ component: Component, security, ...otherProps }) => (
             security.validToken === true ? (
                 <Component {...props} />
             ) : (
-                <Navigate to="/loginsuccess" />
+                <Navigate to="/quote/loginsuccess" />
             )
         }
     />

@@ -3,7 +3,7 @@
 // import RandomQuote from './Component/QuoteManagement/RandomQuote';
 // import AuthorSelect from './Component/QuoteManagement/AuthorSelect';
 // import NavButtons from './Component/Layout/NavButtons';
-// import Landing from './Component/Layout/Landing';
+import Landing from './Component/Layout/Landing';
 // import Register from './Component/UserManagement/Register';
 // import Login from './Component/UserManagement/Login';
 // import SecureRoute from "./SecurityUtils/SecureRoute";
@@ -47,9 +47,27 @@ if (jwtToken) {
     const currentTime = Date.now() / 1000;
     if (decoded_jwtToken.exp < currentTime) {
         store.dispatch(logout());
-        window.location.href = "/";
+        window.location.href = "/quote/landing";
     }
+};
+
+const Navigation = () => {
+    return (
+        <nav>
+            {/* <Link to="/quote/landing">Landing</Link> */}
+            <Link to="/quote/login">Login</Link>
+            <Link to="/quote/register">Register</Link>
+
+            {/* Secure Routes */}
+
+            <Link to="/quote/loginsuccess">Login Success</Link>
+            <Link to="/quote/random">Random</Link>
+            <Link to="/quote/category">Category</Link>
+            <Link to="/quote/author">Author</Link>
+        </nav>
+    );
 }
+
 const App = () => {
 
     return (
@@ -61,25 +79,16 @@ const App = () => {
                     p: 0,
                     m: 'auto',
                 }}><CssBaseline />
+                    {/* {<Landing />}
+                    <Navigation /> */}
                     <Item variant='contained'>
                         It's Time For Quotes.....
                     </Item>
-                    <nav>
-                        <Link to="/landing">Landing</Link>>
-                        <Link to="/login">Login</Link>>
-                        <Link to="/register">Register</Link>>
 
-                        {/* Secure Routes */}
-
-                        <Link to="/loginsuccess">Login Success</Link>
-                        <Link to="/random">Random</Link>
-                        <Link to="/category">Category</Link>
-                        <Link to="/author">Author</Link>
-                    </nav>
                     <Outlet />
                 </Container>
             </Provider>
         </Box>
     );
-}
+};
 export default App;

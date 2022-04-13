@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import { render } from "react-dom";
 import App from "./App";
 import {
@@ -22,20 +22,35 @@ render(
     <BrowserRouter>
         <Routes>
             <Route path='/quote' element={<App />}>
-                <Route path='landing' element={<Landing />} />
+                {/* <Route path='landing' element={<Landing />} /> */}
                 <Route path='login' element={<Login />} />
                 <Route path='register' element={<Register />} />
-
                 {/* 
                 Something is messed up with the security part of the routes
                  */}
-                <SecureRoute path='loginsuccess' element={<NavButtons />} />
-                <SecureRoute path='random' element={<RandomQuote />} />
-                <SecureRoute path='category' element={<SelectVariants />} />
-                <SecureRoute path='author' element={<AuthorSelect />} />
+                <Route path='loginsuccess' element={
+                    <SecureRoute>
+                        <NavButtons />
+                    </SecureRoute>
+                } />
+                <Route path='random' element={
+                    <SecureRoute>
+                        <RandomQuote />
+                    </SecureRoute>
+                } />
+                <Route path='category' element={
+                    <SecureRoute>
+                        <SelectVariants />
+                    </SecureRoute>
+                } />
+                <Route path='author' element={
+                    <SecureRoute>
+                        <AuthorSelect />
+                    </SecureRoute>
+                } />
             </Route>
         </Routes>
-    </BrowserRouter>,
+    </BrowserRouter >,
     rootElement
 );
 reportWebVitals(console.log);

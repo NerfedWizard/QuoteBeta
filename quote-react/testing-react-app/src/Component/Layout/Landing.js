@@ -25,7 +25,7 @@ function Landing() {
                 borderRadius: 10,
                 // p: 2,
                 m: 'auto',
-                maxWidth: 510,
+                maxWidth: 250,
                 minWidth: 100,
                 justifyContent: 'center',
             }}>
@@ -33,12 +33,12 @@ function Landing() {
                     direction="row"
                     spacing={2}
                     alignItems="space-evenly">
-                    <Link to='/register'>
+                    <Link to='/quote/register'>
                         <ColorButton>
                             Register
                         </ColorButton>
                     </Link>
-                    <Link to='/login'>
+                    <Link to='/quote/login'>
                         <ColorButton>
                             Login
                         </ColorButton>

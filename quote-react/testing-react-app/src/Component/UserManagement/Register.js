@@ -34,6 +34,7 @@ export default function Register() {
                 spacing={32}>
                 <TextField
                     required
+                    variant="outlined"
                     placeholder="Enter username"
                     value={username}
                     onChange={handleUsername}
@@ -41,6 +42,7 @@ export default function Register() {
                 />
                 <TextField
                     required
+                    variant="outlined"
                     placeholder="Enter Full Name"
                     value={fullname}
                     onChange={handleFullname}
@@ -48,17 +50,24 @@ export default function Register() {
                 />
                 <TextField
                     required
+                    variant="outlined"
                     placeholder="Enter Password"
                     value={password}
                     onChange={handlePassword}
+                    type="password"
+                    helperText="Password must be at least 4 characters long"
+                    autoComplete="current-password"
                     label="Password" />
                 <TextField
                     required
+                    variant="outlined"
                     placeholder="Confirm Password"
                     value={confirmPassword}
+                    type="password"
+                    autoComplete="current-password"
                     onChange={handleConfirmPassword}
                     label="Confirm Password" />
-                <Link to="/login">
+                <Link to="/quote/login">
                     <Button variant="contained" color="primary" onClick={onSubmit}>Submit</Button>
                 </Link>
             </Stack>
