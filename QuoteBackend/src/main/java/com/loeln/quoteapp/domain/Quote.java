@@ -26,4 +26,5 @@ public class Quote {
 	private String quoted;
 	private String quoteCategory;
 	private Double quotePopularity;
+
 }

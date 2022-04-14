@@ -2,13 +2,17 @@ import React from 'react';
 import { Stack, TextField, Button } from '@mui/material';
 import axios from 'axios';
 import { Link } from "react-router-dom";
+import AuthService from './../../services/authService';
+import setJWTToken from '../../SecurityUtils/setJWTToken';
+
+
 
 export default function Login() {
     const [username, setUsername] = React.useState('');
-
     const [password, setPassword] = React.useState('');
-
     const userLoggedIn = [{ username: `${username}`, password: `${password}` }];
+    const auth = new AuthService();
+
     const handleUsername = (event) => {
         setUsername(event.target.value);
     }
@@ -18,7 +22,14 @@ export default function Login() {
     }
 
     async function onSubmit(event) {
-        await axios.post(`/api/quote/users/login`, userLoggedIn[0]);
+        await axios.post(`/api/quote/users/login`, userLoggedIn[0]).then(response => {
+            if (response.data.accessToken) {
+                localStorage.setItem("user", JSON.stringify(response.data));
+            }
+            console.log(response.data.token);
+            setJWTToken(response.data.token);
+            // return response.data;
+        });
     }
 
     return (
@@ -44,7 +55,7 @@ export default function Login() {
                     type="password"
                     autoComplete="current-password"
                     label="Password" />
-                <Link to="/quote/loginsuccess">
+                <Link to="/loginsuccess">
                     <Button variant="contained" color="primary" onClick={onSubmit}>Submit</Button>
                 </Link>
             </Stack>

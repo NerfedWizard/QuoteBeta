@@ -3,6 +3,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { Button, styled, Stack, Box } from '@mui/material';
+import setJWTToken from '../../SecurityUtils/setJWTToken';
 
 const ColorButton = styled(Button)(({ theme }) => ({
     color: 'black',
@@ -16,8 +17,11 @@ const ColorButton = styled(Button)(({ theme }) => ({
         focusRipple: true,
     },
 }));
-
-function Landing() {
+const logout = () => {
+    localStorage.removeItem("jwtToken");
+    setJWTToken(false);
+};
+export default function Landing() {
     return (
         <>
             <Box sx={{
@@ -25,7 +29,7 @@ function Landing() {
                 borderRadius: 10,
                 // p: 2,
                 m: 'auto',
-                maxWidth: 250,
+                maxWidth: 275,
                 minWidth: 100,
                 justifyContent: 'center',
             }}>
@@ -33,14 +37,14 @@ function Landing() {
                     direction="row"
                     spacing={2}
                     alignItems="space-evenly">
-                    <Link to='/quote/register'>
+                    <Link to='/register'>
                         <ColorButton>
                             Register
                         </ColorButton>
                     </Link>
-                    <Link to='/quote/login'>
-                        <ColorButton>
-                            Login
+                    <Link to='/login'>
+                        <ColorButton onClick={logout}>
+                            Logout
                         </ColorButton>
                     </Link>
                 </Stack>
@@ -48,12 +52,12 @@ function Landing() {
         </>
     )
 }
-Landing.propTypes = {
-    security: PropTypes.object.isRequired,
-};
+// Landing.propTypes = {
+//     security: PropTypes.object.isRequired,
+// };
 
-const mapStateToProps = (state) => ({
-    security: state.security,
-});
+// const mapStateToProps = (state) => ({
+//     security: state.security,
+// });
 
-export default connect(mapStateToProps)(Landing);
+// export default connect(mapStateToProps)(Landing);

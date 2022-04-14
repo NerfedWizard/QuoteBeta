@@ -22,7 +22,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@SuppressWarnings("serial")
+
 @Proxy(lazy = false)
 @Entity
 @Data
@@ -47,19 +47,12 @@ public class User implements UserDetails {
 	@Transient
 	private String confirmPassword;
 
-	private Date create_At;
-
-//	private Date updated_At;
+	private Date created_At;
 
 	@PrePersist
 	protected void onCreate() {
-		this.create_At = new Date();
+		this.created_At = new Date();
 	}
-
-//	@PostPersist
-//	protected void onUpdate() {
-//		this.updated_At = new Date();
-//	}
 
 	@Override
 	@JsonIgnore

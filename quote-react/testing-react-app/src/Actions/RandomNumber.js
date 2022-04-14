@@ -1,6 +1,6 @@
 export default function RandomNumber() {
     const min = 1;
-    const max = 37489;
+    const max = 37205;
     const rand = Math.floor(Math.random() * (max - min)) + min;
     return (rand);
 }

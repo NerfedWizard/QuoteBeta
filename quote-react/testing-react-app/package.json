@@ -48,5 +48,22 @@
 			"last 1 safari version"
 		]
 	},
+	"compileroptions": {
+		"baseUrl": "./quote",
+		"paths": {
+			"@component/*": [
+				"./src/Component/*"
+			],
+			"@services/*": [
+				"./src/services/*"
+			],
+			"@actions/*": [
+				"./src/Actions/*"
+			],
+			"@users/*": [
+				".src/Components/UserManagement/*"
+			]
+		}
+	},
 	"proxy": "http://localhost:8080/"
 }

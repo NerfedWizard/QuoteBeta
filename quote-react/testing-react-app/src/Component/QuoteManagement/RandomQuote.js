@@ -2,7 +2,8 @@ import React from "react";
 import { Box, Button, Paper, styled, Stack } from '@mui/material';
 import { useState } from 'react';
 import NavButtons from '../Layout/NavButtons';
-import RandomNumber from '../../Actions/RandomNumber';
+import RandomNumber from './../../Actions/RandomNumber';
+import authHeader from './../../services/authHeader';
 
 
 const Item = styled(Paper)(({ theme }) => ({

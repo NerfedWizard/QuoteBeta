@@ -1,5 +1,7 @@
 package com.loeln.quoteapp.web;
 
+import static com.loeln.quoteapp.security.SecurityConstraints.TOKEN_PREFIX;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +24,6 @@ import com.loeln.quoteapp.security.JwtTokenProvider;
 import com.loeln.quoteapp.service.MapValidationErrorService;
 import com.loeln.quoteapp.service.UserService;
 import com.loeln.quoteapp.validator.UserValidator;
-import static com.loeln.quoteapp.security.SecurityConstraints.TOKEN_PREFIX;
 
 @RestController
 @RequestMapping("/api/quote/users")
@@ -54,7 +55,7 @@ public class UserController {
 
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 		String jwt = TOKEN_PREFIX + tokenProvider.generateToken(authentication);
-
+		System.out.println(jwt);
 		return ResponseEntity.ok(new JWTLoginSuccessResponse(true, jwt));
 	}
 

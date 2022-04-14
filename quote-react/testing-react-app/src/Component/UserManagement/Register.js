@@ -67,7 +67,7 @@ export default function Register() {
                     autoComplete="current-password"
                     onChange={handleConfirmPassword}
                     label="Confirm Password" />
-                <Link to="/quote/login">
+                <Link to="/login">
                     <Button variant="contained" color="primary" onClick={onSubmit}>Submit</Button>
                 </Link>
             </Stack>

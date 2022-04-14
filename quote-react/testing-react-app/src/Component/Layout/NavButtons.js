@@ -23,17 +23,17 @@ export default function NavButtons(from) {
                     direction="row"
                     spacing={2}
                     alignItems="space-evenly">
-                    <NavLink to='/quote/author'>
+                    <NavLink to='/author'>
                         <ColorButton>
                             Author
                         </ColorButton>
                     </NavLink>
-                    <NavLink to='/quote/category'>
+                    <NavLink to='/category'>
                         <ColorButton>
                             Category
                         </ColorButton>
                     </NavLink>
-                    <NavLink to='/quote'>
+                    <NavLink to='/landing'>
                         <ColorButton>
                             Home
                         </ColorButton>
@@ -50,17 +50,17 @@ export default function NavButtons(from) {
                     direction="row"
                     spacing={2}
                     alignItems="flex-start">
-                    <NavLink to='/quote/random'>
+                    <NavLink to='/random'>
                         <ColorButton>
                             Random
                         </ColorButton>
                     </NavLink>
-                    <NavLink to='/quote/category'>
+                    <NavLink to='/category'>
                         <ColorButton>
                             Category
                         </ColorButton>
                     </NavLink>
-                    <NavLink to='/quote'>
+                    <NavLink to='/landing'>
                         <ColorButton>
                             Home
                         </ColorButton>
@@ -77,17 +77,17 @@ export default function NavButtons(from) {
                     direction="row"
                     spacing={2}
                     alignItems="flex-end">
-                    <NavLink to='/quote/random'>
+                    <NavLink to='/random'>
                         <ColorButton>
                             Random
                         </ColorButton>
                     </NavLink>
-                    <NavLink to='/quote/author'>
+                    <NavLink to='/author'>
                         <ColorButton>
                             Author
                         </ColorButton>
                     </NavLink>
-                    <NavLink to='/quote'>
+                    <NavLink to='/landing'>
                         <ColorButton>
                             Home
                         </ColorButton>
@@ -113,22 +113,22 @@ export default function NavButtons(from) {
                         direction="row"
                         spacing={1}
                         alignItems="flex-end">
-                        <NavLink to='/quote/random'>
+                        <NavLink to='/random'>
                             <ColorButton>
                                 Random
                             </ColorButton>
                         </NavLink>
-                        <NavLink to='/quote/author'>
+                        <NavLink to='/author'>
                             <ColorButton>
                                 Author
                             </ColorButton>
                         </NavLink>
-                        <NavLink to='/quote/category'>
+                        <NavLink to='/category'>
                             <ColorButton>
                                 Category
                             </ColorButton>
                         </NavLink>
-                        <NavLink to='/quote/landing'>
+                        <NavLink to='/landing'>
                             <ColorButton>
                                 Home
                             </ColorButton>

@@ -6,7 +6,7 @@ import {
     Routes,
     Route,
 } from "react-router-dom";
-import SecureRoute from "./SecurityUtils/SecureRoute";
+// import SecureRoute from "./SecurityUtils/SecureRoute";
 import Landing from './Component/Layout/Landing';
 import Register from './Component/UserManagement/Register';
 import Login from './Component/UserManagement/Login';
@@ -21,36 +21,20 @@ const rootElement = document.getElementById("root");
 render(
     <BrowserRouter>
         <Routes>
-            <Route path='/quote' element={<App />}>
-                {/* <Route path='landing' element={<Landing />} /> */}
+            <Route path={'/'} element={<App />}>
+                <Route path='landing' element={<Landing />} />
                 <Route path='login' element={<Login />} />
                 <Route path='register' element={<Register />} />
                 {/* 
                 Something is messed up with the security part of the routes
                  */}
-                <Route path='loginsuccess' element={
-                    <SecureRoute>
-                        <NavButtons />
-                    </SecureRoute>
-                } />
-                <Route path='random' element={
-                    <SecureRoute>
-                        <RandomQuote />
-                    </SecureRoute>
-                } />
-                <Route path='category' element={
-                    <SecureRoute>
-                        <SelectVariants />
-                    </SecureRoute>
-                } />
-                <Route path='author' element={
-                    <SecureRoute>
-                        <AuthorSelect />
-                    </SecureRoute>
-                } />
+                <Route exact path='loginsuccess' element={<NavButtons />} />
+                <Route exact path='random' element={<RandomQuote />} />
+                <Route exact path='category' element={<SelectVariants />} />
+                <Route exact path='author' element={<AuthorSelect />} />
             </Route>
         </Routes>
-    </BrowserRouter >,
+    </BrowserRouter>,
     rootElement
 );
 reportWebVitals(console.log);
