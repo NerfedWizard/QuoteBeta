@@ -9,29 +9,30 @@ import SecureRoute from "./SecurityUtils/SecureRoute";
 import { Provider } from "react-redux";
 import setJWTToken from "./SecurityUtils/setJWTToken";
 import store from "./store";
-import { logout } from "./Actions/securityActions";
+// import { logout } from "./Actions/securityActions";
 import { SET_CURRENT_USER } from "./Actions/types";
 // import Landing from './Component/Layout/Landing';
 import AuthService from './services/authService';
 import React from 'react';
-import { Box, Container, CssBaseline, Paper, styled } from '@mui/material';
+import { Box, Container, CssBaseline, Paper, styled, Button, Stack } from '@mui/material';
 import './App.css';
 import { Outlet, Link } from "react-router-dom";
 import jwt_decode from "jwt-decode";
+import logout from "./Component/Layout/Landing";
 
 
-// const ColorButton = styled(Button)(({ theme }) => ({
-//     color: 'black',
-//     font: 'bold',
-//     fontSize: '1.5rem',
-//     fontWeight: 'bold',
-//     fontFamily: 'Bitter',
-//     '&:hover': {
-//         background: "rgb(0, 206, 209,.3)",
-//         variant: 'outlined',
-//         focusRipple: true,
-//     },
-// }));
+const ColorButton = styled(Button)(({ theme }) => ({
+    color: 'black',
+    font: 'bold',
+    fontSize: '1.5rem',
+    fontWeight: 'bold',
+    fontFamily: 'Bitter',
+    '&:hover': {
+        background: "rgb(0, 206, 209,.3)",
+        variant: 'outlined',
+        focusRipple: true,
+    },
+}));
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: 'rgba(86, 11, 184, 0.0)',
     ...theme.typography.body2,
@@ -45,27 +46,27 @@ const Item = styled(Paper)(({ theme }) => ({
     square: false,
     color: 'antiquewhite',
 }));
-// const jwtToken = localStorage.jwtToken;
+const jwtToken = localStorage.jwtToken;
 
-// if (jwtToken) {
-//     setJWTToken(jwtToken);
-//     const decoded_jwtToken = jwt_decode(jwtToken);
-//     store.dispatch({
-//         type: SET_CURRENT_USER,
-//         payload: decoded_jwtToken,
-//     });
+if (jwtToken) {
+    setJWTToken(jwtToken);
+    const decoded_jwtToken = jwt_decode(jwtToken);
+    store.dispatch({
+        type: SET_CURRENT_USER,
+        payload: decoded_jwtToken,
+    });
 
-//     const currentTime = Date.now() / 1000;
-//     if (decoded_jwtToken.exp < currentTime) {
-//         store.dispatch(logout());
-//         window.location.href = "/quote/landing";
-//     }
-// };
+    const currentTime = Date.now() / 1000;
+    if (decoded_jwtToken.exp < currentTime) {
+        store.dispatch(logout());
+        window.location.href = "/quote/landing";
+    }
+};
 
 const Navigation = () => {
     return (
         <nav>
-            <Link to="/landing">Landing</Link>
+            <Link to="/landing"><ColorButton onClick={logout}>Home</ColorButton></Link>
             {/* <Link to="/login">Login</Link>
             <Link to="/register">Register</Link> */}
 
@@ -84,18 +85,25 @@ const App = () => {
     return (
 
         <Box id='gradient-shift' display='flex' style={{ height: '100vh', margin: 0, padding: 0 }}>
-            {/* <Provider store={store}> */}
-            <Navigation />
-            <Container sx={{
-                p: 0,
-                m: 'auto',
-            }}><CssBaseline />
-                <Item variant='contained'>
-                    It's Time For Quotes.....
-                </Item>
-                <Outlet />
-            </Container>
+            <Provider store={store}>
+                <Stack direction="column" justifyContent="flex-end" >
+                    {/* <ColorButton>
+                    Logout
+                </ColorButton> */}
+                    <Navigation />
+                </Stack>
 
+
+                <Container sx={{
+                    p: 0,
+                    m: 'auto',
+                }}><CssBaseline />
+                    <Item variant='contained'>
+                        It's Time For Quotes.....
+                    </Item>
+                    <Outlet />
+                </Container>
+            </Provider>
         </Box>
     );
 };

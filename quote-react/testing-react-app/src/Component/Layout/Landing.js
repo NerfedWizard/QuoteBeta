@@ -17,7 +17,7 @@ const ColorButton = styled(Button)(({ theme }) => ({
         focusRipple: true,
     },
 }));
-const logout = () => {
+export const logout = () => {
     localStorage.removeItem("jwtToken");
     setJWTToken(false);
 };
@@ -29,7 +29,7 @@ export default function Landing() {
                 borderRadius: 10,
                 // p: 2,
                 m: 'auto',
-                maxWidth: 275,
+                maxWidth: 250,
                 minWidth: 100,
                 justifyContent: 'center',
             }}>
@@ -42,9 +42,12 @@ export default function Landing() {
                             Register
                         </ColorButton>
                     </Link>
+                    {/* <ColorButton onClick={logout}>
+                        Logout
+                    </ColorButton> */}
                     <Link to='/login'>
-                        <ColorButton onClick={logout}>
-                            Logout
+                        <ColorButton>
+                            Login
                         </ColorButton>
                     </Link>
                 </Stack>

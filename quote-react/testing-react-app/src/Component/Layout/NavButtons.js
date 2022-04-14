@@ -33,11 +33,11 @@ export default function NavButtons(from) {
                             Category
                         </ColorButton>
                     </NavLink>
-                    <NavLink to='/landing'>
+                    {/* <NavLink to='/landing'>
                         <ColorButton>
                             Home
                         </ColorButton>
-                    </NavLink>
+                    </NavLink> */}
                     <Outlet />
                 </Stack>
             </>
@@ -60,11 +60,11 @@ export default function NavButtons(from) {
                             Category
                         </ColorButton>
                     </NavLink>
-                    <NavLink to='/landing'>
+                    {/* <NavLink to='/landing'>
                         <ColorButton>
                             Home
                         </ColorButton>
-                    </NavLink>
+                    </NavLink> */}
                     <Outlet />
                 </Stack>
             </>
@@ -87,11 +87,11 @@ export default function NavButtons(from) {
                             Author
                         </ColorButton>
                     </NavLink>
-                    <NavLink to='/landing'>
+                    {/* <NavLink to='/landing'>
                         <ColorButton>
                             Home
                         </ColorButton>
-                    </NavLink>
+                    </NavLink> */}
                     <Outlet />
                 </Stack>
             </>
@@ -128,11 +128,11 @@ export default function NavButtons(from) {
                                 Category
                             </ColorButton>
                         </NavLink>
-                        <NavLink to='/landing'>
+                        {/* <NavLink to='/landing'>
                             <ColorButton>
                                 Home
                             </ColorButton>
-                        </NavLink>
+                        </NavLink> */}
                         <Outlet />
                     </Stack>
                 </Box>
