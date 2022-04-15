@@ -83,7 +83,9 @@ export default function Login() {
                     />
                 </FormControl>
                 <Link to="/loginsuccess">
-                    <Button variant="contained" color="primary" onClick={onSubmit}>Submit</Button>
+                    <Button
+                        type="submit"
+                        variant="contained" color="primary" onClick={onSubmit}>Submit</Button>
                 </Link>
             </Box>
         </>
