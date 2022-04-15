@@ -21,16 +21,25 @@ export const createNewUser = (newUser, history) => async (dispatch) => {
 export const login = (LoginRequest) => async (dispatch) => {
     try {
         // post => Login Request
-        const res = await axios.post("/api/quote/users/login", LoginRequest);
+        const res = await axios.post("/api/quote/users/login", LoginRequest).then(response => {
+            if (response.data.accessToken) {
+                localStorage.setItem("user", JSON.stringify(response.data));
+            }
+
+            setJWTToken(response.data.token);
+            return response.data;
+
+        });
         // extract token from res.data
-        const { token } = res.data.token;
+        // const { token } = res.data.token;
         // store the token in the localStorage
-        localStorage.setItem("jwtToken", token);
+        // localStorage.setItem("jwtToken", JSON.stringify(token));
         // set our token in header ***
-        setJWTToken(token);
+        // setJWTToken(token);
         // decode token on React
-        const decoded = jwt_decode(token);
+        const decoded = jwt_decode(res.data.token);
         // dispatch to our securityReducer
+        // console.log(decoded);
         dispatch({
             type: SET_CURRENT_USER,
             payload: decoded,

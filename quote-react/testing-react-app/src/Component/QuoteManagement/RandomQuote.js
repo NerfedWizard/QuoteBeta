@@ -1,9 +1,8 @@
-import React from "react";
+// import React, { useEffect } from "react";
 import { Box, Button, Paper, styled, Stack } from '@mui/material';
-import { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import NavButtons from '../Layout/NavButtons';
 import RandomNumber from './../../Actions/RandomNumber';
-import authHeader from './../../services/authHeader';
 
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -24,39 +23,41 @@ const ColorButton = styled(Button)(({ theme }) => ({
     fontSize: '1.5rem',
     fontWeight: 'bold',
     fontFamily: 'Bitter',
-    backgroundColor: "seagreen",
+    borderRadius: 25,
+    backgroundColor: "rgb(0, 0, 0,0.09)",
     '&:hover': {
-        backgroundColor: "darkgreen",
+        backgroundColor: "rgb(105, 106, 255,0.34)",
     },
 }));
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+
 
 export default function RandomQuote() {
     const axios = require('axios');
-    const [quote, setQuote] = useState(['Welcome to the Quote Machine']);
-    const [author, setAuthor] = useState(['By Loel Nelson']);
-    const [category, setCategory] = useState([]);
     const rand = RandomNumber();
-
+    const [quoteData, setQuoteData] = useState({ author: '', quoted: '', category: '' });
+    const ident = "ID" + rand;
+    const loadData = async () => {
+        await sleep(500);
+        const response = await axios.get(`/api/quote/${ident}`);
+        setQuoteData({ author: response.data.quoteAuthor, quoted: response.data.quoted, category: response.data.quoteCategory });
+    };
     async function GetQuotes() {
 
-        const ident = "ID" + rand;
-        let identifier = await axios.get(`/api/quote/${ident}`);
-        // eslint-disable-next-line
-        const quoteList = new Array();
-        quoteList.push(identifier.data.quoteAuthor);
-        quoteList.push(identifier.data.quoted);
-        quoteList.push(identifier.data.quoteCategory);
-        displayQuote("\"" + quoteList[1] + "\"", quoteList[0], quoteList[2]);
+        const identifier = await axios.get(`/api/quote/${ident}`);
+        setQuoteData({ author: identifier.data.quoteAuthor, quoted: identifier.data.quoted, category: identifier.data.quoteCategory });
+    }
+    useEffect(() => {
+        loadData();
+        return () => { };
+    }, []);
+    const lastQuote = () => {
+        // Gotta think about this for a minute or two
+    }
 
-    }
-    function displayQuote(theQuote, theAuthor, theCategory) {
-        setQuote(theQuote);
-        setAuthor(theAuthor);
-        setCategory(theCategory);
-    }
+
     return (
         <>
-
             <Box sx={{
                 boxShadow: 5,
                 borderRadius: 10,
@@ -73,9 +74,9 @@ export default function RandomQuote() {
                     <ColorButton onClick={GetQuotes}>Next Quote</ColorButton>
                 </Stack>
                 <Item>
-                    <Item variant='contained' sx={{ color: 'slateblue', fontSize: 28 }}>{author}</Item>
-                    <Item variant='contained' sx={{ fontFamily: 'Caveat', fontSize: 40, p: 0 }}>{quote}</Item>
-                    <Item variant='contained' sx={{ color: 'lightpink', fontSize: 20 }}>{category}</Item>
+                    <Item variant='contained' sx={{ color: 'slateblue', fontSize: 28 }}>{quoteData.author}</Item>
+                    <Item variant='contained' sx={{ fontFamily: 'Caveat', fontSize: 40, p: 0 }}>{quoteData.quoted}</Item>
+                    <Item variant='contained' sx={{ color: 'lightpink', fontSize: 20 }}>{quoteData.category}</Item>
                 </Item>
                 {NavButtons('random')}
             </Box>

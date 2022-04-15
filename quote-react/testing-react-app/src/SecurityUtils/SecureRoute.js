@@ -10,7 +10,7 @@ const SecureRoute = ({ component: Component, security, ...otherProps }) => (
             security.validToken === true ? (
                 <Component {...props} />
             ) : (
-                <Navigate to="/quote/loginsuccess" />
+                <Navigate to="/login" />
             )
         }
     />

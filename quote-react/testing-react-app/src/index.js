@@ -6,7 +6,7 @@ import {
     Routes,
     Route,
 } from "react-router-dom";
-// import SecureRoute from "./SecurityUtils/SecureRoute";
+import SecureRoute from "./SecurityUtils/SecureRoute";
 import Landing from './Component/Layout/Landing';
 import Register from './Component/UserManagement/Register';
 import Login from './Component/UserManagement/Login';

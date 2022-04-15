@@ -18,7 +18,7 @@ import { Box, Container, CssBaseline, Paper, styled, Button, Stack } from '@mui/
 import './App.css';
 import { Outlet, Link } from "react-router-dom";
 import jwt_decode from "jwt-decode";
-import logout from "./Component/Layout/Landing";
+// import logout from "./Component/Layout/Landing";
 
 
 const ColorButton = styled(Button)(({ theme }) => ({
@@ -61,6 +61,10 @@ if (jwtToken) {
         store.dispatch(logout());
         window.location.href = "/quote/landing";
     }
+};
+const logout = () => {
+    localStorage.removeItem("jwtToken");
+    setJWTToken(false);
 };
 
 const Navigation = () => {
