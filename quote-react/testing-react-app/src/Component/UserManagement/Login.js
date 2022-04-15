@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect, useContext, useReducer } from 'react';
 import {
     Stack,
     TextField,
@@ -19,37 +19,65 @@ import axios from 'axios';
 import { Link } from "react-router-dom";
 import setJWTToken from '../../SecurityUtils/setJWTToken';
 import { GET_ERRORS, SET_CURRENT_USER } from "../../Actions/types";
-import { login } from '../../Actions/securityActions';
+// import { login } from '../../Actions/securityActions';
 import jwt_decode from "jwt-decode";
+import { useHistory } from 'react-router-dom';
+import securityReducer from '../../Reducers/securityReducer';
+// import { connect, useDispatch, useSelector } from "react-redux";
+// import PropTypes from "prop-types";
 
 
 
 export default function Login() {
-    const [user, setUser] = React.useState({ username: '', password: '' });
-    // const [token, setToken] = React.useState('');
+    const [user, setUser] = useState({ username: '', password: '', errors: [] });
+    // const login = React.useContext(login);
+    const [token, setToken] = React.useState('');
+    const [state, dispatch] = useReducer(
+        securityReducer,
+        {
+            type: '',
+            payload: {},
+        }
+    );
     // const { token } = null;
     const handleChange = (props) => (event) => {
         setUser({ ...user, [props]: event.target.value });
+        // console.log(user);
     };
-    async function onSubmit() {
+
+    async function onSubmit(event) {
         // try {
         await axios.post(`/api/quote/users/login`, user).then(response => {
             if (response.data.accessToken) {
                 localStorage.setItem("jwtToken", JSON.stringify(response.data));
             }
-            // setToken(response.data.accessToken);
+            setToken(response.data.accessToken);
+            // console.log(jwt_decode(response.data.accessToken));
             // console.log(response.data.messages);
             setJWTToken(response.data.token);
+            dispatch({
+                type: SET_CURRENT_USER,
+                payload: jwt_decode(response.data.token),
+            });
         }).catch(error => {
             if (error.response) {
-                console.log(error.response.data);
+
+                dispatch({
+                    type: GET_ERRORS,
+                    payload: error.response.data,
+                });
+                console.log(state.payload);
             }
-            console.log(error.response.data);
+            // console.log(error.response.data);
         });
         // } catch (error) {
         //     console.log(error);
         // }
     }
+
+    useEffect(() => {
+        document.title = user.username;
+    });
     const handleClickShowPassword = () => {
         setUser({
             ...user,
@@ -63,7 +91,8 @@ export default function Login() {
     const keyPress = (event) => {
         // console.log(event.key);
         if (event.key === 'Enter') {
-            onSubmit();
+            onSubmit(event);
+            // login(user);
         }
     };
     return (
@@ -86,7 +115,7 @@ export default function Login() {
                         onChange={handleChange('password')}
                         type={user.showPassword ? 'text' : 'password'}
                         label="Password"
-                        onKeyPress={keyPress}
+                        onKeyPress={(event) => keyPress(event)}
                         endAdornment={
                             <InputAdornment position="end">
                                 <IconButton
@@ -99,6 +128,7 @@ export default function Login() {
                             </InputAdornment>
                         }
                     />
+
                 </FormControl>
                 <Link to="/loginsuccess">
                     <Button

@@ -3,6 +3,7 @@ package com.loeln.quoteapp.validator;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
+
 import com.loeln.quoteapp.domain.User;
 
 @Component
@@ -18,7 +19,7 @@ public class UserValidator implements Validator {
 
 		User user = (User) object;
 
-		if (user.getPassword().length() < 4) {
+		if (user.getPassword().length() < 8) {
 			errors.rejectValue("password", "Length", "Password needs to be longer sport!");
 		}
 

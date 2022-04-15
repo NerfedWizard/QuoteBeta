@@ -63,9 +63,11 @@ if (jwtToken) {
     }
 };
 const logout = () => {
-    alert("You have been logged out");
+    // alert("You have been logged out");
+    // console.log('LocalStorage Removed ', localStorage.getItem(jwtToken));
     localStorage.removeItem("jwtToken");
     setJWTToken(false);
+    // console.log('LocalStorage Removed ', localStorage.jwtToken);
 };
 
 const Navigation = () => {
@@ -97,8 +99,6 @@ const App = () => {
                 </ColorButton> */}
                     <Navigation />
                 </Stack>
-
-
                 <Container sx={{
                     p: 0,
                     m: 'auto',
@@ -106,6 +106,7 @@ const App = () => {
                     <Item variant='contained'>
                         It's Time For Quotes.....
                     </Item>
+
                     <Outlet />
                 </Container>
             </Provider>

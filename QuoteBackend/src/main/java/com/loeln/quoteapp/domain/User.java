@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.PostPersist;
 import javax.persistence.PrePersist;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotBlank;
@@ -21,7 +22,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 
 @Proxy(lazy = false)
 @Entity
@@ -47,11 +47,35 @@ public class User implements UserDetails {
 	@Transient
 	private String confirmPassword;
 
+//	private String[] favoriteQuoteIDs;
 	private Date created_At;
+	private Date updated_At;
+
+	/*
+	 * This was fun and I think it would work just fine but this other way will show
+	 * off more skills maybe
+	 ***/
+
+//	public void setFavoriteQuoteIDs(String favoriteQuoteID) {
+//		int len = this.favoriteQuoteIDs.length + 1;
+//		String[] tempIncrease = new String[len];
+//		System.arraycopy(this.favoriteQuoteIDs, 0, tempIncrease, 0, len);
+//		this.favoriteQuoteIDs = new String[len];
+//		System.arraycopy(tempIncrease, 0, this.favoriteQuoteIDs, 0, len);
+//	}
+//
+//	public String[] getFavoriteQuoteIDs() {
+//		return this.favoriteQuoteIDs;
+//	}
 
 	@PrePersist
 	protected void onCreate() {
 		this.created_At = new Date();
+	}
+
+	@PostPersist
+	protected void onUpdate() {
+		this.updated_At = new Date();
 	}
 
 	@Override

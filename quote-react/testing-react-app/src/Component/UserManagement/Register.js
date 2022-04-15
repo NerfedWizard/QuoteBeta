@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useReducer, useCallback } from 'react';
 import {
     Stack,
     TextField,
@@ -13,29 +13,44 @@ import {
     FormHelperText,
     IconButton
 } from '@mui/material';
+import { createNewUser } from '../../Actions/securityActions';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import axios from 'axios';
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
 
-export default function Register() {
+const Register = () => {
     const [newUser, setNewUser] = React.useState({
         username: '',
         fullName: '',
         password: '',
         confirmPassword: '',
+        errors: [],
     });
-    async function onSubmit(event) {
+    const onSubmit = (event) => {
+        // event.preventDefault();
         console.log(JSON.stringify(newUser));
-        await axios
-            .post(`/api/quote/users/register`, newUser)
-            .catch(error => {
-                if (error.response) {
-                    console.log(error.response.data);
-                }
-                console.log(error.response.data);
-            });;
+        // const newUserRequest = {
+        //     username: newUser.username,
+        //     fullName: newUser.fullName,
+        //     password: newUser.password,
+        //     confirmPassword: newUser.confirmPassword,
+        // };
+        createNewUser(newUser, newUser.history);
     };
+    // async function onSubmit(event) {
+    //     console.log(JSON.stringify(newUser));
+    //     await axios
+    //         .post(`/api/quote/users/register`, newUser)
+    //         .catch(error => {
+    //             if (error.response) {
+    //                 console.log(error.response.data);
+    //             }
+    //             console.log(error.response.data);
+    //         });
+    // };
     const handleChange = (props) => (event) => {
         setNewUser({ ...newUser, [props]: event.target.value });
     };
@@ -107,7 +122,7 @@ export default function Register() {
                             id="outlined-adornment-confirmPassword"
                             value={newUser.confirmPassword}
                             onChange={handleChange('confirmPassword')}
-                            type={newUser.showConfirmPassword ? 'text' : 'confirmPassword'}
+                            type={newUser.showConfirmPassword ? 'text' : 'password'}
                             label="Confirm Password"
                             endAdornment={
                                 <InputAdornment position="end">
@@ -122,10 +137,22 @@ export default function Register() {
                             }
                         />
                     </FormControl></FormGroup>
-                <Link to="/login">
-                    <Button type="submit" variant="contained" color="primary" onClick={onSubmit}>Submit</Button>
-                </Link>
+                {/* <Link to="/login"> */}
+                <Button type="submit" variant="contained" color="primary" onClick={onSubmit}>Submit</Button>
+                {/* </Link> */}
             </Box>
         </>
     )
 }
+Register.propTypes = {
+    createNewUser: PropTypes.func.isRequired,
+    errors: PropTypes.object.isRequired
+};
+
+const mapStateToProps = (props) => (newUser) => ({
+    errors: newUser.errors
+});
+export default connect(
+    mapStateToProps,
+    { createNewUser }
+)(Register);

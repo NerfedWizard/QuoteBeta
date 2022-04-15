@@ -35,4 +35,17 @@ public class UserService {
 
 	}
 
+//	public String addToFavorites() {
+//		return "";
+//	}
+	/**
+	 * I want to start with adding the quote identifier to an array To get the
+	 * quotes all I would have to do is for loop through array grabbing each of the
+	 * quotes and maybe populate a list to select you favorites
+	 *
+	 * This is exactly like getting the backlog for the project Project tasks 4
+	 * repos: User Quote Backlog QuoteFavorites
+	 *
+	 */
+
 }
