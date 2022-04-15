@@ -1,20 +1,20 @@
 import { GET_QUOTES, GET_QUOTE } from "../Actions/types";
 
 const initialState = {
-    projects: [],
-    project: {},
+    quotes: [],
+    quote: {},
 };
 export default function (state = initialState, action) {
     switch (action.type) {
         case GET_QUOTES:
             return {
                 ...state,
-                projects: action.payload,
+                quotes: action.payload,
             };
         case GET_QUOTE:
             return {
                 ...state,
-                project: action.payload,
+                quote: action.payload,
             };
         default:
             return state;

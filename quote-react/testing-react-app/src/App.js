@@ -14,7 +14,7 @@ import { SET_CURRENT_USER } from "./Actions/types";
 // import Landing from './Component/Layout/Landing';
 import AuthService from './services/authService';
 import React from 'react';
-import { Box, Container, CssBaseline, Paper, styled, Button, Stack } from '@mui/material';
+import { Box, Container, CssBaseline, Paper, styled, Button, Stack, Alert } from '@mui/material';
 import './App.css';
 import { Outlet, Link } from "react-router-dom";
 import jwt_decode from "jwt-decode";
@@ -63,6 +63,7 @@ if (jwtToken) {
     }
 };
 const logout = () => {
+    alert("You have been logged out");
     localStorage.removeItem("jwtToken");
     setJWTToken(false);
 };

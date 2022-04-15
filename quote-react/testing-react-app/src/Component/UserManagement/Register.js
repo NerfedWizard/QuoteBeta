@@ -27,7 +27,14 @@ export default function Register() {
     });
     async function onSubmit(event) {
         console.log(JSON.stringify(newUser));
-        await axios.post(`/api/quote/users/register`, newUser);
+        await axios
+            .post(`/api/quote/users/register`, newUser)
+            .catch(error => {
+                if (error.response) {
+                    console.log(error.response.data);
+                }
+                console.log(error.response.data);
+            });;
     };
     const handleChange = (props) => (event) => {
         setNewUser({ ...newUser, [props]: event.target.value });
@@ -116,7 +123,7 @@ export default function Register() {
                         />
                     </FormControl></FormGroup>
                 <Link to="/login">
-                    <Button type='submit' variant="contained" color="primary" onClick={onSubmit}>Submit</Button>
+                    <Button type="submit" variant="contained" color="primary" onClick={onSubmit}>Submit</Button>
                 </Link>
             </Box>
         </>

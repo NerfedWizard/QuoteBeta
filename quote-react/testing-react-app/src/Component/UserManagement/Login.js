@@ -26,18 +26,29 @@ import jwt_decode from "jwt-decode";
 
 export default function Login() {
     const [user, setUser] = React.useState({ username: '', password: '' });
+    // const [token, setToken] = React.useState('');
     // const { token } = null;
     const handleChange = (props) => (event) => {
         setUser({ ...user, [props]: event.target.value });
     };
     async function onSubmit() {
+        // try {
         await axios.post(`/api/quote/users/login`, user).then(response => {
             if (response.data.accessToken) {
                 localStorage.setItem("jwtToken", JSON.stringify(response.data));
             }
-            // token = response.data.token;
+            // setToken(response.data.accessToken);
+            // console.log(response.data.messages);
             setJWTToken(response.data.token);
+        }).catch(error => {
+            if (error.response) {
+                console.log(error.response.data);
+            }
+            console.log(error.response.data);
         });
+        // } catch (error) {
+        //     console.log(error);
+        // }
     }
     const handleClickShowPassword = () => {
         setUser({
@@ -48,6 +59,12 @@ export default function Login() {
 
     const handleMouseDownPassword = (event) => {
         event.preventDefault();
+    };
+    const keyPress = (event) => {
+        // console.log(event.key);
+        if (event.key === 'Enter') {
+            onSubmit();
+        }
     };
     return (
         <>
@@ -69,6 +86,7 @@ export default function Login() {
                         onChange={handleChange('password')}
                         type={user.showPassword ? 'text' : 'password'}
                         label="Password"
+                        onKeyPress={keyPress}
                         endAdornment={
                             <InputAdornment position="end">
                                 <IconButton
@@ -85,7 +103,11 @@ export default function Login() {
                 <Link to="/loginsuccess">
                     <Button
                         type="submit"
-                        variant="contained" color="primary" onClick={onSubmit}>Submit</Button>
+                        variant="contained"
+                        color="primary"
+                        onClick={onSubmit}>
+                        Submit
+                    </Button>
                 </Link>
             </Box>
         </>
