@@ -30,7 +30,7 @@ const Register = () => {
         errors: [],
     });
     const onSubmit = (event) => {
-        // event.preventDefault();
+        event.preventDefault();
         console.log(JSON.stringify(newUser));
         // const newUserRequest = {
         //     username: newUser.username,
@@ -144,10 +144,10 @@ const Register = () => {
         </>
     )
 }
-Register.propTypes = {
-    createNewUser: PropTypes.func.isRequired,
-    errors: PropTypes.object.isRequired
-};
+// Register.propTypes = {
+//     createNewUser: PropTypes.func.isRequired,
+//     errors: PropTypes.object.isRequired
+// };
 
 const mapStateToProps = (props) => (newUser) => ({
     errors: newUser.errors

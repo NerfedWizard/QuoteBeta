@@ -19,17 +19,17 @@ import axios from 'axios';
 import { Link } from "react-router-dom";
 import setJWTToken from '../../SecurityUtils/setJWTToken';
 import { GET_ERRORS, SET_CURRENT_USER } from "../../Actions/types";
-// import { login } from '../../Actions/securityActions';
+import { login } from '../../Actions/securityActions';
 import jwt_decode from "jwt-decode";
 import { useHistory } from 'react-router-dom';
 import securityReducer from '../../Reducers/securityReducer';
-// import { connect, useDispatch, useSelector } from "react-redux";
-// import PropTypes from "prop-types";
+import { connect, useDispatch, useSelector } from "react-redux";
+import PropTypes from "prop-types";
 
 
 
 export default function Login() {
-    const [user, setUser] = useState({ username: '', password: '', errors: [] });
+    const [user, setUser] = useState({ username: '', password: '' });
     // const login = React.useContext(login);
     const [token, setToken] = React.useState('');
     const [state, dispatch] = useReducer(
@@ -39,21 +39,18 @@ export default function Login() {
             payload: {},
         }
     );
-    // const { token } = null;
     const handleChange = (props) => (event) => {
         setUser({ ...user, [props]: event.target.value });
-        // console.log(user);
-    };
 
+    };
     async function onSubmit(event) {
         // try {
+
         await axios.post(`/api/quote/users/login`, user).then(response => {
             if (response.data.accessToken) {
                 localStorage.setItem("jwtToken", JSON.stringify(response.data));
             }
             setToken(response.data.accessToken);
-            // console.log(jwt_decode(response.data.accessToken));
-            // console.log(response.data.messages);
             setJWTToken(response.data.token);
             dispatch({
                 type: SET_CURRENT_USER,
@@ -66,13 +63,11 @@ export default function Login() {
                     type: GET_ERRORS,
                     payload: error.response.data,
                 });
-                console.log(state.payload);
+
             }
-            // console.log(error.response.data);
+
         });
-        // } catch (error) {
-        //     console.log(error);
-        // }
+
     }
 
     useEffect(() => {
@@ -94,6 +89,7 @@ export default function Login() {
             onSubmit(event);
             // login(user);
         }
+        // console.log(user.errors)
     };
     return (
         <>
@@ -130,6 +126,7 @@ export default function Login() {
                     />
 
                 </FormControl>
+                {/* <div>{state}</div> */}
                 <Link to="/loginsuccess">
                     <Button
                         type="submit"
@@ -143,3 +140,15 @@ export default function Login() {
         </>
     )
 }
+// Login.propTypes = {
+//     login: PropTypes.func.isRequired,
+//     errors: PropTypes.object.isRequired
+// };
+
+// const mapStateToProps = (props) => (user) => ({
+//     errors: user.errors
+// });
+// export default connect(
+//     mapStateToProps,
+//     { login }
+// )(Login);
