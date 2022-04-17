@@ -101,6 +101,7 @@ export default function Login() {
                         value={user.username}
                         onChange={handleChange('username')}
                         label="Username"
+                        sx={{ borderRadius: 25 }}
                     />
                 </FormControl>
                 <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">
@@ -127,12 +128,17 @@ export default function Login() {
 
                 </FormControl>
                 {/* <div>{state}</div> */}
-                <Link to="/loginsuccess">
+                <Link to="/loginsuccess" style={{
+                    margin: "1rem",
+                    textDecoration: "none",
+                    color: 'blue'
+                }}>
                     <Button
                         type="submit"
                         variant="contained"
                         color="primary"
-                        onClick={onSubmit}>
+                        onClick={onSubmit}
+                        sx={{ borderRadius: 25 }}>
                         Submit
                     </Button>
                 </Link>

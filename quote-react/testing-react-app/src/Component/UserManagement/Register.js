@@ -29,28 +29,30 @@ const Register = () => {
         confirmPassword: '',
         errors: [],
     });
-    const onSubmit = (event) => {
-        event.preventDefault();
-        console.log(JSON.stringify(newUser));
-        // const newUserRequest = {
-        //     username: newUser.username,
-        //     fullName: newUser.fullName,
-        //     password: newUser.password,
-        //     confirmPassword: newUser.confirmPassword,
-        // };
-        createNewUser(newUser, newUser.history);
-    };
-    // async function onSubmit(event) {
+    // const onSubmit = (event) => {
+    //     event.preventDefault();
     //     console.log(JSON.stringify(newUser));
-    //     await axios
-    //         .post(`/api/quote/users/register`, newUser)
-    //         .catch(error => {
-    //             if (error.response) {
-    //                 console.log(error.response.data);
-    //             }
-    //             console.log(error.response.data);
-    //         });
+    //     // const newUserRequest = {
+    //     //     username: newUser.username,
+    //     //     fullName: newUser.fullName,
+    //     //     password: newUser.password,
+    //     //     confirmPassword: newUser.confirmPassword,
+    //     // };
+    //     createNewUser(newUser, newUser.history);
     // };
+    async function onSubmit(event) {
+        console.log(JSON.stringify(newUser));
+        await axios
+            .post(`/api/quote/users/register`, newUser)
+            .catch(error => {
+                if (error.response) {
+                    newUser.errors.push(error.response.data);
+                }
+                // console.log(error.response.data);
+            });
+        newUser.history.push("/login");
+        console.log(newUser.errors);
+    };
     const handleChange = (props) => (event) => {
         setNewUser({ ...newUser, [props]: event.target.value });
     };

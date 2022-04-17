@@ -18,34 +18,37 @@ import { Box, Container, CssBaseline, Paper, styled, Button, Stack, Alert } from
 import './App.css';
 import { Outlet, Link } from "react-router-dom";
 import jwt_decode from "jwt-decode";
+import { linkStyle } from './Component/Layout/NavButtons';
+import { Item, ColorButton } from './Style/styles';
+import  useStateHistory  from './services/useStateHistory';
 // import logout from "./Component/Layout/Landing";
 
 
-const ColorButton = styled(Button)(({ theme }) => ({
-    color: 'black',
-    font: 'bold',
-    fontSize: '1.5rem',
-    fontWeight: 'bold',
-    fontFamily: 'Bitter',
-    '&:hover': {
-        background: "rgb(0, 206, 209,.3)",
-        variant: 'outlined',
-        focusRipple: true,
-    },
-}));
-const Item = styled(Paper)(({ theme }) => ({
-    backgroundColor: 'rgba(86, 11, 184, 0.0)',
-    ...theme.typography.body2,
-    padding: theme.spacing(0.5),
-    position: 'relative',
-    justifyContent: 'center',
-    textAlign: 'center',
-    elevation: 5,
-    fontFamily: 'Hurricane',
-    fontSize: 65,
-    square: false,
-    color: 'antiquewhite',
-}));
+// const ColorButton = styled(Button)(({ theme }) => ({
+//     color: 'black',
+//     font: 'bold',
+//     fontSize: '1.5rem',
+//     fontWeight: 'bold',
+//     fontFamily: 'Bitter',
+//     '&:hover': {
+//         background: "rgb(0, 206, 209,.3)",
+//         variant: 'outlined',
+//         focusRipple: true,
+//     },
+// }));
+// const Item = styled(Paper)(({ theme }) => ({
+//     backgroundColor: 'rgba(86, 11, 184, 0.0)',
+//     ...theme.typography.body2,
+//     padding: theme.spacing(0.5),
+//     position: 'relative',
+//     justifyContent: 'center',
+//     textAlign: 'center',
+//     elevation: 5,
+//     fontFamily: 'Hurricane',
+//     fontSize: 65,
+//     square: false,
+//     color: 'antiquewhite',
+// }));
 const jwtToken = localStorage.jwtToken;
 
 if (jwtToken) {
@@ -73,7 +76,7 @@ const logout = () => {
 const Navigation = () => {
     return (
         <nav>
-            <Link to="/landing"><ColorButton onClick={logout}>Home</ColorButton></Link>
+            <Link to="/landing" style={linkStyle}><ColorButton onClick={logout}>Home</ColorButton></Link>
             {/* <Link to="/login">Login</Link>
             <Link to="/register">Register</Link> */}
 
@@ -103,9 +106,11 @@ const App = () => {
                     p: 0,
                     m: 'auto',
                 }}><CssBaseline />
+                    
                     <Item variant='contained'>
                         It's Time For Quotes.....
                     </Item>
+                    
 
                     <Outlet />
                 </Container>

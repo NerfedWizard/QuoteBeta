@@ -12,9 +12,10 @@ const ColorButton = styled(Button)(({ theme }) => ({
     fontSize: '1.5rem',
     fontWeight: 'bold',
     fontFamily: 'Bitter',
-    backgroundColor: "seagreen",
+    borderRadius: 25,
+    backgroundColor: "rgb(0, 0, 0,0.09)",
     '&:hover': {
-        backgroundColor: "darkgreen",
+        backgroundColor: "rgb(105, 106, 255,0.34)",
     },
 }));
 const Item = styled(Paper)(({ theme }) => ({
@@ -24,6 +25,7 @@ const Item = styled(Paper)(({ theme }) => ({
     fontFamily: 'Bitter',
     textAlign: 'left',
     color: 'darkslategrey',
+    // borderRadius: 25,
     fontWeight: 'bold',
     maxWidth: 800,
     minWidth: 200,
@@ -34,6 +36,7 @@ const CustomInput = styled(Autocomplete)(({ theme }) => ({
     maxWidth: 575,
     minWidth: 300,
     fontWeight: 'bold',
+    // borderRadius: 25,
     fontFamily: 'Caveat',
     '&:hover': {
         backgroundColor: "lightgreen",
@@ -122,7 +125,7 @@ export default function AuthorSelect() {
                         renderInput={(params) => <TextField {...params} label="Author" variant="standard" />} />
                     <ColorButton onClick={handleClick} sx={{ p: 0 }}>Next Quote</ColorButton>
                 </Stack>
-                <br />
+                {/* <br /> */}
                 <Item>
                     <Item variant='contained' sx={{ fontSize: 20 }}>{author}</Item>
                     <Item variant='contained' sx={{ fontFamily: 'Caveat', color: 'darkslategrey', fontSize: 40, fontWeight: 'bold', maxWidth: 800, p: 0 }}>{quote}</Item>
@@ -140,7 +143,8 @@ export default function AuthorSelect() {
     );
 }
 
-const authors = ["Dr. Seuss",
+const authors = [
+    "Dr. Seuss",
     "Marilyn Monroe",
     "Oscar Wilde",
     "Albert Einstein",

@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { Button, styled, Stack, Box } from '@mui/material';
 import setJWTToken from '../../SecurityUtils/setJWTToken';
+import { linkStyle } from "../../Component/Layout/NavButtons";
 
 const ColorButton = styled(Button)(({ theme }) => ({
     color: 'black',
@@ -11,9 +12,11 @@ const ColorButton = styled(Button)(({ theme }) => ({
     fontSize: '1.5rem',
     fontWeight: 'bold',
     fontFamily: 'Bitter',
+    borderRadius: 25,
     '&:hover': {
         background: "rgb(0, 206, 209,.3)",
         variant: 'outlined',
+        borderRadius: 25,
         focusRipple: true,
     },
 }));
@@ -37,7 +40,7 @@ export default function Landing() {
                     direction="row"
                     spacing={2}
                     alignItems="space-evenly">
-                    <Link to='/register'>
+                    <Link to='/register' style={linkStyle}>
                         <ColorButton>
                             Register
                         </ColorButton>
@@ -45,7 +48,7 @@ export default function Landing() {
                     {/* <ColorButton onClick={logout}>
                         Logout
                     </ColorButton> */}
-                    <Link to='/login'>
+                    <Link to='/login' style={linkStyle}>
                         <ColorButton>
                             Login
                         </ColorButton>

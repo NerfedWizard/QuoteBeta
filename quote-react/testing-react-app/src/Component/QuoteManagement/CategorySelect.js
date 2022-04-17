@@ -22,11 +22,13 @@ const ColorButton = styled(Button)(({ theme }) => ({
     fontSize: '1.5rem',
     fontWeight: 'bold',
     fontFamily: 'Bitter',
-    backgroundColor: "seagreen",
+    borderRadius: 25,
+    backgroundColor: "rgb(0, 0, 0,0.09)",
     '&:hover': {
-        backgroundColor: "darkgreen",
+        backgroundColor: "rgb(105, 106, 255,0.34)",
     },
 }));
+
 
 const CustomAutoComplete = styled(Autocomplete)(({ theme }) => ({
     color: "cyan",
