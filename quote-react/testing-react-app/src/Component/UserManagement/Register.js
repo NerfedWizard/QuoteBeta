@@ -13,44 +13,36 @@ import {
     FormHelperText,
     IconButton
 } from '@mui/material';
-import { createNewUser } from '../../Actions/securityActions';
+// import { createNewUser } from '../../Actions/securityActions';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import axios from 'axios';
-import { Link } from "react-router-dom";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
+import { Link, useNavigate } from "react-router-dom";
+// import { connect } from "react-redux";
+// import PropTypes from "prop-types";
 
-const Register = () => {
+export default function Register() {
     const [newUser, setNewUser] = React.useState({
         username: '',
         fullName: '',
         password: '',
         confirmPassword: '',
-        errors: [],
+        errors: '',
     });
-    const onSubmit = (event) => {
-        event.preventDefault();
-        console.log(JSON.stringify(newUser));
-        // const newUserRequest = {
-        //     username: newUser.username,
-        //     fullName: newUser.fullName,
-        //     password: newUser.password,
-        //     confirmPassword: newUser.confirmPassword,
-        // };
-        createNewUser(newUser, newUser.history);
+    const navigate = useNavigate();
+    async function onSubmit(event) {
+        // console.log(JSON.stringify(newUser));
+        await axios
+            .post(`/api/quote/users/register`, newUser)
+            .catch(error => {
+                if (error.response) {
+                    setNewUser({ errors: error.response.data });
+                    // console.log(error.response.data);
+                }
+                // console.log(error.response.data);
+            });
+        callSubmit();
     };
-    // async function onSubmit(event) {
-    //     console.log(JSON.stringify(newUser));
-    //     await axios
-    //         .post(`/api/quote/users/register`, newUser)
-    //         .catch(error => {
-    //             if (error.response) {
-    //                 console.log(error.response.data);
-    //             }
-    //             console.log(error.response.data);
-    //         });
-    // };
     const handleChange = (props) => (event) => {
         setNewUser({ ...newUser, [props]: event.target.value });
     };
@@ -72,6 +64,14 @@ const Register = () => {
     const handleMouseDownConfirmPassword = (event) => {
         event.preventDefault();
     };
+    const callSubmit = () => {
+        if (newUser.errors === '') {
+            navigate("/login");
+        } else {
+            console.log(newUser.errors);
+        }
+
+    }
     return (
         <>
             <Box
@@ -149,10 +149,10 @@ const Register = () => {
 //     errors: PropTypes.object.isRequired
 // };
 
-const mapStateToProps = (props) => (newUser) => ({
-    errors: newUser.errors
-});
-export default connect(
-    mapStateToProps,
-    { createNewUser }
-)(Register);
+// const mapStateToProps = (props) => (newUser) => ({
+//     errors: newUser.errors
+// });
+// export default connect(
+//     mapStateToProps,
+//     { createNewUser }
+// )(Register);

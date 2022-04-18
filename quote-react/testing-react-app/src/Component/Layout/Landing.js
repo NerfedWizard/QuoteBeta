@@ -1,7 +1,7 @@
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 import React from "react";
-import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+// import { connect } from "react-redux";
+import { Link, Navigate } from "react-router-dom";
 import { Button, styled, Stack, Box } from '@mui/material';
 import setJWTToken from '../../SecurityUtils/setJWTToken';
 
@@ -37,19 +37,16 @@ export default function Landing() {
                     direction="row"
                     spacing={2}
                     alignItems="space-evenly">
-                    <Link to='/register'>
+                    <Navigate to='/register'>
                         <ColorButton>
                             Register
                         </ColorButton>
-                    </Link>
-                    {/* <ColorButton onClick={logout}>
-                        Logout
-                    </ColorButton> */}
-                    <Link to='/login'>
+                    </Navigate>
+                    <Navigate to='/login'>
                         <ColorButton>
                             Login
                         </ColorButton>
-                    </Link>
+                    </Navigate>
                 </Stack>
             </Box>
         </>

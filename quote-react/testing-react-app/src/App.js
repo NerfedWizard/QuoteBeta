@@ -1,24 +1,24 @@
-// import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 // import SelectVariants from './Component/QuoteManagement/CategorySelect';
 // import RandomQuote from './Component/QuoteManagement/RandomQuote';
 // import AuthorSelect from './Component/QuoteManagement/AuthorSelect';
 // import NavButtons from './Component/Layout/NavButtons';
 // import Register from './Component/UserManagement/Register';
 // import Login from './Component/UserManagement/Login';
-import SecureRoute from "./SecurityUtils/SecureRoute";
+// import SecureRoute from "./SecurityUtils/SecureRoute";
 import { Provider } from "react-redux";
 import setJWTToken from "./SecurityUtils/setJWTToken";
 import store from "./store";
 // import { logout } from "./Actions/securityActions";
-import { SET_CURRENT_USER } from "./Actions/types";
+// import { SET_CURRENT_USER } from "./Actions/types";
 // import Landing from './Component/Layout/Landing';
-import AuthService from './services/authService';
+// import AuthService from './services/authService';
 import React from 'react';
 import { Box, Container, CssBaseline, Paper, styled, Button, Stack, Alert } from '@mui/material';
 import './App.css';
 import { Outlet, Link } from "react-router-dom";
-import jwt_decode from "jwt-decode";
-// import logout from "./Component/Layout/Landing";
+// import jwt_decode from "jwt-decode";
+import logout from "./Component/Layout/Landing";
 
 
 const ColorButton = styled(Button)(({ theme }) => ({
@@ -46,42 +46,43 @@ const Item = styled(Paper)(({ theme }) => ({
     square: false,
     color: 'antiquewhite',
 }));
-const jwtToken = localStorage.jwtToken;
+// const jwtToken = localStorage.jwtToken;
 
-if (jwtToken) {
-    setJWTToken(jwtToken);
-    const decoded_jwtToken = jwt_decode(jwtToken);
-    store.dispatch({
-        type: SET_CURRENT_USER,
-        payload: decoded_jwtToken,
-    });
+// if (jwtToken) {
+//     setJWTToken(jwtToken);
+//     const decoded_jwtToken = jwt_decode(jwtToken);
+//     store.dispatch({
+//         type: SET_CURRENT_USER,
+//         payload: decoded_jwtToken,
+//     });
 
-    const currentTime = Date.now() / 1000;
-    if (decoded_jwtToken.exp < currentTime) {
-        store.dispatch(logout());
-        window.location.href = "/quote/landing";
-    }
-};
-const logout = () => {
-    // alert("You have been logged out");
-    // console.log('LocalStorage Removed ', localStorage.getItem(jwtToken));
-    localStorage.removeItem("jwtToken");
-    setJWTToken(false);
-    // console.log('LocalStorage Removed ', localStorage.jwtToken);
-};
+//     const currentTime = Date.now() / 1000;
+//     if (decoded_jwtToken.exp < currentTime) {
+//         store.dispatch(logout());
+//         window.location.href = "/quote/landing";
+//     }
+// };
+// const logout = () => {
+//     // alert("You have been logged out");
+//     // console.log('LocalStorage Removed ', localStorage.getItem(jwtToken));
+//     localStorage.removeItem("jwtToken");
+//     setJWTToken(false);
+//     // console.log('LocalStorage Removed ', localStorage.jwtToken);
+// };
 
 const Navigation = () => {
     return (
         <nav>
             <Link to="/landing"><ColorButton onClick={logout}>Home</ColorButton></Link>
             {/* <Link to="/login">Login</Link>
-            <Link to="/register">Register</Link> */}
+            <Link to="/register">Register</Link>
 
             {/* Secure Routes */}
 
-            {/* <Link to="/loginsuccess">Login Success</Link>
-            <Link to="/random">Random</Link>
-            <Link to="/category">Category</Link>
+            {/* <Link to="/loginsuccess">Login Success</Link> */}
+            {/* <SecureRoute to="/random">Random</SecureRoute> */}
+
+            {/* <Link to="/category">Category</Link>
             <Link to="/author">Author</Link> */}
         </nav>
     );
@@ -93,10 +94,7 @@ const App = () => {
 
         <Box id='gradient-shift' display='flex' style={{ height: '100vh', margin: 0, padding: 0 }}>
             <Provider store={store}>
-                <Stack direction="column" justifyContent="flex-end" >
-                    {/* <ColorButton>
-                    Logout
-                </ColorButton> */}
+                <Stack direction="column" justifyContent="flex-start" >
                     <Navigation />
                 </Stack>
                 <Container sx={{

@@ -16,12 +16,12 @@ import {
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import axios from 'axios';
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import setJWTToken from '../../SecurityUtils/setJWTToken';
 import { GET_ERRORS, SET_CURRENT_USER } from "../../Actions/types";
-import { login } from '../../Actions/securityActions';
+// import { login } from '../../Actions/securityActions';
 import jwt_decode from "jwt-decode";
-import { useHistory } from 'react-router-dom';
+import { useHistory, useNavigate } from 'react-router-dom';
 import securityReducer from '../../Reducers/securityReducer';
 import { connect, useDispatch, useSelector } from "react-redux";
 import PropTypes from "prop-types";
@@ -32,6 +32,7 @@ export default function Login() {
     const [user, setUser] = useState({ username: '', password: '' });
     // const login = React.useContext(login);
     const [token, setToken] = React.useState('');
+    const navigate = useNavigate();
     const [state, dispatch] = useReducer(
         securityReducer,
         {
@@ -49,6 +50,7 @@ export default function Login() {
         await axios.post(`/api/quote/users/login`, user).then(response => {
             if (response.data.accessToken) {
                 localStorage.setItem("jwtToken", JSON.stringify(response.data));
+
             }
             setToken(response.data.accessToken);
             setJWTToken(response.data.token);
@@ -67,7 +69,7 @@ export default function Login() {
             }
 
         });
-
+        console.log(state);
     }
 
     useEffect(() => {
@@ -91,6 +93,15 @@ export default function Login() {
         }
         // console.log(user.errors)
     };
+    const callSubmit = (event) => {
+        event.preventDefault();
+        onSubmit(event);
+        if (token !== '') {
+            navigate("/loginsuccess");
+        } else {
+            navigate("/register");
+        }
+    }
     return (
         <>
             <Box sx={{ display: 'flex', justifyContent: 'center' }}>
@@ -127,15 +138,14 @@ export default function Login() {
 
                 </FormControl>
                 {/* <div>{state}</div> */}
-                <Link to="/loginsuccess">
-                    <Button
-                        type="submit"
-                        variant="contained"
-                        color="primary"
-                        onClick={onSubmit}>
-                        Submit
-                    </Button>
-                </Link>
+
+                <Button
+                    type="submit"
+                    variant="contained"
+                    color="primary"
+                    onClick={callSubmit}>
+                    Submit
+                </Button>
             </Box>
         </>
     )

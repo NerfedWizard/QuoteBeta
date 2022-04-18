@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 
-import { useState } from 'react'
-
 const useHistory = initialState => {
     const [versions, setVersions] = useState([initialState])
     const [currentVersion, setCurrentVersion] = useState(0)

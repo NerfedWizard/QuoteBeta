@@ -3,6 +3,7 @@ import { Box, Button, Paper, styled, Stack } from '@mui/material';
 import React, { useState, useEffect } from 'react';
 import NavButtons from '../Layout/NavButtons';
 import RandomNumber from './../../Actions/RandomNumber';
+import useHistory from './../../Actions/useHistory';
 
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -46,6 +47,7 @@ export default function RandomQuote() {
 
         const identifier = await axios.get(`/api/quote/${ident}`);
         setQuoteData({ author: identifier.data.quoteAuthor, quoted: identifier.data.quoted, category: identifier.data.quoteCategory });
+        useHistory(identifier.data.quoted);
     }
     useEffect(() => {
         loadData();
