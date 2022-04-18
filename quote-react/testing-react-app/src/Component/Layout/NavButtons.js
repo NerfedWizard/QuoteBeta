@@ -1,30 +1,22 @@
 import React from 'react';
 import { Button, styled, Stack, Box } from '@mui/material';
 import { NavLink, Outlet } from "react-router-dom";
+import { linkStyle, ColorButton } from './../../Style/styles';
 // import styled from 'styled-components/native';
 
-const ColorButton = styled(Button)(({ theme }) => ({
-    color: 'black',
-    font: 'bold',
-    fontSize: '1.5rem',
-    fontWeight: 'bold',
-    fontFamily: 'Bitter',
-    borderRadius:25,
-    '&:hover': {
-        background: "rgb(0, 206, 209,.3)",
-        variant: 'outlined',
-        focusRipple: true,
-    },
-}));
-// const NavUnlisted = styled.ul`
-// text - decoration: none;
-// `;
-
-export const linkStyle = {
-    margin: "auto",
-    textDecoration: "none",
-    color: 'blue'
-};
+// const ColorButton = styled(Button)(({ theme }) => ({
+//     color: 'black',
+//     font: 'bold',
+//     fontSize: '1.5rem',
+//     fontWeight: 'bold',
+//     fontFamily: 'Bitter',
+//     borderRadius: 25,
+//     '&:hover': {
+//         background: "rgb(0, 206, 209,.3)",
+//         variant: 'outlined',
+//         focusRipple: true,
+//     },
+// }));
 
 export default function NavButtons(from) {
     if (from === 'random') {
@@ -35,7 +27,7 @@ export default function NavButtons(from) {
                     spacing={2}
                     alignItems="space-evenly">
 
-                    <NavLink to='/author'>
+                    <NavLink to='/author' style={linkStyle}>
                         <ColorButton>
                             Author
                         </ColorButton>

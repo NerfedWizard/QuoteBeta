@@ -18,7 +18,7 @@ import { Box, Container, CssBaseline, Paper, styled, Button, Stack, Alert } from
 import './App.css';
 import { Outlet, Link } from "react-router-dom";
 import jwt_decode from "jwt-decode";
-import { linkStyle } from './Component/Layout/NavButtons';
+import { linkStyle } from './Style/styles';
 import { Item, ColorButton } from './Style/styles';
 import  useStateHistory  from './services/useStateHistory';
 // import logout from "./Component/Layout/Landing";

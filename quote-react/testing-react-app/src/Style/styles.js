@@ -1,9 +1,10 @@
 import { Button, styled, Stack, Box, Paper } from '@mui/material';
 
 
-export const linkeStyle = {
+export const linkStyle = {
+    // margin: "auto",
     textDecoration: 'none',
-    color: 'blue'
+    color: 'green'
 }
 export const ColorButton = styled(Button)(({ theme }) => ({
     color: 'black',

@@ -1,4 +1,4 @@
-import React, { useReducer, useCallback } from 'react';
+import React, { useReducer, useCallback, useState } from 'react';
 import {
     Stack,
     TextField,
@@ -13,49 +13,44 @@ import {
     FormHelperText,
     IconButton
 } from '@mui/material';
+// import { useHistory, useNavigate } from 'react-router-dom';
 import { createNewUser } from '../../Actions/securityActions';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import axios from 'axios';
-import { Link } from "react-router-dom";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
+import { Link, useNavigate } from "react-router-dom";
 
-const Register = () => {
-    const [newUser, setNewUser] = React.useState({
+export default function Register() {
+    const navigate = useNavigate();
+    const [flag, setFlag] = useState(false);
+    const [newUser, setNewUser] = useState({
         username: '',
         fullName: '',
         password: '',
         confirmPassword: '',
-        errors: [],
+        errors: {},
     });
-    // const onSubmit = (event) => {
-    //     event.preventDefault();
-    //     console.log(JSON.stringify(newUser));
-    //     // const newUserRequest = {
-    //     //     username: newUser.username,
-    //     //     fullName: newUser.fullName,
-    //     //     password: newUser.password,
-    //     //     confirmPassword: newUser.confirmPassword,
-    //     // };
-    //     createNewUser(newUser, newUser.history);
-    // };
+    const handleChange = (props) => (event) => {
+        setNewUser({ ...newUser, [props]: event.target.value });
+    };
     async function onSubmit(event) {
-        console.log(JSON.stringify(newUser));
+        // console.log(JSON.stringify(newUser));
         await axios
             .post(`/api/quote/users/register`, newUser)
             .catch(error => {
                 if (error.response) {
-                    newUser.errors.push(error.response.data);
+                    setNewUser({
+                        errors: error.response.data
+                    });
+
+                    console.log(newUser.errors);
                 }
-                // console.log(error.response.data);
+                // console.log(newUser.errors);
             });
-        newUser.history.push("/login");
-        console.log(newUser.errors);
+        // newUser.history.push("/login");
+        // console.log(newUser.errors.flag);
     };
-    const handleChange = (props) => (event) => {
-        setNewUser({ ...newUser, [props]: event.target.value });
-    };
+
     const handleClickShowPassword = () => {
         setNewUser({
             ...newUser,
@@ -74,6 +69,20 @@ const Register = () => {
     const handleMouseDownConfirmPassword = (event) => {
         event.preventDefault();
     };
+    const callSubmit = (event) => {
+        event.preventDefault();
+        onSubmit(event);
+        if (newUser.errors !== undefined) {
+            navigate("/login");
+        } else {
+            navigate("/landing");
+            // console.log(newUser.errors);
+            // hasErrors();
+        }
+    };
+    // const hasErrors = () => {
+    //     return <h1>{newUser.errors}</h1>
+    // }
     return (
         <>
             <Box
@@ -96,65 +105,51 @@ const Register = () => {
                         label="fullName"
                     />
                 </FormControl>
-                <FormGroup>
-                    <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">
-                        <InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
-                        <OutlinedInput
-                            id="outlined-adornment-password"
-                            value={newUser.password}
-                            onChange={handleChange('password')}
-                            type={newUser.showPassword ? 'text' : 'password'}
-                            label="Password"
-                            endAdornment={
-                                <InputAdornment position="end">
-                                    <IconButton
-                                        aria-label="toggle password visibility"
-                                        onClick={handleClickShowPassword}
-                                        onMouseDown={handleMouseDownPassword}
-                                        edge="end">
-                                        {newUser.showPassword ? <VisibilityOff /> : <Visibility />}
-                                    </IconButton>
-                                </InputAdornment>
-                            }
-                        />
-                    </FormControl>
-                    <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">
-                        <InputLabel htmlFor="standard-adornment-confirmPassword">Confirm Password</InputLabel>
-                        <OutlinedInput
-                            id="outlined-adornment-confirmPassword"
-                            value={newUser.confirmPassword}
-                            onChange={handleChange('confirmPassword')}
-                            type={newUser.showConfirmPassword ? 'text' : 'password'}
-                            label="Confirm Password"
-                            endAdornment={
-                                <InputAdornment position="end">
-                                    <IconButton
-                                        aria-label="toggle confirmPassword visibility"
-                                        onClick={handleClickShowConfirmPassword}
-                                        onMouseDown={handleMouseDownConfirmPassword}
-                                        edge="end">
-                                        {newUser.showConfirmPassword ? <VisibilityOff /> : <Visibility />}
-                                    </IconButton>
-                                </InputAdornment>
-                            }
-                        />
-                    </FormControl></FormGroup>
-                {/* <Link to="/login"> */}
-                <Button type="submit" variant="contained" color="primary" onClick={onSubmit}>Submit</Button>
-                {/* </Link> */}
+
+                <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">
+                    <InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
+                    <OutlinedInput
+                        id="outlined-adornment-password"
+                        value={newUser.password}
+                        onChange={handleChange('password')}
+                        type={newUser.showPassword ? 'text' : 'password'}
+                        label="Password"
+                        endAdornment={
+                            <InputAdornment position="end">
+                                <IconButton
+                                    aria-label="toggle password visibility"
+                                    onClick={handleClickShowPassword}
+                                    onMouseDown={handleMouseDownPassword}
+                                    edge="end">
+                                    {newUser.showPassword ? <VisibilityOff /> : <Visibility />}
+                                </IconButton>
+                            </InputAdornment>
+                        }
+                    />
+                </FormControl>
+                <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">
+                    <InputLabel htmlFor="standard-adornment-confirmPassword">Confirm Password</InputLabel>
+                    <OutlinedInput
+                        id="outlined-adornment-confirmPassword"
+                        value={newUser.confirmPassword}
+                        onChange={handleChange('confirmPassword')}
+                        type={newUser.showConfirmPassword ? 'text' : 'password'}
+                        label="Confirm Password"
+                        endAdornment={
+                            <InputAdornment position="end">
+                                <IconButton
+                                    aria-label="toggle confirmPassword visibility"
+                                    onClick={handleClickShowConfirmPassword}
+                                    onMouseDown={handleMouseDownConfirmPassword}
+                                    edge="end">
+                                    {newUser.showConfirmPassword ? <VisibilityOff /> : <Visibility />}
+                                </IconButton>
+                            </InputAdornment>
+                        }
+                    />
+                </FormControl>
+                <Button type="submit" variant="contained" color="primary" onClick={callSubmit}>Submit</Button>
             </Box>
         </>
     )
 }
-// Register.propTypes = {
-//     createNewUser: PropTypes.func.isRequired,
-//     errors: PropTypes.object.isRequired
-// };
-
-const mapStateToProps = (props) => (newUser) => ({
-    errors: newUser.errors
-});
-export default connect(
-    mapStateToProps,
-    { createNewUser }
-)(Register);

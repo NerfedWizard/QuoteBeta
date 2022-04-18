@@ -16,60 +16,44 @@ import {
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import axios from 'axios';
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import setJWTToken from '../../SecurityUtils/setJWTToken';
-import { GET_ERRORS, SET_CURRENT_USER } from "../../Actions/types";
-import { login } from '../../Actions/securityActions';
-import jwt_decode from "jwt-decode";
-import { useHistory } from 'react-router-dom';
-import securityReducer from '../../Reducers/securityReducer';
-import { connect, useDispatch, useSelector } from "react-redux";
-import PropTypes from "prop-types";
+// import { GET_ERRORS, SET_CURRENT_USER } from "../../Actions/types";
+// import jwt_decode from "jwt-decode";
+import { useHistory, useNavigate } from 'react-router-dom';
+// import securityReducer from '../../Reducers/securityReducer';
+import { linkStyle } from "../../Style/styles";
+
 
 
 
 export default function Login() {
-    const [user, setUser] = useState({ username: '', password: '' });
-    // const login = React.useContext(login);
-    const [token, setToken] = React.useState('');
-    const [state, dispatch] = useReducer(
-        securityReducer,
-        {
-            type: '',
-            payload: {},
-        }
-    );
+    const [user, setUser] = useState({ username: '', password: '', errors: [] });
+    const navigate = useNavigate();
+
+
+    /**Need to add useReducer or something I can't figure out why I always go to the path even when I am failing the tests and getting errors but whatever*/
+
+
+
     const handleChange = (props) => (event) => {
         setUser({ ...user, [props]: event.target.value });
 
     };
     async function onSubmit(event) {
-        // try {
-
-        await axios.post(`/api/quote/users/login`, user).then(response => {
+        axios.post(`/api/quote/users/login`, user).then(response => {
             if (response.data.accessToken) {
                 localStorage.setItem("jwtToken", JSON.stringify(response.data));
             }
-            setToken(response.data.accessToken);
             setJWTToken(response.data.token);
-            dispatch({
-                type: SET_CURRENT_USER,
-                payload: jwt_decode(response.data.token),
-            });
         }).catch(error => {
             if (error.response) {
-
-                dispatch({
-                    type: GET_ERRORS,
-                    payload: error.response.data,
-                });
-
+                // console.log(error.response.data);
+                // user.errors.push(error.response.data);
             }
-
         });
-
+        // console.log(user.errors);
     }
-
     useEffect(() => {
         document.title = user.username;
     });
@@ -79,18 +63,31 @@ export default function Login() {
             showPassword: !user.showPassword,
         });
     };
-
     const handleMouseDownPassword = (event) => {
         event.preventDefault();
     };
     const keyPress = (event) => {
         // console.log(event.key);
         if (event.key === 'Enter') {
-            onSubmit(event);
-            // login(user);
+            callSubmit(event);
+            // console.log(user.errors)
         }
-        // console.log(user.errors)
     };
+    const callSubmit = (event) => {
+        event.preventDefault();
+        onSubmit(event);
+        // console.log(user.errors.length);
+        // if (user.errors.length === 0) {
+        //     navigate('/loginsuccess');
+        // } else {
+        //     navigate('/register');
+        //     // console.log(user.errors);
+        // }
+    };
+    // const nextPath = () => {
+
+    // }
+
     return (
         <>
             <Box sx={{ display: 'flex', justifyContent: 'center' }}>
@@ -127,34 +124,17 @@ export default function Login() {
                     />
 
                 </FormControl>
-                {/* <div>{state}</div> */}
-                <Link to="/loginsuccess" style={{
-                    margin: "1rem",
-                    textDecoration: "none",
-                    color: 'blue'
-                }}>
-                    <Button
-                        type="submit"
-                        variant="contained"
-                        color="primary"
-                        onClick={onSubmit}
-                        sx={{ borderRadius: 25 }}>
-                        Submit
-                    </Button>
-                </Link>
+                {/* <Link to="/loginsuccess" style={linkStyle}> */}
+                <Button
+                    type="submit"
+                    variant="contained"
+                    color="primary"
+                    onClick={callSubmit}
+                    sx={{ borderRadius: 25 }}>
+                    Submit
+                </Button>
+                {/* </Link> */}
             </Box>
         </>
     )
 }
-// Login.propTypes = {
-//     login: PropTypes.func.isRequired,
-//     errors: PropTypes.object.isRequired
-// };
-
-// const mapStateToProps = (props) => (user) => ({
-//     errors: user.errors
-// });
-// export default connect(
-//     mapStateToProps,
-//     { login }
-// )(Login);

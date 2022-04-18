@@ -3,8 +3,9 @@ import { Box, Button, Paper, styled, Stack } from '@mui/material';
 import React, { useState, useEffect } from 'react';
 import NavButtons from '../Layout/NavButtons';
 import RandomNumber from './../../Actions/RandomNumber';
-import useStateHistory from 'use-state-history'
-// import useStateHistory from '../../services/useStateHistory';
+// import useStateHistory from 'use-state-history'
+import useStateHistory from '../../services/useStateHistory';
+import { linkStyle, ColorButton } from '../../Style/styles';
 
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -19,63 +20,42 @@ const Item = styled(Paper)(({ theme }) => ({
     minWidth: 200,
 }));
 
-const ColorButton = styled(Button)(({ theme }) => ({
-    color: 'black',
-    font: 'bold',
-    fontSize: '1.5rem',
-    fontWeight: 'bold',
-    fontFamily: 'Bitter',
-    borderRadius: 25,
-    backgroundColor: "rgb(0, 0, 0,0.09)",
-    '&:hover': {
-        backgroundColor: "rgb(105, 106, 255,0.34)",
-    },
-}));
 const sleep = ms => new Promise(r => setTimeout(r, ms));
-
-
 export default function RandomQuote() {
     const axios = require('axios');
+    const [history, setHistory] = useState([]);
 
+    // const [index, setIndex] = useState(0);
     const rand = RandomNumber();
     const [quoteData, setQuoteData] = useState({ author: '', quoted: '', category: '' });
     const ident = "ID" + rand;
+    let isMounted = true;
 
 
     const loadData = async () => {
         await sleep(500);
         const response = await axios.get(`/api/quote/${ident}`);
         setQuoteData({ author: response.data.quoteAuthor, quoted: response.data.quoted, category: response.data.quoteCategory });
+        history.push({ author: response.data.quoteAuthor, quoted: response.data.quoted, category: response.data.quoteCategory });
     };
     async function GetQuotes() {
-
-
         const identifier = await axios.get(`/api/quote/${ident}`);
         setQuoteData({ author: identifier.data.quoteAuthor, quoted: identifier.data.quoted, category: identifier.data.quoteCategory });
+        history.push({
+            author: identifier.data.quoteAuthor, quoted: identifier.data.quoted, category: identifier.data.quoteCategory
+        });
     }
     useEffect(() => {
-        loadData();
+        if (isMounted) {
+            loadData();
+        }
         return () => { };
     }, []);
-    // function useStateHistory(initialValue) {
-    //     const [history, setHistory] = useState([initialValue])
-    //     const [index, setIndex] = useState(0)
-
-    //     const state = history[index]
-    //     const setState = (newState) => {
-    //         setHistory(history => history.slice(0, index + 1).concat(newState))
-    //         setIndex(index => index + 1)
-    //     }
-    //     let undo, redo
-    //     if (index > 0)
-    //         undo = () => setIndex(index => index - 1)
-    //     if (index < history.length - 1)
-    //         redo = () => setIndex(index => index + 1)
-
-    //     return [state, setState, { history, index, setHistory, setIndex, undo, redo }];
-    // }
-
-
+    const prevQuote = () => {
+        if (history.length > 1) {
+            setQuoteData(history.pop())
+        }
+    }
     return (
         <>
             <Box sx={{
@@ -89,10 +69,10 @@ export default function RandomQuote() {
             }}>
                 {GetQuotes}
                 <Stack direction="row"
-                    justifyContent="flex-end"
-                    spacing={32}>
+                    justifyContent="space-evenly"
+                >
                     <ColorButton onClick={GetQuotes}>Next Quote</ColorButton>
-                    <ColorButton onClick={() => { }}>Previous Quote</ColorButton>
+                    <ColorButton onClick={prevQuote}>Previous Quote</ColorButton>
                 </Stack>
                 <Item>
                     <Item variant='contained' sx={{ color: 'slateblue', fontSize: 28 }}>{quoteData.author}</Item>

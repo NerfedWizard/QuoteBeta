@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { Button, styled, Stack, Box } from '@mui/material';
 import setJWTToken from '../../SecurityUtils/setJWTToken';
-import { linkStyle } from "../../Component/Layout/NavButtons";
+import { linkStyle } from "./../../Style/styles";
 
 const ColorButton = styled(Button)(({ theme }) => ({
     color: 'black',
