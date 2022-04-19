@@ -13,23 +13,22 @@ import {
     FormHelperText,
     IconButton
 } from '@mui/material';
+
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import axios from 'axios';
-// import { Link } from "react-router-dom";
+import { Link, useResolvedPath } from "react-router-dom";
 import setJWTToken from '../../SecurityUtils/setJWTToken';
-// import { GET_ERRORS, SET_CURRENT_USER } from "../../Actions/types";
-// import jwt_decode from "jwt-decode";
-import { useHistory, useNavigate } from 'react-router-dom';
-// import securityReducer from '../../Reducers/securityReducer';
+
 import { linkStyle } from "../../Style/styles";
 
 
 
 
 export default function Login() {
-    const [user, setUser] = useState({ username: '', password: '', errors: [] });
-    const navigate = useNavigate();
+    const [user, setUser] = useState({ username: '', password: '', errors: true });
+    const [token, setToken] = useState('');
+    // const navigate = useNavigate();
 
 
     /**Need to add useReducer or something I can't figure out why I always go to the path even when I am failing the tests and getting errors but whatever*/
@@ -41,19 +40,24 @@ export default function Login() {
 
     };
     async function onSubmit(event) {
-        axios.post(`/api/quote/users/login`, user).then(response => {
+        await axios.post(`/api/quote/users/login`, user).then(response => {
             if (response.data.accessToken) {
                 localStorage.setItem("jwtToken", JSON.stringify(response.data));
+
             }
+            setToken(response.data.accessToken);
             setJWTToken(response.data.token);
+
         }).catch(error => {
             if (error.response) {
-                // console.log(error.response.data);
-                // user.errors.push(error.response.data);
+
+
             }
+
         });
-        // console.log(user.errors);
+
     }
+    
     useEffect(() => {
         document.title = user.username;
     });
@@ -76,18 +80,7 @@ export default function Login() {
     const callSubmit = (event) => {
         event.preventDefault();
         onSubmit(event);
-        // console.log(user.errors.length);
-        // if (user.errors.length === 0) {
-        //     navigate('/loginsuccess');
-        // } else {
-        //     navigate('/register');
-        //     // console.log(user.errors);
-        // }
     };
-    // const nextPath = () => {
-
-    // }
-
     return (
         <>
             <Box sx={{ display: 'flex', justifyContent: 'center' }}>
@@ -110,6 +103,7 @@ export default function Login() {
                         type={user.showPassword ? 'text' : 'password'}
                         label="Password"
                         onKeyPress={(event) => keyPress(event)}
+                        sx={{ borderRadius: 25 }}
                         endAdornment={
                             <InputAdornment position="end">
                                 <IconButton
@@ -129,10 +123,12 @@ export default function Login() {
                     type="submit"
                     variant="contained"
                     color="primary"
-                    onClick={callSubmit}
+                    onClick={onSubmit}
                     sx={{ borderRadius: 25 }}>
                     Submit
+
                 </Button>
+                {user.errors ? <Link to="/loginsuccess" style={linkStyle} /> : <Link to="/register" style={linkStyle} />}
                 {/* </Link> */}
             </Box>
         </>

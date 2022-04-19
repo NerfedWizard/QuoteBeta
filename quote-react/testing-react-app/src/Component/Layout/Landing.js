@@ -1,10 +1,9 @@
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 import React from "react";
-import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+// import { connect } from "react-redux";
+import { Link, Navigate } from "react-router-dom";
 import { Button, styled, Stack, Box } from '@mui/material';
 import setJWTToken from '../../SecurityUtils/setJWTToken';
-import { linkStyle } from "./../../Style/styles";
 
 const ColorButton = styled(Button)(({ theme }) => ({
     color: 'black',
@@ -12,11 +11,9 @@ const ColorButton = styled(Button)(({ theme }) => ({
     fontSize: '1.5rem',
     fontWeight: 'bold',
     fontFamily: 'Bitter',
-    borderRadius: 25,
     '&:hover': {
         background: "rgb(0, 206, 209,.3)",
         variant: 'outlined',
-        borderRadius: 25,
         focusRipple: true,
     },
 }));
@@ -40,19 +37,16 @@ export default function Landing() {
                     direction="row"
                     spacing={2}
                     alignItems="space-evenly">
-                    <Link to='/register' style={linkStyle}>
+                    <Navigate to='/register'>
                         <ColorButton>
                             Register
                         </ColorButton>
-                    </Link>
-                    {/* <ColorButton onClick={logout}>
-                        Logout
-                    </ColorButton> */}
-                    <Link to='/login' style={linkStyle}>
+                    </Navigate>
+                    <Navigate to='/login'>
                         <ColorButton>
                             Login
                         </ColorButton>
-                    </Link>
+                    </Navigate>
                 </Stack>
             </Box>
         </>

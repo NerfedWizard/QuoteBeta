@@ -6,12 +6,11 @@ import {
     Routes,
     Route,
 } from "react-router-dom";
-import SecureRoute from "./SecurityUtils/SecureRoute";
 import Landing from './Component/Layout/Landing';
 import Register from './Component/UserManagement/Register';
 import Login from './Component/UserManagement/Login';
 import reportWebVitals from "./reportWebVitals";
-import NavButtons from './Component/Layout/NavButtons';
+import  NavButtons  from './Component/Layout/NavButtons';
 import SelectVariants from './Component/QuoteManagement/CategorySelect';
 import RandomQuote from './Component/QuoteManagement/RandomQuote';
 import AuthorSelect from './Component/QuoteManagement/AuthorSelect';

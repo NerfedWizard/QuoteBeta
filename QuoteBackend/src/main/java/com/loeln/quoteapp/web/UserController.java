@@ -46,6 +46,7 @@ public class UserController {
 
 	@PostMapping("/login")
 	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest, BindingResult result) {
+
 		ResponseEntity<?> errorMap = mapValidationErrorService.mapValidationService(result);
 		if (errorMap != null)
 			return errorMap;
@@ -56,6 +57,7 @@ public class UserController {
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 		String jwt = TOKEN_PREFIX + tokenProvider.generateToken(authentication);
 		System.out.println(jwt);
+
 		return ResponseEntity.ok(new JWTLoginSuccessResponse(true, jwt));
 	}
 

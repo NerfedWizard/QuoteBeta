@@ -1,22 +1,19 @@
 import React from 'react';
 import { Button, styled, Stack, Box } from '@mui/material';
 import { NavLink, Outlet } from "react-router-dom";
-import { linkStyle, ColorButton } from './../../Style/styles';
-// import styled from 'styled-components/native';
 
-// const ColorButton = styled(Button)(({ theme }) => ({
-//     color: 'black',
-//     font: 'bold',
-//     fontSize: '1.5rem',
-//     fontWeight: 'bold',
-//     fontFamily: 'Bitter',
-//     borderRadius: 25,
-//     '&:hover': {
-//         background: "rgb(0, 206, 209,.3)",
-//         variant: 'outlined',
-//         focusRipple: true,
-//     },
-// }));
+const ColorButton = styled(Button)(({ theme }) => ({
+    color: 'black',
+    font: 'bold',
+    fontSize: '1.5rem',
+    fontWeight: 'bold',
+    fontFamily: 'Bitter',
+    '&:hover': {
+        background: "rgb(0, 206, 209,.3)",
+        variant: 'outlined',
+        focusRipple: true,
+    },
+}));
 
 export default function NavButtons(from) {
     if (from === 'random') {
@@ -26,18 +23,21 @@ export default function NavButtons(from) {
                     direction="row"
                     spacing={2}
                     alignItems="space-evenly">
-
-                    <NavLink to='/author' style={linkStyle}>
+                    <NavLink to='/author'>
                         <ColorButton>
                             Author
                         </ColorButton>
                     </NavLink>
-                    <NavLink to='/category' style={linkStyle}>
+                    <NavLink to='/category'>
                         <ColorButton>
                             Category
                         </ColorButton>
                     </NavLink>
-                    {/* </NavUnlisted> */}
+                    {/* <NavLink to='/landing'>
+                        <ColorButton>
+                            Home
+                        </ColorButton>
+                    </NavLink> */}
                     <Outlet />
                 </Stack>
             </>
@@ -50,12 +50,12 @@ export default function NavButtons(from) {
                     direction="row"
                     spacing={2}
                     alignItems="flex-start">
-                    <NavLink to='/random' style={linkStyle}>
+                    <NavLink to='/random'>
                         <ColorButton>
                             Random
                         </ColorButton>
                     </NavLink>
-                    <NavLink to='/category' style={linkStyle}>
+                    <NavLink to='/category'>
                         <ColorButton>
                             Category
                         </ColorButton>
@@ -77,12 +77,12 @@ export default function NavButtons(from) {
                     direction="row"
                     spacing={2}
                     alignItems="flex-end">
-                    <NavLink to='/random' style={linkStyle}>
+                    <NavLink to='/random'>
                         <ColorButton>
                             Random
                         </ColorButton>
                     </NavLink>
-                    <NavLink to='/author' style={linkStyle}>
+                    <NavLink to='/author'>
                         <ColorButton>
                             Author
                         </ColorButton>
@@ -105,7 +105,7 @@ export default function NavButtons(from) {
                     borderRadius: 10,
                     // p: 2,
                     m: 'auto',
-                    maxWidth: 420,
+                    maxWidth: 510,
                     minWidth: 100,
                     justifyContent: 'center',
                 }}>
@@ -113,23 +113,26 @@ export default function NavButtons(from) {
                         direction="row"
                         spacing={1}
                         alignItems="flex-end">
-                        {/* <NavUnlisted> */}
-                        <NavLink to='/random' style={linkStyle}>
+                        <NavLink to='/random'>
                             <ColorButton>
                                 Random
                             </ColorButton>
                         </NavLink>
-                        <NavLink to='/author' style={linkStyle}>
+                        <NavLink to='/author'>
                             <ColorButton>
                                 Author
                             </ColorButton>
                         </NavLink>
-                        <NavLink to='/category' style={linkStyle}>
+                        <NavLink to='/category'>
                             <ColorButton>
                                 Category
                             </ColorButton>
                         </NavLink>
-                        {/* </NavUnlisted> */}
+                        {/* <NavLink to='/landing'>
+                            <ColorButton>
+                                Home
+                            </ColorButton>
+                        </NavLink> */}
                         <Outlet />
                     </Stack>
                 </Box>

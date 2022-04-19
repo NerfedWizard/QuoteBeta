@@ -14,14 +14,13 @@ import {
     IconButton
 } from '@mui/material';
 // import { useHistory, useNavigate } from 'react-router-dom';
-import { createNewUser } from '../../Actions/securityActions';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import axios from 'axios';
-import { Link, useNavigate } from "react-router-dom";
+// import { Link, useNavigate } from "react-router-dom";
 
 export default function Register() {
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
     const [flag, setFlag] = useState(false);
     const [newUser, setNewUser] = useState({
         username: '',
@@ -72,13 +71,13 @@ export default function Register() {
     const callSubmit = (event) => {
         event.preventDefault();
         onSubmit(event);
-        if (newUser.errors !== undefined) {
-            navigate("/login");
-        } else {
-            navigate("/landing");
-            // console.log(newUser.errors);
-            // hasErrors();
-        }
+        // if (newUser.errors !== undefined) {
+        //     navigate("/login");
+        // } else {
+        //     navigate("/landing");
+        //     // console.log(newUser.errors);
+        //     // hasErrors();
+        // }
     };
     // const hasErrors = () => {
     //     return <h1>{newUser.errors}</h1>

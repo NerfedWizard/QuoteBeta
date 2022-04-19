@@ -47,7 +47,6 @@ public class User implements UserDetails {
 	@Transient
 	private String confirmPassword;
 
-//	private String[] favoriteQuoteIDs;
 	private Date created_At;
 	private Date updated_At;
 

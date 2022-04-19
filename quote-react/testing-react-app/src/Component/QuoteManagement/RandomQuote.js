@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import NavButtons from '../Layout/NavButtons';
 import RandomNumber from './../../Actions/RandomNumber';
 // import useStateHistory from 'use-state-history'
-import useStateHistory from '../../services/useStateHistory';
+// import useStateHistory from '../../services/useStateHistory';
 import { linkStyle, ColorButton } from '../../Style/styles';
 
 

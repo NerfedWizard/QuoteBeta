@@ -1,33 +1,33 @@
 import * as React from 'react';
 import { Stack, Box, Button, Paper, styled, Autocomplete, TextField } from '@mui/material';
 import axios from 'axios';
+import { ColorButton, Item, linkstyle } from './../../Style/styles';
+import  NavButtons from '../Layout/NavButtons';
 
-import NavButtons from '../Layout/NavButtons';
 
-
-const Item = styled(Paper)(({ theme }) => ({
-    backgroundColor: 'oldlace',
-    ...theme.typography.body2,
-    padding: theme.spacing(1),
-    fontFamily: 'Bitter',
-    textAlign: 'left',
-    fontWeight: 'bold',
-    color: 'darkslategrey',
-    maxWidth: 800,
-    minWidth: 200,
-}));
-const ColorButton = styled(Button)(({ theme }) => ({
-    color: 'black',
-    font: 'bold',
-    fontSize: '1.5rem',
-    fontWeight: 'bold',
-    fontFamily: 'Bitter',
-    borderRadius: 25,
-    backgroundColor: "rgb(0, 0, 0,0.09)",
-    '&:hover': {
-        backgroundColor: "rgb(105, 106, 255,0.34)",
-    },
-}));
+// const Item = styled(Paper)(({ theme }) => ({
+//     backgroundColor: 'oldlace',
+//     ...theme.typography.body2,
+//     padding: theme.spacing(1),
+//     fontFamily: 'Bitter',
+//     textAlign: 'left',
+//     fontWeight: 'bold',
+//     color: 'darkslategrey',
+//     maxWidth: 800,
+//     minWidth: 200,
+// }));
+// const ColorButton = styled(Button)(({ theme }) => ({
+//     color: 'black',
+//     font: 'bold',
+//     fontSize: '1.5rem',
+//     fontWeight: 'bold',
+//     fontFamily: 'Bitter',
+//     borderRadius: 25,
+//     backgroundColor: "rgb(0, 0, 0,0.09)",
+//     '&:hover': {
+//         backgroundColor: "rgb(105, 106, 255,0.34)",
+//     },
+// }));
 
 
 const CustomAutoComplete = styled(Autocomplete)(({ theme }) => ({
