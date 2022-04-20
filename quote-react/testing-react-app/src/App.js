@@ -20,7 +20,7 @@ import { Outlet, Link } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import { linkStyle } from './Style/styles';
 import { Item, ColorButton } from './Style/styles';
-import  useStateHistory  from './services/useStateHistory';
+import useStateHistory from './services/useStateHistory';
 // import logout from "./Component/Layout/Landing";
 
 
@@ -94,7 +94,7 @@ const App = () => {
 
     return (
 
-        <Box id='gradient-shift' display='flex' style={{ height: '100vh', margin: 0, padding: 0 }}>
+        <Box id='gradient-shift' display='flex' width='fit' height='fit' style={{ height: '110vh', margin: 0, padding: 0 }}>
             <Provider store={store}>
                 <Stack direction="column" justifyContent="flex-end" >
                     {/* <ColorButton>
@@ -103,15 +103,14 @@ const App = () => {
                     <Navigation />
                 </Stack>
                 <Container sx={{
-                    p: 0,
+                    p: 'auto',
                     m: 'auto',
+                    // maxWidth: 'fit-content',
+                    // minWidth: 'fit-content',
                 }}><CssBaseline />
-                    
                     <Item variant='contained'>
                         It's Time For Quotes.....
                     </Item>
-                    
-
                     <Outlet />
                 </Container>
             </Provider>

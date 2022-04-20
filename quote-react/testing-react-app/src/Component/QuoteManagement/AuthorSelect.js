@@ -3,33 +3,34 @@ import { useState } from 'react';
 import { styled, Box, Paper, CssBaseline, Button, Stack, Autocomplete, TextField } from '@mui/material';
 // import { ColorButton } from './CustomButtons'; 
 import NavButtons from '../Layout/NavButtons';
+import { ColorButton, linkStyle, QuoteItem } from './../../Style/styles';
 
 
 
-const ColorButton = styled(Button)(({ theme }) => ({
-    color: 'black',
-    font: 'bold',
-    fontSize: '1.5rem',
-    fontWeight: 'bold',
-    fontFamily: 'Bitter',
-    borderRadius: 25,
-    backgroundColor: "rgb(0, 0, 0,0.09)",
-    '&:hover': {
-        backgroundColor: "rgb(105, 106, 255,0.34)",
-    },
-}));
-const Item = styled(Paper)(({ theme }) => ({
-    backgroundColor: 'oldlace',
-    ...theme.typography.body2,
-    padding: theme.spacing(1),
-    fontFamily: 'Bitter',
-    textAlign: 'left',
-    color: 'darkslategrey',
-    // borderRadius: 25,
-    fontWeight: 'bold',
-    maxWidth: 800,
-    minWidth: 200,
-}));
+// const ColorButton = styled(Button)(({ theme }) => ({
+//     color: 'black',
+//     font: 'bold',
+//     fontSize: '1.5rem',
+//     fontWeight: 'bold',
+//     fontFamily: 'Bitter',
+//     borderRadius: 25,
+//     backgroundColor: "rgb(0, 0, 0,0.09)",
+//     '&:hover': {
+//         backgroundColor: "rgb(105, 106, 255,0.34)",
+//     },
+// }));
+// const Item = styled(Paper)(({ theme }) => ({
+//     backgroundColor: 'oldlace',
+//     ...theme.typography.body2,
+//     padding: theme.spacing(1),
+//     fontFamily: 'Bitter',
+//     textAlign: 'left',
+//     color: 'darkslategrey',
+//     // borderRadius: 25,
+//     fontWeight: 'bold',
+//     maxWidth: 800,
+//     minWidth: 200,
+// }));
 const CustomInput = styled(Autocomplete)(({ theme }) => ({
     color: "cyan",
     backgroundColor: "azure",
@@ -107,8 +108,8 @@ export default function AuthorSelect() {
                 borderRadius: 10,
                 p: 2,
                 m: 'auto',
-                maxWidth: 800,
-                minWidth: 200,
+                maxWidth: 'fit-content',
+                minWidth: 'fit-content',
                 justifyContent: 'center'
             }}>
                 <CssBaseline />
@@ -126,12 +127,12 @@ export default function AuthorSelect() {
                     <ColorButton onClick={handleClick} sx={{ p: 0 }}>Next Quote</ColorButton>
                 </Stack>
                 {/* <br /> */}
-                <Item>
-                    <Item variant='contained' sx={{ fontSize: 20 }}>{author}</Item>
-                    <Item variant='contained' sx={{ fontFamily: 'Caveat', color: 'darkslategrey', fontSize: 40, fontWeight: 'bold', maxWidth: 800, p: 0 }}>{quote}</Item>
-                    <Item variant='contained' sx={{ fontFamily: 'Bitter', fontWeight: 'bold', color: 'slateblue', fontSize: 20, maxWidth: 800 }}>{changeCategory()}</Item>
+                <QuoteItem>
+                    <QuoteItem variant='contained' sx={{ fontSize: 20 }}>{author}</QuoteItem>
+                    <QuoteItem variant='contained' sx={{ fontFamily: 'Caveat', color: 'darkslategrey', fontSize: 40, fontWeight: 'bold', maxWidth: 800, p: 0 }}>{quote}</QuoteItem>
+                    <QuoteItem variant='contained' sx={{ fontFamily: 'Bitter', fontWeight: 'bold', color: 'slateblue', fontSize: 20, maxWidth: 800 }}>{changeCategory()}</QuoteItem>
                     <br />
-                </Item>
+                </QuoteItem>
                 <Stack direction="row"
                     justifyContent="space-between"
                     alignItems="center"

@@ -1,33 +1,34 @@
 import * as React from 'react';
 import { Stack, Box, Button, Paper, styled, Autocomplete, TextField } from '@mui/material';
 import axios from 'axios';
+import { ColorButton, QuoteItem, linkStyle } from './../../Style/styles';
 
 import NavButtons from '../Layout/NavButtons';
 
 
-const Item = styled(Paper)(({ theme }) => ({
-    backgroundColor: 'oldlace',
-    ...theme.typography.body2,
-    padding: theme.spacing(1),
-    fontFamily: 'Bitter',
-    textAlign: 'left',
-    fontWeight: 'bold',
-    color: 'darkslategrey',
-    maxWidth: 800,
-    minWidth: 200,
-}));
-const ColorButton = styled(Button)(({ theme }) => ({
-    color: 'black',
-    font: 'bold',
-    fontSize: '1.5rem',
-    fontWeight: 'bold',
-    fontFamily: 'Bitter',
-    borderRadius: 25,
-    backgroundColor: "rgb(0, 0, 0,0.09)",
-    '&:hover': {
-        backgroundColor: "rgb(105, 106, 255,0.34)",
-    },
-}));
+// const Item = styled(Paper)(({ theme }) => ({
+//     backgroundColor: 'oldlace',
+//     ...theme.typography.body2,
+//     padding: theme.spacing(1),
+//     fontFamily: 'Bitter',
+//     textAlign: 'left',
+//     fontWeight: 'bold',
+//     color: 'darkslategrey',
+//     maxWidth: 800,
+//     minWidth: 200,
+// }));
+// const ColorButton = styled(Button)(({ theme }) => ({
+//     color: 'black',
+//     font: 'bold',
+//     fontSize: '1.5rem',
+//     fontWeight: 'bold',
+//     fontFamily: 'Bitter',
+//     borderRadius: 25,
+//     backgroundColor: "rgb(0, 0, 0,0.09)",
+//     '&:hover': {
+//         backgroundColor: "rgb(105, 106, 255,0.34)",
+//     },
+// }));
 
 
 const CustomAutoComplete = styled(Autocomplete)(({ theme }) => ({
@@ -88,8 +89,8 @@ export default function SelectVariants() {
                 borderRadius: 10,
                 p: 2,
                 m: 'auto',
-                maxWidth: 800,
-                minWidth: 200,
+                maxWidth: 'fit-content',
+                minWidth: 'fit-content',
                 justifyContent: 'center',
             }}>
                 <Stack spacing={2} direction="row" justifyContent="flex-start" >
@@ -106,10 +107,10 @@ export default function SelectVariants() {
                     <ColorButton onClick={handleClick} sx={{ p: 0 }}> Next Quote</ColorButton>
                 </Stack>
                 <br />
-                <Item>
-                    <Item variant='contained' sx={{ fontSize: 20 }}>{changeGreeting()}</Item>
-                    <Item variant='contained' sx={{ fontFamily: 'Caveat', color: 'darkslategrey', fontSize: 40, p: 0 }}>{quote}</Item>
-                </Item>
+                <QuoteItem>
+                    <QuoteItem variant='contained' sx={{ fontSize: 20 }}>{changeGreeting()}</QuoteItem>
+                    <QuoteItem variant='contained' sx={{ fontFamily: 'Caveat', color: 'darkslategrey', fontSize: 40, p: 0 }}>{quote}</QuoteItem>
+                </QuoteItem>
                 <Stack direction="row"
                     justifyContent="space-evenly"
                     alignItems="center"

@@ -31,3 +31,14 @@ export const Item = styled(Paper)(({ theme }) => ({
     square: false,
     color: 'antiquewhite',
 }));
+export const QuoteItem = styled(Paper)(({ theme }) => ({
+    backgroundColor: 'oldlace',
+    ...theme.typography.body2,
+    padding: theme.spacing(1),
+    fontFamily: 'Bitter',
+    textAlign: 'left',
+    color: 'darkslategrey',
+    fontWeight: 'bold',
+    maxWidth: 800,
+    minWidth: 200,
+}));
