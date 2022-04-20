@@ -16,22 +16,25 @@ import {
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import axios from 'axios';
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import setJWTToken from '../../SecurityUtils/setJWTToken';
+import { ColorButton, linkStyle, Item } from '../../Style/styles';
 // import { GET_ERRORS, SET_CURRENT_USER } from "../../Actions/types";
 // import { login } from '../../Actions/securityActions';
 // import jwt_decode from "jwt-decode";
-import { useHistory } from 'react-router-dom';
-import securityReducer from '../../Reducers/securityReducer';
-import { connect, useDispatch, useSelector } from "react-redux";
-import PropTypes from "prop-types";
-import authService from './../../services/authService';
+// import { useHistory } from 'react-router-dom';
+// import securityReducer from '../../Reducers/securityReducer';
+// import { connect, useDispatch, useSelector } from "react-redux";
+// import PropTypes from "prop-types";
+// import authService from './../../services/authService';
 
 
 export default function Login() {
     const [user, setUser] = useState({ username: '', password: '' });
     // const login = React.useContext(login);
+    const [authenticated, setAuthenticated] = useState(false);
     const [token, setToken] = React.useState('');
+    const navigate = useNavigate();
     // const [state, dispatch] = useReducer(
     //     securityReducer,
     //     {
@@ -55,6 +58,7 @@ export default function Login() {
                 localStorage.setItem("jwtToken", JSON.stringify(response.data));
             }
             setToken(response.data.accessToken);
+            // setAuthenticated(true);  This made it work for a temp authorization
             setJWTToken(response.data.token);
             // dispatch({
             //     type: SET_CURRENT_USER,
@@ -62,7 +66,6 @@ export default function Login() {
             // });
         }).catch(error => {
             if (error.response) {
-
                 // dispatch({
                 //     type: GET_ERRORS,
                 //     payload: error.response.data,
@@ -73,10 +76,19 @@ export default function Login() {
         });
 
     }
-
+    //This just puts title at the tab on browser
     useEffect(() => {
         document.title = user.username;
     });
+
+    // This made it work for a temp authorization
+    // useEffect(() => {
+    //     if (authenticated) {
+    //         navigate('/loginsuccess');
+    //     }
+    // })
+    
+
     const handleClickShowPassword = () => {
         setUser({
             ...user,
@@ -130,16 +142,16 @@ export default function Login() {
                     />
 
                 </FormControl>
-                {/* <div>{state}</div> */}
-                <Link to="/loginsuccess">
-                    <Button
-                        type="submit"
-                        variant="contained"
-                        color="primary"
-                        onClick={onSubmit}>
-                        Submit
-                    </Button>
-                </Link>
+                {/* <Link to="/loginsuccess" style={linkStyle}> */}
+                <ColorButton
+                    type="submit"
+                    variant="contained"
+                    color="primary"
+                    onClick={onSubmit}
+                    sx={{ color: 'antiquewhite', bgcolor: 'cornflowerblue' }}>
+                    Submit
+                </ColorButton>
+                {/* </Link> */}
             </Box>
         </>
     )

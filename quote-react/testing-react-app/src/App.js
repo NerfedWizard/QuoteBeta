@@ -5,7 +5,7 @@
 // import NavButtons from './Component/Layout/NavButtons';
 // import Register from './Component/UserManagement/Register';
 // import Login from './Component/UserManagement/Login';
-import SecureRoute from "./SecurityUtils/SecureRoute";
+import SecureRoute from "./PrivateRoute";
 import { Provider } from "react-redux";
 import setJWTToken from "./SecurityUtils/setJWTToken";
 import store from "./store";
@@ -76,7 +76,7 @@ const logout = () => {
 const Navigation = () => {
     return (
         <nav>
-            <Link to="/landing" style={linkStyle}><ColorButton onClick={logout}>Home</ColorButton></Link>
+            <Link to="/landing" style={linkStyle}><ColorButton onClick={logout}>Home/Logout</ColorButton></Link>
             {/* <Link to="/login">Login</Link>
             <Link to="/register">Register</Link> */}
 
@@ -94,26 +94,26 @@ const App = () => {
 
     return (
 
-        <Box id='gradient-shift' display='flex' width='fit' height='fit' style={{ height: '110vh', margin: 0, padding: 0 }}>
-            <Provider store={store}>
-                <Stack direction="column" justifyContent="flex-end" >
-                    {/* <ColorButton>
+        <Box id='gradient-shift' display='flex' style={{ height: '100vh', margin: 0, padding: 0 }}>
+            {/* <Provider store={store}> */}
+            <Stack direction="column" justifyContent="flex-end" >
+                {/* <ColorButton>
                     Logout
                 </ColorButton> */}
-                    <Navigation />
-                </Stack>
-                <Container sx={{
-                    p: 'auto',
-                    m: 'auto',
-                    // maxWidth: 'fit-content',
-                    // minWidth: 'fit-content',
-                }}><CssBaseline />
-                    <Item variant='contained'>
-                        It's Time For Quotes.....
-                    </Item>
-                    <Outlet />
-                </Container>
-            </Provider>
+                <Navigation />
+            </Stack>
+            <Container sx={{
+                p: 'auto',
+                m: 'auto',
+                // maxWidth: 'fit-content',
+                // minWidth: 'fit-content',
+            }}><CssBaseline />
+                <Item variant='contained'>
+                    It's Time For Quotes.....
+                </Item>
+                <Outlet />
+            </Container>
+            {/* </Provider> */}
         </Box>
     );
 };

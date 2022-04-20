@@ -1,5 +1,6 @@
 import { Button, styled, Stack, Box, Paper } from '@mui/material';
 
+/**Eventually move all styled components to here */
 
 export const linkStyle = {
     // margin: "auto",

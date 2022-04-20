@@ -45,7 +45,7 @@ export default function RandomQuote() {
         history.push({
             author: identifier.data.quoteAuthor, quoted: identifier.data.quoted, category: identifier.data.quoteCategory
         });
-        setCount(history.length - 1);
+        setCount(history.length - 2);
     }
     useEffect(async () => {
         if (isMounted) {

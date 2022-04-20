@@ -49,33 +49,22 @@ public class User implements UserDetails {
 
 //	private String[] favoriteQuoteIDs;
 	private Date created_At;
-	private Date updated_At;
-
-	/*
-	 * This was fun and I think it would work just fine but this other way will show
-	 * off more skills maybe
-	 ***/
-
-//	public void setFavoriteQuoteIDs(String favoriteQuoteID) {
-//		int len = this.favoriteQuoteIDs.length + 1;
-//		String[] tempIncrease = new String[len];
-//		System.arraycopy(this.favoriteQuoteIDs, 0, tempIncrease, 0, len);
-//		this.favoriteQuoteIDs = new String[len];
-//		System.arraycopy(tempIncrease, 0, this.favoriteQuoteIDs, 0, len);
-//	}
-//
-//	public String[] getFavoriteQuoteIDs() {
-//		return this.favoriteQuoteIDs;
-//	}
+//	private Date updated_At;
+	private Date signed_In;
 
 	@PrePersist
 	protected void onCreate() {
 		this.created_At = new Date();
 	}
 
+//	@PostPersist
+//	protected void onUpdate() {
+//		this.updated_At = new Date();
+//	}
+
 	@PostPersist
-	protected void onUpdate() {
-		this.updated_At = new Date();
+	protected void onSignIn() {
+		this.signed_In = new Date();
 	}
 
 	@Override
