@@ -13,11 +13,13 @@ import {
     FormHelperText,
     IconButton
 } from '@mui/material';
+import securityReducer from '../../Reducers/securityReducer';
 // import { useHistory, useNavigate } from 'react-router-dom';
 import { createNewUser } from '../../Actions/securityActions';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import axios from 'axios';
+import { GET_ERRORS, SET_CURRENT_USER } from "../../Actions/types";
 import { Link, useNavigate } from "react-router-dom";
 
 export default function Register() {
@@ -28,28 +30,37 @@ export default function Register() {
         fullName: '',
         password: '',
         confirmPassword: '',
-        errors: {},
+        // errors: {},
     });
+    const [registerState, dispatch] = useReducer(
+        securityReducer,
+        {
+            type: '',
+            payload: {},
+        }
+    );
     const handleChange = (props) => (event) => {
         setNewUser({ ...newUser, [props]: event.target.value });
     };
     async function onSubmit(event) {
         // console.log(JSON.stringify(newUser));
-        await axios
-            .post(`/api/quote/users/register`, newUser)
-            .catch(error => {
-                if (error.response) {
-                    setNewUser({
-                        errors: error.response.data
-                    });
-
-                    console.log(newUser.errors);
-                }
-                // console.log(newUser.errors);
+        try {
+            await axios.post("/api/quote/users/register", newUser);
+            event.history.push("/login");
+            dispatch({
+                type: GET_ERRORS,
+                payload: {},
             });
-        // newUser.history.push("/login");
-        // console.log(newUser.errors.flag);
+        } catch (err) {
+            dispatch({
+                type: GET_ERRORS,
+                payload: err.response.data,
+            });
+        }
     };
+    // newUser.history.push("/login");
+    // console.log(newUser.errors.flag);
+
 
     const handleClickShowPassword = () => {
         setNewUser({

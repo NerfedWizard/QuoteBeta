@@ -3,9 +3,13 @@ import { Button, styled, Stack, Box, Paper } from '@mui/material';
 /**Eventually move all styled components to here */
 
 export const linkStyle = {
-    // margin: "auto",
+    margin: "auto",
     textDecoration: 'none',
-    color: 'green'
+    color: 'purple',
+    fontFamily: 'Hurricane',
+    fontSize: '1.5rem',
+    fontWeight: 'bold',
+    textShadow: '1px 1px 2px rgb(10, 110, 32), 0 0 25px rgb(73, 195, 114),0 0 5px rgb(20, 110, 80) ',
 }
 export const ColorButton = styled(Button)(({ theme }) => ({
     color: 'black',

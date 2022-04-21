@@ -126,18 +126,17 @@ export default function AuthorSelect() {
                         renderInput={(params) => <TextField {...params} label="Author" variant="standard" />} />
                     <ColorButton onClick={handleClick} sx={{ p: 0 }}>Next Quote</ColorButton>
                 </Stack>
-                {/* <br /> */}
+                <br />
                 <QuoteItem>
                     <QuoteItem variant='contained' sx={{ fontSize: 20 }}>{author}</QuoteItem>
                     <QuoteItem variant='contained' sx={{ fontFamily: 'Caveat', color: 'darkslategrey', fontSize: 40, fontWeight: 'bold', maxWidth: 800, p: 0 }}>{quote}</QuoteItem>
                     <QuoteItem variant='contained' sx={{ fontFamily: 'Bitter', fontWeight: 'bold', color: 'slateblue', fontSize: 20, maxWidth: 800 }}>{changeCategory()}</QuoteItem>
-                    <br />
                 </QuoteItem>
                 <Stack direction="row"
                     justifyContent="space-between"
                     alignItems="center"
                     spacing={5}>
-                    {NavButtons('author')}
+                    {/* {NavButtons('author')} */}
                 </Stack>
             </Box>
         </>

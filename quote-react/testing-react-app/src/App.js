@@ -1,26 +1,29 @@
-// import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-// import SelectVariants from './Component/QuoteManagement/CategorySelect';
-// import RandomQuote from './Component/QuoteManagement/RandomQuote';
-// import AuthorSelect from './Component/QuoteManagement/AuthorSelect';
-// import NavButtons from './Component/Layout/NavButtons';
-// import Register from './Component/UserManagement/Register';
-// import Login from './Component/UserManagement/Login';
+import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
+import SelectVariants from './Component/QuoteManagement/CategorySelect';
+import RandomQuote from './Component/QuoteManagement/RandomQuote';
+import AuthorSelect from './Component/QuoteManagement/AuthorSelect';
+import NavButtons from './Component/Layout/NavButtons';
+import Register from './Component/UserManagement/Register';
+import Login from './Component/UserManagement/Login';
 import SecureRoute from "./PrivateRoute";
 import { Provider } from "react-redux";
 import setJWTToken from "./SecurityUtils/setJWTToken";
 import store from "./store";
 // import { logout } from "./Actions/securityActions";
-import { SET_CURRENT_USER } from "./Actions/types";
-// import Landing from './Component/Layout/Landing';
-import AuthService from './services/authService';
+// import { SET_CURRENT_USER } from "./Actions/types";
+import Landing from './Component/Landing';
+// import AuthService from './services/authService';
 import React from 'react';
 import { Box, Container, CssBaseline, Paper, styled, Button, Stack, Alert } from '@mui/material';
 import './App.css';
 import { Outlet, Link } from "react-router-dom";
 import jwt_decode from "jwt-decode";
-import { linkStyle } from './Style/styles';
-import { Item, ColorButton } from './Style/styles';
+import { AuthContext, useAuth } from "./Context/auth";
+
+import { Item, ColorButton, linkStyle } from './Style/styles';
 import useStateHistory from './services/useStateHistory';
+import PrivateRoute from './PrivateRoute';
+import NavBar from './Component/Layout/NavBar';
 // import logout from "./Component/Layout/Landing";
 
 
@@ -51,18 +54,15 @@ import useStateHistory from './services/useStateHistory';
 // }));
 const jwtToken = localStorage.jwtToken;
 
+
 if (jwtToken) {
     setJWTToken(jwtToken);
     const decoded_jwtToken = jwt_decode(jwtToken);
-    store.dispatch({
-        type: SET_CURRENT_USER,
-        payload: decoded_jwtToken,
-    });
 
     const currentTime = Date.now() / 1000;
     if (decoded_jwtToken.exp < currentTime) {
-        store.dispatch(logout());
-        window.location.href = "/quote/landing";
+        logout();
+        window.location.href = "/login";
     }
 };
 const logout = () => {
@@ -73,48 +73,64 @@ const logout = () => {
     // console.log('LocalStorage Removed ', localStorage.jwtToken);
 };
 
-const Navigation = () => {
-    return (
-        <nav>
-            <Link to="/landing" style={linkStyle}><ColorButton onClick={logout}>Home/Logout</ColorButton></Link>
-            {/* <Link to="/login">Login</Link>
-            <Link to="/register">Register</Link> */}
+// const Navigation = () => {
+//     return (
+//         <nav>
+//             
+//             <Link to="/login">Login</Link>
+//             <Link to="/register">Register</Link>
 
-            {/* Secure Routes */}
+//             {/* Secure Routes */}
 
-            {/* <Link to="/loginsuccess">Login Success</Link>
-            <Link to="/random">Random</Link>
-            <Link to="/category">Category</Link>
-            <Link to="/author">Author</Link> */}
-        </nav>
-    );
-}
+//             <Link to="/loginsuccess">Login Success</Link>
+//             <Link to="/random">Random</Link>
+//             <Link to="/category">Category</Link>
+//             <Link to="/author">Author</Link>
+//         </nav>
+//     );
+// }
 
 const App = () => {
 
     return (
+        <>
 
-        <Box id='gradient-shift' display='flex' style={{ height: '100vh', margin: 0, padding: 0 }}>
             {/* <Provider store={store}> */}
-            <Stack direction="column" justifyContent="flex-end" >
-                {/* <ColorButton>
-                    Logout
-                </ColorButton> */}
-                <Navigation />
-            </Stack>
-            <Container sx={{
-                p: 'auto',
-                m: 'auto',
-                // maxWidth: 'fit-content',
-                // minWidth: 'fit-content',
-            }}><CssBaseline />
-                <Item variant='contained'>
-                    It's Time For Quotes.....
-                </Item>
-                <Outlet />
-            </Container>
-            {/* </Provider> */}
-        </Box>
+            <BrowserRouter>
+                {/* <Provider store={store}> */}
+                <Box id='gradient-shift' display='flex' style={{ height: '100vh', margin: 0, padding: 0 }} >
+                    <Container width='fit-content' height='fit-content'>
+                        <CssBaseline />
+                        <NavBar />
+                        {/* <Item variant='contained' sx={{ fontweight: 'bold', textShadow: '1px 1px 2px rgb(117, 31, 64), 0 0 25px rgb(255, 77, 86),0 0 5px rgb(202, 173, 77)', color: 'black' }}>
+                            It's Time For Quotes.....
+                        </Item> */}
+                        <Box sx={{ m: 20, p: 'auto' }}>
+                            <Routes>
+                                {
+                                    //Public Routes
+                                }
+                                <Route exact path='/' element={<Landing />} />
+                                <Route exact path='login' element={<Login />} />
+                                <Route exact path='register' element={<Register />} />
+                                <Route path='*' element={<Navigate to="/" replace />} />
+                                {
+                                    //Private Routes
+                                }
+                                <Route exact path='/' element={<PrivateRoute />}>
+                                    <Route exact path='loginsuccess' element={<NavButtons />} />
+                                    <Route path='random' element={<RandomQuote />} />
+                                    <Route path='category' element={<SelectVariants />} />
+                                    <Route path='author' element={<AuthorSelect />} />
+                                </Route>
+                            </Routes>
+                        </Box>
+                    </Container>
+                </Box>
+                {/* </Provider> */}
+            </BrowserRouter>
+
+        </>
     );
 };
 export default App;

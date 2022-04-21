@@ -19,20 +19,22 @@ import axios from 'axios';
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import setJWTToken from '../../SecurityUtils/setJWTToken';
 import { ColorButton, linkStyle, Item } from '../../Style/styles';
-// import { GET_ERRORS, SET_CURRENT_USER } from "../../Actions/types";
+import { useAuth } from './../../Context/auth';
+import { GET_ERRORS, SET_CURRENT_USER } from "../../Actions/types";
 // import { login } from '../../Actions/securityActions';
-// import jwt_decode from "jwt-decode";
+import jwt_decode from "jwt-decode";
 // import { useHistory } from 'react-router-dom';
-// import securityReducer from '../../Reducers/securityReducer';
-// import { connect, useDispatch, useSelector } from "react-redux";
-// import PropTypes from "prop-types";
+import securityReducer from '../../Reducers/securityReducer';
+import { connect, useDispatch, useSelector } from "react-redux";
+import PropTypes from "prop-types";
 // import authService from './../../services/authService';
 
 
 export default function Login() {
     const [user, setUser] = useState({ username: '', password: '' });
     // const login = React.useContext(login);
-    const [authenticated, setAuthenticated] = useState(false);
+    // const { setAuthToken } = useAuth();
+    // const { setAuth } = useAuth();
     const [token, setToken] = React.useState('');
     const navigate = useNavigate();
     // const [state, dispatch] = useReducer(
@@ -50,6 +52,8 @@ export default function Login() {
     //     const auth = authService();
     //     auth.login(user.username, user.password);
     // }
+    let location = window.location.href;
+    let from = location.state?.from?.pathname || '/';
     async function onSubmit(event) {
         // try {
 
@@ -58,8 +62,12 @@ export default function Login() {
                 localStorage.setItem("jwtToken", JSON.stringify(response.data));
             }
             setToken(response.data.accessToken);
+            // setAuthToken(user);
+            // setAuth(user);
+            // isAuthenticated(true);
             // setAuthenticated(true);  This made it work for a temp authorization
             setJWTToken(response.data.token);
+            navigate(from, { replace: true });
             // dispatch({
             //     type: SET_CURRENT_USER,
             //     payload: jwt_decode(response.data.token),
@@ -83,11 +91,11 @@ export default function Login() {
 
     // This made it work for a temp authorization
     // useEffect(() => {
-    //     if (authenticated) {
+    //     if (authenticate) {
     //         navigate('/loginsuccess');
     //     }
     // })
-    
+
 
     const handleClickShowPassword = () => {
         setUser({
@@ -156,15 +164,16 @@ export default function Login() {
         </>
     )
 }
-// Login.propTypes = {
-//     login: PropTypes.func.isRequired,
-//     errors: PropTypes.object.isRequired
+// Login.propTypes = (state) => {
+//     type: PropTypes.func.isRequired,
+//         errors: PropTypes.object.isRequired
 // };
+
+
+
+//Kinda Working really go through security tomorrow
 
 // const mapStateToProps = (props) => (user) => ({
 //     errors: user.errors
 // });
-// export default connect(
-//     mapStateToProps,
-//     { login }
-// )(Login);
+// export default connect(mapStateToProps)(Login);

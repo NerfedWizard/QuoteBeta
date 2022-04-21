@@ -115,7 +115,7 @@ export default function SelectVariants() {
                     justifyContent="space-evenly"
                     alignItems="center"
                     spacing={5}>
-                    {NavButtons('category')}
+                    {/* {NavButtons('category')} */}
                 </Stack>
             </Box>
         </>

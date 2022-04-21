@@ -89,7 +89,7 @@ export default function RandomQuote() {
                     <QuoteItem variant='contained' sx={{ fontFamily: 'Caveat', fontSize: 40, p: 0 }}>{quoteData.quoted}</QuoteItem>
                     <QuoteItem variant='contained' sx={{ color: 'lightpink', fontSize: 20 }}>{quoteData.category}</QuoteItem>
                 </QuoteItem>
-                {NavButtons('random')}
+                {/* {NavButtons('random')} */}
             </Box>
         </>
     );

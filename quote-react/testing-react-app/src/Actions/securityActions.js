@@ -6,13 +6,13 @@
 // import securityReducer from './../Reducers/securityReducer';
 
 // export const createNewUser = (newUser, history) => async () => {
-//     const [registerState, dispatch] = useReducer(
-//         securityReducer,
-//         {
-//             type: '',
-//             payload: {},
-//         }
-//     );
+    // const [registerState, dispatch] = useReducer(
+    //     securityReducer,
+    //     {
+    //         type: '',
+    //         payload: {},
+    //     }
+    // );
 //     try {
 //         await axios.post("/api/quote/users/register", newUser);
 //         history.push("/login");
