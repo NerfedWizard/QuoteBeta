@@ -19,15 +19,9 @@ import axios from 'axios';
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import setJWTToken from '../../SecurityUtils/setJWTToken';
 import { ColorButton, linkStyle, Item } from '../../Style/styles';
-import { useAuth } from './../../Context/auth';
-import { GET_ERRORS, SET_CURRENT_USER } from "../../Actions/types";
-// import { login } from '../../Actions/securityActions';
 import jwt_decode from "jwt-decode";
-// import { useHistory } from 'react-router-dom';
-import securityReducer from '../../Reducers/securityReducer';
-import { connect, useDispatch, useSelector } from "react-redux";
-import PropTypes from "prop-types";
-// import authService from './../../services/authService';
+
+
 
 
 export default function Login() {
@@ -62,48 +56,25 @@ export default function Login() {
                 localStorage.setItem("jwtToken", JSON.stringify(response.data));
             }
             setToken(response.data.accessToken);
-            // setAuthToken(user);
-            // setAuth(user);
-            // isAuthenticated(true);
-            // setAuthenticated(true);  This made it work for a temp authorization
             setJWTToken(response.data.token);
             navigate(from, { replace: true });
-            // dispatch({
-            //     type: SET_CURRENT_USER,
-            //     payload: jwt_decode(response.data.token),
-            // });
         }).catch(error => {
             if (error.response) {
-                // dispatch({
-                //     type: GET_ERRORS,
-                //     payload: error.response.data,
-                // });
 
             }
 
         });
 
     }
-    //This just puts title at the tab on browser
     useEffect(() => {
         document.title = user.username;
     });
-
-    // This made it work for a temp authorization
-    // useEffect(() => {
-    //     if (authenticate) {
-    //         navigate('/loginsuccess');
-    //     }
-    // })
-
-
     const handleClickShowPassword = () => {
         setUser({
             ...user,
             showPassword: !user.showPassword,
         });
     };
-
     const handleMouseDownPassword = (event) => {
         event.preventDefault();
     };
@@ -111,23 +82,23 @@ export default function Login() {
         // console.log(event.key);
         if (event.key === 'Enter') {
             onSubmit(event);
-            // login(user);
+
         }
-        // console.log(user.errors)
     };
     return (
         <>
             <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-                <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">
+                <FormControl sx={{ m: 1, width: '30ch' }} variant="outlined">
                     <InputLabel htmlFor="standard-adornment-username">Username</InputLabel>
                     <OutlinedInput
                         id='outlined-adornment-username'
                         value={user.username}
                         onChange={handleChange('username')}
                         label="Username"
+                        sx={{borderRadius:15}}
                     />
                 </FormControl>
-                <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">
+                <FormControl sx={{ m: 1, width: '30ch' }} variant="outlined">
                     <InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
                     <OutlinedInput
                         id="outlined-adornment-password"
@@ -136,6 +107,7 @@ export default function Login() {
                         type={user.showPassword ? 'text' : 'password'}
                         label="Password"
                         onKeyPress={(event) => keyPress(event)}
+                        sx={{ borderRadius: 15 }}
                         endAdornment={
                             <InputAdornment position="end">
                                 <IconButton
@@ -148,32 +120,16 @@ export default function Login() {
                             </InputAdornment>
                         }
                     />
-
                 </FormControl>
-                {/* <Link to="/loginsuccess" style={linkStyle}> */}
                 <ColorButton
                     type="submit"
                     variant="contained"
                     color="primary"
                     onClick={onSubmit}
-                    sx={{ color: 'antiquewhite', bgcolor: 'cornflowerblue' }}>
+                    sx={{ color: 'antiquewhite', bgcolor: 'cornflowerblue', height: 35, alignSelf: 'center' }}>
                     Submit
                 </ColorButton>
-                {/* </Link> */}
             </Box>
         </>
     )
 }
-// Login.propTypes = (state) => {
-//     type: PropTypes.func.isRequired,
-//         errors: PropTypes.object.isRequired
-// };
-
-
-
-//Kinda Working really go through security tomorrow
-
-// const mapStateToProps = (props) => (user) => ({
-//     errors: user.errors
-// });
-// export default connect(mapStateToProps)(Login);

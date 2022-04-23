@@ -14,7 +14,7 @@ export const linkStyle = {
 export const ColorButton = styled(Button)(({ theme }) => ({
     color: 'black',
     font: 'bold',
-    fontSize: '1.5rem',
+    fontSize: '1.0rem',
     fontWeight: 'bold',
     fontFamily: 'Bitter',
     borderRadius: 25,
@@ -44,6 +44,7 @@ export const QuoteItem = styled(Paper)(({ theme }) => ({
     textAlign: 'left',
     color: 'darkslategrey',
     fontWeight: 'bold',
+    borderRadius: 25,
     maxWidth: 800,
     minWidth: 200,
 }));

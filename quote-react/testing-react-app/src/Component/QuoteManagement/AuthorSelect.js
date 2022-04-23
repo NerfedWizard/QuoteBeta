@@ -1,43 +1,16 @@
 import React from 'react'
 import { useState } from 'react';
-import { styled, Box, Paper, CssBaseline, Button, Stack, Autocomplete, TextField } from '@mui/material';
-// import { ColorButton } from './CustomButtons'; 
+import { styled, Box, Paper, CssBaseline, Button, Stack, Autocomplete, TextField } from '@mui/material'; 
 import NavButtons from '../Layout/NavButtons';
 import { ColorButton, linkStyle, QuoteItem } from './../../Style/styles';
 
 
-
-// const ColorButton = styled(Button)(({ theme }) => ({
-//     color: 'black',
-//     font: 'bold',
-//     fontSize: '1.5rem',
-//     fontWeight: 'bold',
-//     fontFamily: 'Bitter',
-//     borderRadius: 25,
-//     backgroundColor: "rgb(0, 0, 0,0.09)",
-//     '&:hover': {
-//         backgroundColor: "rgb(105, 106, 255,0.34)",
-//     },
-// }));
-// const Item = styled(Paper)(({ theme }) => ({
-//     backgroundColor: 'oldlace',
-//     ...theme.typography.body2,
-//     padding: theme.spacing(1),
-//     fontFamily: 'Bitter',
-//     textAlign: 'left',
-//     color: 'darkslategrey',
-//     // borderRadius: 25,
-//     fontWeight: 'bold',
-//     maxWidth: 800,
-//     minWidth: 200,
-// }));
 const CustomInput = styled(Autocomplete)(({ theme }) => ({
     color: "cyan",
     backgroundColor: "azure",
     maxWidth: 575,
     minWidth: 300,
     fontWeight: 'bold',
-    // borderRadius: 25,
     fontFamily: 'Caveat',
     '&:hover': {
         backgroundColor: "lightgreen",
@@ -123,7 +96,9 @@ export default function AuthorSelect() {
                         isOptionEqualToValue={(option, value) => option.value === value.value}
                         selectOnFocus
                         options={authors.sort()}
-                        renderInput={(params) => <TextField {...params} label="Author" variant="standard" />} />
+                        renderInput={(params) => <TextField {...params} label="Author" variant="standard" />}
+                        sx={{ borderRadius: 2 }}
+                    />
                     <ColorButton onClick={handleClick} sx={{ p: 0 }}>Next Quote</ColorButton>
                 </Stack>
                 <br />
@@ -142,7 +117,6 @@ export default function AuthorSelect() {
         </>
     );
 }
-
 const authors = [
     "Dr. Seuss",
     "Marilyn Monroe",

@@ -1,7 +1,9 @@
+import jwtDecode from "jwt-decode";
 export default function authHeader() {
-    const user = JSON.parse(localStorage.getItem('user'));
+    const user = jwtDecode(localStorage.getItem('user'));
 
     if (user && user.accessToken) {
+        console.log(user);
         return { 'Authorization': user.accessToken };
     } else {
         return {};

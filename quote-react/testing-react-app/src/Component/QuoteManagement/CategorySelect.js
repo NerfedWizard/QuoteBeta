@@ -6,29 +6,7 @@ import { ColorButton, QuoteItem, linkStyle } from './../../Style/styles';
 import NavButtons from '../Layout/NavButtons';
 
 
-// const Item = styled(Paper)(({ theme }) => ({
-//     backgroundColor: 'oldlace',
-//     ...theme.typography.body2,
-//     padding: theme.spacing(1),
-//     fontFamily: 'Bitter',
-//     textAlign: 'left',
-//     fontWeight: 'bold',
-//     color: 'darkslategrey',
-//     maxWidth: 800,
-//     minWidth: 200,
-// }));
-// const ColorButton = styled(Button)(({ theme }) => ({
-//     color: 'black',
-//     font: 'bold',
-//     fontSize: '1.5rem',
-//     fontWeight: 'bold',
-//     fontFamily: 'Bitter',
-//     borderRadius: 25,
-//     backgroundColor: "rgb(0, 0, 0,0.09)",
-//     '&:hover': {
-//         backgroundColor: "rgb(105, 106, 255,0.34)",
-//     },
-// }));
+
 
 
 const CustomAutoComplete = styled(Autocomplete)(({ theme }) => ({
@@ -103,7 +81,9 @@ export default function SelectVariants() {
                         isOptionEqualToValue={(option, value) => option.value === value.value}
                         selectOnFocus
                         options={qCategory.sort()}
-                        renderInput={(params) => <TextField {...params} label="Category" variant="standard" />} />
+                        renderInput={(params) => <TextField {...params} label="Category" variant="standard" />}
+                        sx={{ borderRadius: 2 }}
+                    />
                     <ColorButton onClick={handleClick} sx={{ p: 0 }}> Next Quote</ColorButton>
                 </Stack>
                 <br />

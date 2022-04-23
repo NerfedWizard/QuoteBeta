@@ -13,13 +13,11 @@ import {
     FormHelperText,
     IconButton
 } from '@mui/material';
-import securityReducer from '../../Reducers/securityReducer';
-// import { useHistory, useNavigate } from 'react-router-dom';
-import { createNewUser } from '../../Actions/securityActions';
+
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import axios from 'axios';
-import { GET_ERRORS, SET_CURRENT_USER } from "../../Actions/types";
+import { ColorButton } from '../../Style/styles';
 import { Link, useNavigate } from "react-router-dom";
 
 export default function Register() {
@@ -32,13 +30,7 @@ export default function Register() {
         confirmPassword: '',
         // errors: {},
     });
-    const [registerState, dispatch] = useReducer(
-        securityReducer,
-        {
-            type: '',
-            payload: {},
-        }
-    );
+
     const handleChange = (props) => (event) => {
         setNewUser({ ...newUser, [props]: event.target.value });
     };
@@ -47,21 +39,11 @@ export default function Register() {
         try {
             await axios.post("/api/quote/users/register", newUser);
             event.history.push("/login");
-            dispatch({
-                type: GET_ERRORS,
-                payload: {},
-            });
+
         } catch (err) {
-            dispatch({
-                type: GET_ERRORS,
-                payload: err.response.data,
-            });
+
         }
     };
-    // newUser.history.push("/login");
-    // console.log(newUser.errors.flag);
-
-
     const handleClickShowPassword = () => {
         setNewUser({
             ...newUser,
@@ -96,28 +78,29 @@ export default function Register() {
     // }
     return (
         <>
-            <Box
-                sx={{ display: 'flex', justifyContent: 'center' }}>
-                <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">
+            <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                <FormControl sx={{ m: 1, width: '30ch' }} variant="outlined">
                     <InputLabel htmlFor="standard-adornment-username">Username</InputLabel>
                     <OutlinedInput
                         id='outlined-adornment-username'
                         value={newUser.username}
                         onChange={handleChange('username')}
                         label="Username"
+                        sx={{ borderRadius: 15 }}
                     />
                 </FormControl>
-                <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">
+                <FormControl sx={{ m: 1, width: '30ch' }} variant="outlined">
                     <InputLabel htmlFor="standard-adornment-fullName">Fullname</InputLabel>
                     <OutlinedInput
                         id='outlined-adornment-fullname'
                         value={newUser.fullName}
                         onChange={handleChange('fullName')}
                         label="fullName"
+                        sx={{ borderRadius: 15 }}
                     />
                 </FormControl>
 
-                <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">
+                <FormControl sx={{ m: 1, width: '30ch' }} variant="outlined">
                     <InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
                     <OutlinedInput
                         id="outlined-adornment-password"
@@ -125,6 +108,7 @@ export default function Register() {
                         onChange={handleChange('password')}
                         type={newUser.showPassword ? 'text' : 'password'}
                         label="Password"
+                        sx={{ borderRadius: 15 }}
                         endAdornment={
                             <InputAdornment position="end">
                                 <IconButton
@@ -138,7 +122,7 @@ export default function Register() {
                         }
                     />
                 </FormControl>
-                <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">
+                <FormControl sx={{ m: 1, width: '30ch' }} variant="outlined">
                     <InputLabel htmlFor="standard-adornment-confirmPassword">Confirm Password</InputLabel>
                     <OutlinedInput
                         id="outlined-adornment-confirmPassword"
@@ -146,6 +130,7 @@ export default function Register() {
                         onChange={handleChange('confirmPassword')}
                         type={newUser.showConfirmPassword ? 'text' : 'password'}
                         label="Confirm Password"
+                        sx={{ borderRadius: 15 }}
                         endAdornment={
                             <InputAdornment position="end">
                                 <IconButton
@@ -159,7 +144,14 @@ export default function Register() {
                         }
                     />
                 </FormControl>
-                <Button type="submit" variant="contained" color="primary" onClick={callSubmit}>Submit</Button>
+                <ColorButton
+                    type="submit"
+                    variant="contained"
+                    color="primary"
+                    onClick={callSubmit}
+                    sx={{ color: 'antiquewhite', bgcolor: 'cornflowerblue', height: 35, alignSelf: 'center'}}>
+                    Submit
+                </ColorButton>
             </Box>
         </>
     )

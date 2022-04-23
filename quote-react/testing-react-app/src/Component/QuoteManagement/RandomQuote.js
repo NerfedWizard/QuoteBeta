@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import NavButtons from '../Layout/NavButtons';
 import RandomNumber from './../../Actions/RandomNumber';
 // import useStateHistory from 'use-state-history'
-import useStateHistory from '../../services/useStateHistory';
+// import useStateHistory from '../../services/useStateHistory';
 import { linkStyle, ColorButton, QuoteItem } from '../../Style/styles';
 
 
@@ -34,7 +34,7 @@ export default function RandomQuote() {
 
 
     const loadData = async () => {
-        await sleep(500);
+        // await sleep(500);
         const response = await axios.get(`/api/quote/${ident}`);
         setQuoteData({ author: response.data.quoteAuthor, quoted: response.data.quoted, category: response.data.quoteCategory });
         history.push({ author: response.data.quoteAuthor, quoted: response.data.quoted, category: response.data.quoteCategory });

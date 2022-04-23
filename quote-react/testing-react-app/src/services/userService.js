@@ -1,22 +1,22 @@
-import axios from 'axios';
-import authHeader from './authHeader';
+// import axios from 'axios';
+// import authHeader from './authHeader';
 
 
-const SERVER_URL = "http://localhost:3000/";
+// const SERVER_URL = "http://localhost:3000/";
 
-//This looks like maybe I should access my components from here
+// //This looks like maybe I should access my components from here
 
-export default function UserService() {
+// export default function UserService() {
 
-    async function getQuotesByAuthor(author) {
-        return axios.get(API_URL + '/author', { headers: authHeader() });
-    }
-    async function getQuotesByCategory(category) {
-        return axios.get(API_URL + '/category', { headers: authHeader() });
-    }
-    async function getRandomQuote(ranNum) {
-        return axios.get(API_URL + '/', { headers: authHeader() });
-    }
-}
+//     async function getQuotesByAuthor(author) {
+//         return axios.get(API_URL + '/author', { headers: authHeader() });
+//     }
+//     async function getQuotesByCategory(category) {
+//         return axios.get(API_URL + '/category', { headers: authHeader() });
+//     }
+//     async function getRandomQuote(ranNum) {
+//         return axios.get(API_URL + '/', { headers: authHeader() });
+//     }
+// }
 
-export default new UserService();
+// export default new UserService();
