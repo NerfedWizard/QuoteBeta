@@ -4,7 +4,9 @@ import MenuIcon from '@mui/icons-material/Menu';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import { Link, Navigate, useNavigate, NavLink, Outlet } from 'react-router-dom';
 import { linkStyle } from './../../Style/styles';
-import setJWTToken from './../../SecurityUtils/setJWTToken';
+import useAuth from './../../Hooks/useAuth';
+
+// import setJWTToken from './../../SecurityUtils/setJWTToken';
 
 
 const pages = [
@@ -14,7 +16,7 @@ const pages = [
 ];
 
 export default function NavBar() {
-    const [auth, setAuth] = React.useState(true);
+    const { auth, setAuth } = useAuth();
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const navigate = useNavigate();
@@ -28,10 +30,8 @@ export default function NavBar() {
         setAnchorEl(event.currentTarget);
     };
     const handleLogout = () => {
-        setAuth(false);
-        setAnchorEl(null);
-        localStorage.removeItem("user");
-        setJWTToken(false);
+        setAuth('');
+        navigate('/');
     };
     const handleHome = () => {
         setAnchorEl(null);

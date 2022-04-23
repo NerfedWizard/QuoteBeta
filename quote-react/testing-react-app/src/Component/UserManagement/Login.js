@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext, useReducer } from 'react';
+import React, { useState, useEffect, useContext, useReducer, useRef } from 'react';
 import {
     Stack,
     TextField,
@@ -15,60 +15,46 @@ import {
 } from '@mui/material';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
+// import axios from 'axios';
+import useAuth from './../../Hooks/useAuth';
 import axios from 'axios';
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate, useLocation } from "react-router-dom";
 import setJWTToken from '../../SecurityUtils/setJWTToken';
 import { ColorButton, linkStyle, Item } from '../../Style/styles';
 import jwt_decode from "jwt-decode";
 
 
-
+// const LOGIN_URL = '/users/login';
 
 export default function Login() {
     const [user, setUser] = useState({ username: '', password: '' });
-    // const login = React.useContext(login);
-    // const { setAuthToken } = useAuth();
-    // const { setAuth } = useAuth();
-    const [token, setToken] = React.useState('');
+    const [errors, setErrors] = useState({});
+    const { auth, setAuth } = useAuth();
+    const [errMsg, setErrMsg] = useState('');
+    const [counter, setCounter] = useState(0);
     const navigate = useNavigate();
-    // const [state, dispatch] = useReducer(
-    //     securityReducer,
-    //     {
-    //         type: '',
-    //         payload: {},
-    //     }
-    // );
-    const handleChange = (props) => (event) => {
-        setUser({ ...user, [props]: event.target.value });
+    const location = useLocation();
+    const from = location.state?.from?.pathname || "/";
 
-    };
-    // async function onSubmit(event) {
-    //     const auth = authService();
-    //     auth.login(user.username, user.password);
-    // }
-    let location = window.location.href;
-    let from = location.state?.from?.pathname || '/';
-    async function onSubmit(event) {
-        // try {
+    const userRef = useRef();
+    const errRef = useRef();
 
-        await axios.post(`/api/quote/users/login`, user).then(response => {
-            if (response.data.accessToken) {
-                localStorage.setItem("jwtToken", JSON.stringify(response.data));
-            }
-            setToken(response.data.accessToken);
-            setJWTToken(response.data.token);
-            navigate(from, { replace: true });
-        }).catch(error => {
-            if (error.response) {
+    // useEffect(() => {
+    //     userRef.current.focus();
+    // }, []);
 
-            }
+    // useEffect(() => {
+    //     setUser({ ...user, errors: ' ' });
+    // }, [user.username, user.password]);
 
-        });
-
-    }
     useEffect(() => {
         document.title = user.username;
     });
+
+    const handleChange = (props) => (event) => {
+        setUser({ ...user, [props]: event.target.value });
+    };
+
     const handleClickShowPassword = () => {
         setUser({
             ...user,
@@ -82,9 +68,59 @@ export default function Login() {
         // console.log(event.key);
         if (event.key === 'Enter') {
             onSubmit(event);
-
         }
     };
+
+    async function onSubmit(event) {
+        event.preventDefault();
+
+        const response = await axios.post(`/api/quote/users/login`, user).then(response => {
+            if (response.data.accessToken) {
+                localStorage.setItem("jwtToken", JSON.stringify(response.data));
+            };
+            // setToken(response.data.accessToken);
+            setAuth(user, response.data.accessToken);
+            console.log(JSON.stringify(response.data.id));
+            setJWTToken(response.data.token);
+            navigate(from, { replace: true });
+        }).catch(error => {
+            if (error.response) {
+                setErrMsg(response.data.errors);
+            }
+        });
+        // } catch (err) {
+        //     if (!err.response) {
+        //         // setUser({ errors: err?.response });
+        //         setErrMsg(err.response.data);
+        //         console.log(errMsg);
+        //     } else if (err.response.status === 400) {
+        //         setErrMsg('Missing Username or Password');
+        //     } else if (err.response.status === 401) {
+        //         setErrMsg('Unauthorized');
+        //     } else {
+        //         setErrMsg('Login Failed');
+        //     }
+        //     // errRef.current.focus();
+        // }
+    }
+
+    // await axios.post(`/api/quote/users/login`, user).then(response => {
+    //     if (response.data.accessToken) {
+    //         localStorage.setItem("jwtToken", JSON.stringify(response.data));
+    //     }
+    //     setToken(response.data.accessToken);
+    //     setJWTToken(response.data.token);
+    //     navigate(from, { replace: true });
+    // }).catch(error => {
+    //     if (error.response) {
+
+    //     }
+
+    //     });
+
+    // }
+
+
     return (
         <>
             <Box sx={{ display: 'flex', justifyContent: 'center' }}>
@@ -95,7 +131,7 @@ export default function Login() {
                         value={user.username}
                         onChange={handleChange('username')}
                         label="Username"
-                        sx={{borderRadius:15}}
+                        sx={{ borderRadius: 15 }}
                     />
                 </FormControl>
                 <FormControl sx={{ m: 1, width: '30ch' }} variant="outlined">
@@ -121,6 +157,7 @@ export default function Login() {
                         }
                     />
                 </FormControl>
+                {/* <Item>{errRef}</Item> */}
                 <ColorButton
                     type="submit"
                     variant="contained"
@@ -129,6 +166,7 @@ export default function Login() {
                     sx={{ color: 'antiquewhite', bgcolor: 'cornflowerblue', height: 35, alignSelf: 'center' }}>
                     Submit
                 </ColorButton>
+                {auth ? <Navigate to="/loginsuccess" /> : null}
             </Box>
         </>
     )

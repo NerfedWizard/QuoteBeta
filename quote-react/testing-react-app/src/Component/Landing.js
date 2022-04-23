@@ -3,7 +3,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { Button, styled, Stack, Box } from '@mui/material';
-import setJWTToken from '../SecurityUtils/setJWTToken';
+// import setJWTToken from '../SecurityUtils/setJWTToken';
 import { linkStyle } from "../Style/styles";
 
 const ColorButton = styled(Button)(({ theme }) => ({
@@ -20,10 +20,13 @@ const ColorButton = styled(Button)(({ theme }) => ({
         focusRipple: true,
     },
 }));
-export const logout = () => {
-    localStorage.removeItem("jwtToken");
-    setJWTToken(false);
-};
+//TODO:Takeout maybe
+// export const logout = () => {
+//     localStorage.removeItem("jwtToken");
+//     setJWTToken(false);
+// };
+
+//TODO: Change name to something maybe public idk
 export default function Landing() {
     return (
         <>
