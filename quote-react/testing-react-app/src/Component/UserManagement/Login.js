@@ -18,13 +18,14 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 // import axios from 'axios';
 import useAuth from './../../Hooks/useAuth';
 import axios from 'axios';
+// import axios from './../../SecurityUtils/axios';
 import { Link, Navigate, useNavigate, useLocation } from "react-router-dom";
 import setJWTToken from '../../SecurityUtils/setJWTToken';
 import { ColorButton, linkStyle, Item } from '../../Style/styles';
 import jwt_decode from "jwt-decode";
 
 
-// const LOGIN_URL = '/users/login';
+const LOGIN_URL = 'api/quote/users/login';
 
 export default function Login() {
     const [user, setUser] = useState({ username: '', password: '' });
@@ -73,36 +74,50 @@ export default function Login() {
 
     async function onSubmit(event) {
         event.preventDefault();
-
-        const response = await axios.post(`/api/quote/users/login`, user).then(response => {
-            if (response.data.accessToken) {
-                localStorage.setItem("jwtToken", JSON.stringify(response.data));
-            };
-            // setToken(response.data.accessToken);
-            setAuth(user, response.data.accessToken);
-            console.log(JSON.stringify(response.data.id));
-            setJWTToken(response.data.token);
-            navigate(from, { replace: true });
-        }).catch(error => {
-            if (error.response) {
-                setErrMsg(response.data.errors);
+        try {
+            const signin = JSON.stringify(user);
+            const response = await axios.post(LOGIN_URL, user);
+            // var token = jwt_decode(response.data);
+            console.log(response.data);
+            localStorage.setItem('jwtToken', response.data.token);
+            console.log(localStorage.getItem('jwtToken'));
+            var token = jwt_decode(response.data.token);
+            setAuth(user.username, user.password, token);
+            console.log({ auth });
+        } catch (err) {
+            if (err.response.status) {
+                // setUser({ errors: err?.response });
+                setErrMsg('err.response.data.message');
+                console.log(errMsg);
+            } else if (err.response.status === 400) {
+                setErrMsg('Missing Username or Password');
+            } else if (err.response.status === 401) {
+                setErrMsg('Unauthorized');
+            } else {
+                setErrMsg('Login Failed');
             }
-        });
-        // } catch (err) {
-        //     if (!err.response) {
-        //         // setUser({ errors: err?.response });
-        //         setErrMsg(err.response.data);
-        //         console.log(errMsg);
-        //     } else if (err.response.status === 400) {
-        //         setErrMsg('Missing Username or Password');
-        //     } else if (err.response.status === 401) {
-        //         setErrMsg('Unauthorized');
-        //     } else {
-        //         setErrMsg('Login Failed');
-        //     }
-        //     // errRef.current.focus();
-        // }
-    }
+        }
+    };
+    //     .then(response => {
+    //     if (response.data.accessToken) {
+    //         console.log('made it here');
+    //         localStorage.setItem("jwtToken", JSON.stringify(response.data));
+    //         setAuth(user.username, user.password, response.data.accessToken);
+    //         // setToken(response.data.accessToken);
+    //         setJWTToken(response.data.token);
+    //         navigate(from, { replace: true });
+    //     };
+
+    // }).catch(error => {
+    //     if (error.response) {
+    //         setErrMsg(response.data.errors);
+    //         console.log(errMsg);
+    //     }
+    // });
+    // } 
+    //     // errRef.current.focus();
+    // }
+
 
     // await axios.post(`/api/quote/users/login`, user).then(response => {
     //     if (response.data.accessToken) {

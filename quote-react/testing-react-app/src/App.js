@@ -23,39 +23,39 @@ const App = () => {
     return (
         <>
             {/* <AuthContext value={auth}> */}
-                <BrowserRouter>
-                    <Box id='gradient-shift' display='flex' style={{ height: '100vh', margin: 0, padding: 0 }} >
-                        <Container width='fit-content' height='fit-content'>
-                            <CssBaseline />
-                            {/* <NavBar /> */}
-                            <Box sx={{ m: 20, p: 'auto' }}>
-                                <Routes>
+            <BrowserRouter>
+                <Box id='gradient-shift' display='flex' style={{ height: '100vh', margin: 0, padding: 0 }} >
+                    <Container width='fit-content' height='fit-content'>
+                        <CssBaseline />
+                        {/* <NavBar /> */}
+                        <Box sx={{ m: 20, p: 'auto' }}>
+                            <Routes>
 
-                                    {
-                                        //Public Routes
-                                    }
-                                    <Route path="/" element={<Landing />} />
-                                    <Route exact path='/' element={<Landing />} />
-                                    <Route exact path='login' element={<Login />} />
-                                    <Route exact path='register' element={<Register />} />
-                                    {/* Catch All */}
-                                    <Route path='*' element={<Navigate to="/" replace />} />
-                                    {/*
+                                {
+                                    //Public Routes
+                                }
+                                <Route path="/" element={<Landing />} />
+                                <Route exact path='/' element={<Landing />} />
+                                <Route exact path='login' element={<Login />} />
+                                <Route exact path='register' element={<Register />} />
+                                {/* Catch All */}
+                                <Route path='*' element={<Navigate to="/" replace />} />
+                                {/*
                                         Private Routes
                                     */}
 
-                                    {/* <Route path='loginsuccess' element={<NavButtons />} /> */}
-                                    <Route exact path='/' element={<RequireAuth />}>
-                                        <Route path='/loginsuccess' element={<NavButtons />} />
-                                        <Route path='random' element={<RandomQuote />} />
-                                        <Route path='category' element={<SelectVariants />} />
-                                        <Route path='author' element={<AuthorSelect />} />
-                                    </Route>
-                                </Routes>
-                            </Box>
-                        </Container>
-                    </Box>
-                </BrowserRouter>
+                                {/* <Route path='loginsuccess' element={<NavButtons />} /> */}
+                                <Route exact path='/' element={<RequireAuth />}>
+                                    <Route path='loginsuccess' element={<NavButtons />} />
+                                    <Route path='random' element={<RandomQuote />} />
+                                    <Route path='category' element={<SelectVariants />} />
+                                    <Route path='author' element={<AuthorSelect />} />
+                                </Route>
+                            </Routes>
+                        </Box>
+                    </Container>
+                </Box>
+            </BrowserRouter>
             {/* </AuthContext> */}
         </>
     );
