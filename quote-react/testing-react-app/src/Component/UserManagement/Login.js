@@ -74,29 +74,32 @@ export default function Login() {
 
     async function onSubmit(event) {
         event.preventDefault();
-        try {
-            const signin = JSON.stringify(user);
-            const response = await axios.post(LOGIN_URL, user);
-            // var token = jwt_decode(response.data);
-            console.log(response.data);
-            localStorage.setItem('jwtToken', response.data.token);
-            console.log(localStorage.getItem('jwtToken'));
-            var token = jwt_decode(response.data.token);
-            setAuth(user.username, user.password, token);
-            console.log({ auth });
-        } catch (err) {
-            if (err.response.status) {
-                // setUser({ errors: err?.response });
-                setErrMsg('err.response.data.message');
-                console.log(errMsg);
-            } else if (err.response.status === 400) {
-                setErrMsg('Missing Username or Password');
-            } else if (err.response.status === 401) {
-                setErrMsg('Unauthorized');
-            } else {
-                setErrMsg('Login Failed');
-            }
-        }
+        // try {
+        const signin = JSON.stringify(user);
+        const response = await axios.post(LOGIN_URL, user);
+        // var token = jwt_decode(response.data);
+        console.log(response.data);
+        localStorage.setItem('jwtToken', response.data.token);
+        console.log(localStorage.getItem('jwtToken'));
+        const token = response?.data?.accessToken;
+        const username = user.username;
+        const password = user.password;
+        setAuth({ username, password, token });
+
+        console.log(user.username, user.password);
+        // } catch (err) {
+        //     if (err.response.status) {
+        //         // setUser({ errors: err?.response });
+        //         setErrMsg('err.response.data.message');
+        //         console.log(errMsg);
+        //     } else if (err.response.status === 400) {
+        //         setErrMsg('Missing Username or Password');
+        //     } else if (err.response.status === 401) {
+        //         setErrMsg('Unauthorized');
+        //     } else {
+        //         setErrMsg('Login Failed');
+        //     }
+        // }
     };
     //     .then(response => {
     //     if (response.data.accessToken) {
