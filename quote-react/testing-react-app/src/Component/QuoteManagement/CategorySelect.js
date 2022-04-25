@@ -1,9 +1,11 @@
-import * as React from 'react';
+import { useState } from 'react';
 import { Stack, Box, Button, Paper, styled, Autocomplete, TextField } from '@mui/material';
-import axios from 'axios';
+// import axios from 'axios';
 import { ColorButton, QuoteItem, linkStyle } from './../../Style/styles';
-
-import NavButtons from '../Layout/NavButtons';
+import UserService from './../../services/user.service';
+import { Outlet } from 'react-router-dom';
+import RandomNumber from './../../Actions/RandomNumber';
+// import NavButtons from '../Layout/NavButtons';
 
 
 
@@ -20,47 +22,51 @@ const CustomAutoComplete = styled(Autocomplete)(({ theme }) => ({
         backgroundColor: "lightgreen",
     },
 }));
-function RandomNum(length) {
-    const min = 0;
-    const max = length;
-    const rand = Math.floor(Math.random() * (max - min)) + min;
-    return (rand);
-}
+// function RandomNum(length) {
+//     const min = 0;
+//     const max = length;
+//     const rand = Math.floor(Math.random() * (max - min)) + min;
+//     return (rand);
+// }
 export default function SelectVariants() {
-    const [choice, setChoice] = React.useState('');
-    const [quote, setQuote] = React.useState([]);
-    const [author, setAuthor] = React.useState([]);
+    const [choice, setChoice] = useState('');
+    const [history, setHistory] = useState([{}]);
+    const [count, setCount] = useState(history.length);
+    const [quotes, setQuotes] = useState({ quote: '', author: 'Choose a Category' });
     // eslint-disable-next-line
-    const handleChange = (event) => {
+    const handleChange = (props) => (event) => {
         setChoice(event.target.value);
-        GetQuoteByCategory(event.target.value);
+        setQuotes([{
+            ...quotes, [props]: event.target.value
+        }]);
     };
     const handleClick = (event) => {
         GetQuoteByCategory(choice);
     };
-    const changeGreeting = () => {
-        if (choice !== '') {
-            return author;
-        }
-        return "Choose a Category";
-    }
     async function GetQuoteByCategory(event) {
-        let category = await axios.get(`/api/quote/category/${event}`);
-        // eslint-disable-next-line
-        const quoteList = new Array();
-        // eslint-disable-next-line
-        const authorList = new Array();
-        for (let i = 0; i < category.data.length; i++) {
-            quoteList.push(category.data[i].quoted);
-            authorList.push(category.data[i].quoteAuthor);
+        let category = await UserService.getQuoteByCategory(event);
+        const num = RandomNumber.getRandomNumSet(category.data.length);
+        setQuotes({
+            ...quotes, quote: category.data[num].quoted, author: category.data[num].quoteAuthor
+        });
+        history.push({
+            ...quotes, quote: category.data[num].quoted, author: category.data[num].quoteAuthor
+        })
+        setCount(history.length - 2);
+    }
+    const prevIndex = async () => {
+        if (count > 0) {
+            setCount(count - 1);
         }
-        const num = RandomNum(category.data.length);
-        setAuthor(authorList[num]);
-        setQuote("\"" + quoteList[num] + "\"");
-
+    }
+    const prevQuote = async () => {
+        if (history.length > 1) {
+            // console.log(history.length);
+            setQuotes(history[count]);
+            prevIndex();
+        }
     }
     return (
-
         <>
             <Box sx={{
                 boxShadow: 5,
@@ -85,11 +91,12 @@ export default function SelectVariants() {
                         sx={{ borderRadius: 2 }}
                     />
                     <ColorButton onClick={handleClick} sx={{ p: 0 }}> Next Quote</ColorButton>
+                    <ColorButton onClick={prevQuote}>Previous Quote</ColorButton>
                 </Stack>
                 <br />
                 <QuoteItem>
-                    <QuoteItem variant='contained' sx={{ fontSize: 20 }}>{changeGreeting()}</QuoteItem>
-                    <QuoteItem variant='contained' sx={{ fontFamily: 'Caveat', color: 'darkslategrey', fontSize: 40, p: 0 }}>{quote}</QuoteItem>
+                    <QuoteItem variant='contained' sx={{ fontSize: 20 }}>{quotes.author}</QuoteItem>
+                    <QuoteItem variant='contained' sx={{ fontFamily: 'Caveat', color: 'darkslategrey', fontSize: 40, p: 0 }}>{quotes.quote}</QuoteItem>
                 </QuoteItem>
                 <Stack direction="row"
                     justifyContent="space-evenly"
@@ -98,6 +105,7 @@ export default function SelectVariants() {
                     {/* {NavButtons('category')} */}
                 </Stack>
             </Box>
+            <Outlet />
         </>
     );
 }

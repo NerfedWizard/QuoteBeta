@@ -1,8 +1,10 @@
 import React from 'react'
 import { useState } from 'react';
-import { styled, Box, Paper, CssBaseline, Button, Stack, Autocomplete, TextField } from '@mui/material'; 
-import NavButtons from '../Layout/NavButtons';
+import { styled, Box, Paper, CssBaseline, Button, Stack, Autocomplete, TextField } from '@mui/material';
 import { ColorButton, linkStyle, QuoteItem } from './../../Style/styles';
+import UserService from './../../services/user.service';
+import { Outlet } from 'react-router-dom';
+import RandomNumber from './../../Actions/RandomNumber';
 
 
 const CustomInput = styled(Autocomplete)(({ theme }) => ({
@@ -16,25 +18,25 @@ const CustomInput = styled(Autocomplete)(({ theme }) => ({
         backgroundColor: "lightgreen",
     },
 }));
-function RandomNum(length) {
-    const min = 0;
-    const max = length;
-    const rand = Math.floor(Math.random() * (max - min)) + min;
-    return (rand);
-}
-/**Need to Refactor this and slim it down*/
+/**
+ * Need to Refactor this and slim it down
+ * Pretty sure I could combine this with the category select
+ * and maybe even just use the whole same component for random 
+ * too and just and some sort of search bar somewhere in the navbar 
+*/
 export default function AuthorSelect() {
 
-    const axios = require('axios');
     const [category, setCategory] = useState([]);
-    const [choice, setChoice] = React.useState('');
-    const [author, setAuthor] = React.useState(['Select an Author']);
-    const [quote, setQuote] = useState([]);
+    const [choice, setChoice] = useState('');
+    const [history, setHistory] = useState([{}]);
+    const [quotes, setQuotes] = useState({ quote: '', author: 'Select an Author' });
+    const [count, setCount] = useState(history.length);
     // eslint-disable-next-line
-    const handleChange = (event) => {
+    const handleChange = (props) => (event) => {
         setChoice(event.target.value);
-        GetQuoteByAuthor(event.target.value);
-        setAuthor(event.target.value);
+        setQuotes([{
+            ...quotes, [props]: event.target.value
+        }]);
     };
     const handleClick = (event) => {
         GetQuoteByAuthor(choice);
@@ -47,33 +49,29 @@ export default function AuthorSelect() {
         return "";
     }
     async function GetQuoteByAuthor(event) {
-        let category = await axios.get(`/api/quote/author/${event}`);
-        // eslint-disable-next-line
-        const quoteList = new Array();
-        // eslint-disable-next-line
-        const catList = new Array();
-        // eslint-disable-next-line
-        const authorList = new Array();
-        for (let i = 0; i < category.data.length; i++) {
-            quoteList.push(category.data[i].quoted);
-            catList.push(category.data[i].quoteCategory);
-            authorList.push(category.data[i].quoteAuthor);
+        let category = await UserService.getQuoteByAuthor(event);
+        const num = RandomNumber.getRandomNumSet(category.data.length);
+        setQuotes({
+            ...quotes, quote: category.data[num].quoted, author: category.data[num].quoteAuthor
+        });
+        history.push({
+            ...quotes, quote: category.data[num].quoted, author: category.data[num].quoteAuthor
+        })
+        setCount(history.length - 2);
+    }
+    const prevIndex = async () => {
+        if (count > 0) {
+            setCount(count - 1);
         }
-        const num = RandomNum(category.data.length);
+    }
+    const prevQuote = async () => {
+        if (history.length > 1) {
+            // console.log(history.length);
+            setQuotes(history[count]);
+            prevIndex();
+        }
+    }
 
-        if (quoteList[num] === undefined) {
-            quoteList[num] = "No quotes found";
-        }
-        // setCategory(catList[num]);
-        // setQuote("\"" + quoteList[num] + "\"");
-        // setAuthor(authorList[num]);
-        displayQuote("\"" + quoteList[num] + "\"", authorList[num], catList[num]);
-    }
-    function displayQuote(theQuote, theAuthor, theCategory) {
-        setQuote(theQuote);
-        setAuthor(theAuthor);
-        setCategory(theCategory);
-    }
     return (
         <>
             <Box sx={{
@@ -81,7 +79,7 @@ export default function AuthorSelect() {
                 borderRadius: 10,
                 p: 2,
                 m: 'auto',
-                maxWidth: 'fit-content',
+                maxWidth: '800px',
                 minWidth: 'fit-content',
                 justifyContent: 'center'
             }}>
@@ -100,20 +98,21 @@ export default function AuthorSelect() {
                         sx={{ borderRadius: 2 }}
                     />
                     <ColorButton onClick={handleClick} sx={{ p: 0 }}>Next Quote</ColorButton>
+                    <ColorButton onClick={prevQuote}>Previous Quote</ColorButton>
                 </Stack>
                 <br />
                 <QuoteItem>
-                    <QuoteItem variant='contained' sx={{ fontSize: 20 }}>{author}</QuoteItem>
-                    <QuoteItem variant='contained' sx={{ fontFamily: 'Caveat', color: 'darkslategrey', fontSize: 40, fontWeight: 'bold', maxWidth: 800, p: 0 }}>{quote}</QuoteItem>
+                    <QuoteItem variant='contained' sx={{ fontSize: 20 }}>{quotes.author}</QuoteItem>
+                    <QuoteItem variant='contained' sx={{ fontFamily: 'Caveat', color: 'darkslategrey', fontSize: 40, fontWeight: 'bold', maxWidth: 800, p: 0 }}>{quotes.quote}</QuoteItem>
                     <QuoteItem variant='contained' sx={{ fontFamily: 'Bitter', fontWeight: 'bold', color: 'slateblue', fontSize: 20, maxWidth: 800 }}>{changeCategory()}</QuoteItem>
                 </QuoteItem>
                 <Stack direction="row"
                     justifyContent="space-between"
                     alignItems="center"
                     spacing={5}>
-                    {/* {NavButtons('author')} */}
                 </Stack>
             </Box>
+            <Outlet />
         </>
     );
 }

@@ -1,46 +1,22 @@
-// import React, { useEffect } from "react";
 import { Box, Button, Paper, styled, Stack } from '@mui/material';
 import React, { useState, useEffect } from 'react';
-import NavButtons from '../Layout/NavButtons';
+import { Outlet } from 'react-router-dom';
 import RandomNumber from './../../Actions/RandomNumber';
-// import useStateHistory from 'use-state-history'
-// import useStateHistory from '../../services/useStateHistory';
 import { linkStyle, ColorButton, QuoteItem } from '../../Style/styles';
+import UserService from './../../services/user.service';
 
-
-// const QuoteItem = styled(Paper)(({ theme }) => ({
-//     backgroundColor: 'oldlace',
-//     ...theme.typography.body2,
-//     padding: theme.spacing(1),
-//     fontFamily: 'Bitter',
-//     textAlign: 'left',
-//     color: 'darkslategrey',
-//     fontWeight: 'bold',
-//     maxWidth: 800,
-//     minWidth: 200,
-// }));
 
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 export default function RandomQuote() {
-    const axios = require('axios');
     const [history, setHistory] = useState([]);
     const [count, setCount] = useState(history.length);
-
-    // const [index, setIndex] = useState(0);
-    const rand = RandomNumber();
+    const rand = RandomNumber.getRandomNum();
     const [quoteData, setQuoteData] = useState({ author: '', quoted: '', category: '' });
     const ident = "ID" + rand;
     let isMounted = false;
 
-
-    const loadData = async () => {
-        // await sleep(500);
-        const response = await axios.get(`/api/quote/${ident}`);
-        setQuoteData({ author: response.data.quoteAuthor, quoted: response.data.quoted, category: response.data.quoteCategory });
-        history.push({ author: response.data.quoteAuthor, quoted: response.data.quoted, category: response.data.quoteCategory });
-    };
     async function GetQuotes() {
-        const identifier = await axios.get(`/api/quote/${ident}`);
+        const identifier = await UserService.getRandomQuote(ident);
         setQuoteData({ author: identifier.data.quoteAuthor, quoted: identifier.data.quoted, category: identifier.data.quoteCategory });
         history.push({
             author: identifier.data.quoteAuthor, quoted: identifier.data.quoted, category: identifier.data.quoteCategory
@@ -49,7 +25,7 @@ export default function RandomQuote() {
     }
     useEffect(async () => {
         if (isMounted) {
-            loadData();
+            GetQuotes();
         }
         return () => { };
     }, []);
@@ -89,8 +65,8 @@ export default function RandomQuote() {
                     <QuoteItem variant='contained' sx={{ fontFamily: 'Caveat', fontSize: 40, p: 0 }}>{quoteData.quoted}</QuoteItem>
                     <QuoteItem variant='contained' sx={{ color: 'lightpink', fontSize: 20 }}>{quoteData.category}</QuoteItem>
                 </QuoteItem>
-                {/* {NavButtons('random')} */}
             </Box>
+            <Outlet />
         </>
     );
 }

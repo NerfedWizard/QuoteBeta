@@ -1,8 +1,7 @@
-import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
+import { BrowserRouter, Route, Routes, useNavigate, Navigate, Outlet, Link } from "react-router-dom";
 import SelectVariants from './Component/QuoteManagement/CategorySelect';
 import RandomQuote from './Component/QuoteManagement/RandomQuote';
 import AuthorSelect from './Component/QuoteManagement/AuthorSelect';
-import NavButtons from './Component/Layout/NavButtons';
 import Register from './Component/UserManagement/Register';
 import Login from './Component/UserManagement/Login';
 import RequireAuth from './Actions/requireAuth';
@@ -10,27 +9,43 @@ import Landing from './Component/Landing';
 import React from 'react';
 import { Box, Container, CssBaseline, Paper, styled, Button, Stack, Alert } from '@mui/material';
 import './App.css';
-import { Outlet, Link } from "react-router-dom";
-// import { Provider } from 'react-redux';
-import useAuth from './Hooks/useAuth';
-import AuthContext from './Context/authProvider';
+// import { Outlet, Link } from "react-router-dom";
 import { Item, ColorButton, linkStyle } from './Style/styles';
-
+import AuthService from './services/auth.service';
+import jwtDecode from 'jwt-decode';
 import NavBar from './Component/Layout/NavBar';
 
+const user = AuthService.getCurrentUser();
+// const navigate = useNavigate();
+
+if (user && user.token) {
+    const expTime = jwtDecode(user.token).exp;
+    if (expTime < new Date().getTime() / 1000) {
+        AuthService.logout();
+        localStorage.removeItem('user');
+        console.log('Token Expired');
+        // navigate('/login');
+
+    }
+}
 const App = () => {
-    const { auth } = useAuth();
+    // const navigate = useNavigate();
+    // if (!user && user.token) {
+    //     navigate('/login');
+    // }
+
+
+    // const { auth } = useAuth();
     return (
         <>
             {/* <AuthContext value={auth}> */}
             <BrowserRouter>
-                <Box id='gradient-shift' display='flex' style={{ height: '100vh', margin: 0, padding: 0 }} >
-                    <Container width='fit-content' height='fit-content'>
+                <Box id='gradient-shift' position='relative' justifyContent='center' alignItems='center' style={{ height: '100%', width: '100%', top: '0%', left: '0%' }} >
+                    <Container>
                         <CssBaseline />
-                        {/* <NavBar /> */}
-                        <Box sx={{ m: 20, p: 'auto' }}>
+                        <NavBar />
+                        <Box sx={{ m: 20 }}>
                             <Routes>
-
                                 {
                                     //Public Routes
                                 }
@@ -40,13 +55,12 @@ const App = () => {
                                 <Route exact path='register' element={<Register />} />
                                 {/* Catch All */}
                                 <Route path='*' element={<Navigate to="/" replace />} />
+                                {/* <Route path='random' element={<RandomQuote />} /> */}
                                 {/*
                                         Private Routes
                                     */}
-
-                                {/* <Route path='loginsuccess' element={<NavButtons />} /> */}
                                 <Route exact path='/' element={<RequireAuth />}>
-                                    <Route path='loginsuccess' element={<NavButtons />} />
+                                    {/* <Route path='loginsuccess' element={<NavButtons />} /> */}
                                     <Route path='random' element={<RandomQuote />} />
                                     <Route path='category' element={<SelectVariants />} />
                                     <Route path='author' element={<AuthorSelect />} />

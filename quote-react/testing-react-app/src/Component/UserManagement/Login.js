@@ -1,52 +1,22 @@
-import React, { useState, useEffect, useContext, useReducer, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
-    Stack,
-    TextField,
-    Button,
-    FormGroup,
     FormControl,
     InputAdornment,
-    Input,
     InputLabel,
     OutlinedInput,
     Box,
-    FormHelperText,
     IconButton
 } from '@mui/material';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
-// import axios from 'axios';
-import useAuth from './../../Hooks/useAuth';
-import axios from 'axios';
-// import axios from './../../SecurityUtils/axios';
-import { Link, Navigate, useNavigate, useLocation } from "react-router-dom";
-import setJWTToken from '../../SecurityUtils/setJWTToken';
-import { ColorButton, linkStyle, Item } from '../../Style/styles';
-import jwt_decode from "jwt-decode";
+import { useNavigate } from "react-router-dom";
+import { ColorButton } from '../../Style/styles';
+import AuthService from './../../services/auth.service';
 
-
-const LOGIN_URL = 'api/quote/users/login';
 
 export default function Login() {
-    const [user, setUser] = useState({ username: '', password: '' });
-    const [errors, setErrors] = useState({});
-    const { auth, setAuth } = useAuth();
-    const [errMsg, setErrMsg] = useState('');
-    const [counter, setCounter] = useState(0);
+    const [user, setUser] = useState({ username: '', password: '', errors: {} });
     const navigate = useNavigate();
-    const location = useLocation();
-    const from = location.state?.from?.pathname || "/";
-
-    const userRef = useRef();
-    const errRef = useRef();
-
-    // useEffect(() => {
-    //     userRef.current.focus();
-    // }, []);
-
-    // useEffect(() => {
-    //     setUser({ ...user, errors: ' ' });
-    // }, [user.username, user.password]);
 
     useEffect(() => {
         document.title = user.username;
@@ -65,80 +35,18 @@ export default function Login() {
     const handleMouseDownPassword = (event) => {
         event.preventDefault();
     };
-    const keyPress = (event) => {
-        // console.log(event.key);
-        if (event.key === 'Enter') {
-            onSubmit(event);
-        }
-    };
-
     async function onSubmit(event) {
         event.preventDefault();
-        // try {
-        const signin = JSON.stringify(user);
-        const response = await axios.post(LOGIN_URL, user);
-        // var token = jwt_decode(response.data);
-        console.log(response.data);
-        localStorage.setItem('jwtToken', response.data.token);
-        console.log(localStorage.getItem('jwtToken'));
-        const token = response?.data?.accessToken;
-        const username = user.username;
-        const password = user.password;
-        setAuth({ username, password, token });
-
-        console.log(user.username, user.password);
-        // } catch (err) {
-        //     if (err.response.status) {
-        //         // setUser({ errors: err?.response });
-        //         setErrMsg('err.response.data.message');
-        //         console.log(errMsg);
-        //     } else if (err.response.status === 400) {
-        //         setErrMsg('Missing Username or Password');
-        //     } else if (err.response.status === 401) {
-        //         setErrMsg('Unauthorized');
-        //     } else {
-        //         setErrMsg('Login Failed');
-        //     }
-        // }
-    };
-    //     .then(response => {
-    //     if (response.data.accessToken) {
-    //         console.log('made it here');
-    //         localStorage.setItem("jwtToken", JSON.stringify(response.data));
-    //         setAuth(user.username, user.password, response.data.accessToken);
-    //         // setToken(response.data.accessToken);
-    //         setJWTToken(response.data.token);
-    //         navigate(from, { replace: true });
-    //     };
-
-    // }).catch(error => {
-    //     if (error.response) {
-    //         setErrMsg(response.data.errors);
-    //         console.log(errMsg);
-    //     }
-    // });
-    // } 
-    //     // errRef.current.focus();
-    // }
-
-
-    // await axios.post(`/api/quote/users/login`, user).then(response => {
-    //     if (response.data.accessToken) {
-    //         localStorage.setItem("jwtToken", JSON.stringify(response.data));
-    //     }
-    //     setToken(response.data.accessToken);
-    //     setJWTToken(response.data.token);
-    //     navigate(from, { replace: true });
-    // }).catch(error => {
-    //     if (error.response) {
-
-    //     }
-
-    //     });
-
-    // }
-
-
+        AuthService.login(user).then(
+            () => {
+                navigate("/random");
+                window.location.reload();
+            },
+            (error) => {
+                setUser({ ...user, errors: error.response.data });
+            }
+        );
+    }
     return (
         <>
             <Box sx={{ display: 'flex', justifyContent: 'center' }}>
@@ -160,7 +68,7 @@ export default function Login() {
                         onChange={handleChange('password')}
                         type={user.showPassword ? 'text' : 'password'}
                         label="Password"
-                        onKeyPress={(event) => keyPress(event)}
+                        onKeyPress={(e) => { if (e.key === 'Enter') { onSubmit(); } }}
                         sx={{ borderRadius: 15 }}
                         endAdornment={
                             <InputAdornment position="end">
@@ -184,7 +92,7 @@ export default function Login() {
                     sx={{ color: 'antiquewhite', bgcolor: 'cornflowerblue', height: 35, alignSelf: 'center' }}>
                     Submit
                 </ColorButton>
-                {auth ? <Navigate to="/loginsuccess" /> : null}
+                {/* {auth ? <Navigate to="/loginsuccess" /> : null} */}
             </Box>
         </>
     )

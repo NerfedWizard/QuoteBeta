@@ -1,9 +1,8 @@
 import PropTypes from "prop-types";
 import React from "react";
-import { connect } from "react-redux";
+// import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { Button, styled, Stack, Box } from '@mui/material';
-// import setJWTToken from '../SecurityUtils/setJWTToken';
 import { linkStyle } from "../Style/styles";
 
 const ColorButton = styled(Button)(({ theme }) => ({
@@ -20,13 +19,7 @@ const ColorButton = styled(Button)(({ theme }) => ({
         focusRipple: true,
     },
 }));
-//TODO:Takeout maybe
-// export const logout = () => {
-//     localStorage.removeItem("jwtToken");
-//     setJWTToken(false);
-// };
 
-//TODO: Change name to something maybe public idk
 export default function Landing() {
     return (
         <>
@@ -48,9 +41,6 @@ export default function Landing() {
                             Register
                         </ColorButton>
                     </Link>
-                    {/* <ColorButton onClick={logout}>
-                        Logout
-                    </ColorButton> */}
                     <Link to='/login' style={linkStyle}>
                         <ColorButton>
                             Login
@@ -61,12 +51,3 @@ export default function Landing() {
         </>
     )
 }
-// Landing.propTypes = {
-//     security: PropTypes.object.isRequired,
-// };
-
-// const mapStateToProps = (state) => ({
-//     security: state.security,
-// });
-
-// export default connect(mapStateToProps)(Landing);
