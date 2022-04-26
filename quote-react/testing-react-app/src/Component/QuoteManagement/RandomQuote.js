@@ -1,14 +1,12 @@
-import { Box, Button, Paper, styled, Stack } from '@mui/material';
+import { Stack } from '@mui/material';
 import React, { useState, useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
 import RandomNumber from './../../Actions/RandomNumber';
-import { linkStyle, ColorButton, QuoteItem } from '../../Style/styles';
+import { ColorButton, QuoteItem, MyBox } from '../../Style/styles';
 import UserService from './../../services/user.service';
 
-
-const sleep = ms => new Promise(r => setTimeout(r, ms));
 export default function RandomQuote() {
-    const [history, setHistory] = useState([]);
+    const [history] = useState([]);
     const [count, setCount] = useState(history.length);
     const rand = RandomNumber.getRandomNum();
     const [quoteData, setQuoteData] = useState({ author: '', quoted: '', category: '' });
@@ -23,11 +21,13 @@ export default function RandomQuote() {
         });
         setCount(history.length - 2);
     }
-    useEffect(async () => {
-        if (isMounted) {
-            GetQuotes();
+    useEffect(() => {
+        async function fetchData() {
+            if (isMounted) {
+                GetQuotes();
+            }
         }
-        return () => { };
+        fetchData();
     }, []);
     const prevIndex = async () => {
         if (count > 0) {
@@ -44,28 +44,33 @@ export default function RandomQuote() {
     return (
         <>
             {isMounted = true}
-            <Box sx={{
+            <MyBox sx={{
                 boxShadow: 5,
                 borderRadius: 10,
-                p: 2,
-                m: 'auto',
-                maxWidth: 'fit-content',
-                minWidth: 'fit-content',
-                justifyContent: 'center',
+               
+                
             }}>
                 {GetQuotes}
                 <Stack direction="row"
-                    justifyContent="space-evenly"
+                    justifyContent="start"
                 >
                     <ColorButton onClick={GetQuotes}>Next Quote</ColorButton>
                     <ColorButton onClick={prevQuote}>Previous Quote</ColorButton>
                 </Stack>
-                <QuoteItem>
-                    <QuoteItem variant='contained' sx={{ color: 'slateblue', fontSize: 28 }}>{quoteData.author}</QuoteItem>
-                    <QuoteItem variant='contained' sx={{ fontFamily: 'Caveat', fontSize: 40, p: 0 }}>{quoteData.quoted}</QuoteItem>
-                    <QuoteItem variant='contained' sx={{ color: 'lightpink', fontSize: 20 }}>{quoteData.category}</QuoteItem>
+                {/* <QuoteItem> */}
+                <QuoteItem variant='contained'>
+                    <span class='author-span' style={{ color: 'slateBlue' }}>{quoteData.author}</span>
+                    <br />
+                    {quoteData.quoted}
+                    <br />
+                    <span class='category-span' style={{ color: 'coral' }}>
+                        {quoteData.category}
+                    </span>
                 </QuoteItem>
-            </Box>
+                {/* <QuoteItem variant='contained' sx={{ fontFamily: 'Caveat', fontSize: '2.5rem', p: 0 }}>{quoteData.quoted}</QuoteItem>
+                    <QuoteItem variant='contained' sx={{ color: 'lightpink', fontSize: '1.5rem' }}>{quoteData.category}</QuoteItem> */}
+                {/* </QuoteItem> */}
+            </MyBox>
             <Outlet />
         </>
     );

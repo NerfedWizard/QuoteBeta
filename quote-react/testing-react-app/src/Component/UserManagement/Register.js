@@ -1,47 +1,76 @@
-import React, {useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
-    // Stack,
-    TextField,
-    Button,
-    FormGroup,
     FormControl,
     InputAdornment,
-    Input,
     InputLabel,
     OutlinedInput,
     Box,
-    FormHelperText,
-    IconButton
+    IconButton,
+    Snackbar,
+
 } from '@mui/material';
+import MuiAlert from '@mui/material/Alert';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 // import axios from 'axios';
 import AuthService from './../../services/auth.service';
 import { ColorButton } from '../../Style/styles';
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
+const Alert = React.forwardRef(function Alert(props, ref) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
 export default function Register() {
     const navigate = useNavigate();
-    // const [flag, setFlag] = useState(false);
+
     const [newUser, setNewUser] = useState({
         username: '',
         fullName: '',
         password: '',
         confirmPassword: '',
-        errors: {},
     });
+    const [state, setState] = useState({
+        open: false,
+        vertical: 'top',
+        horizontal: 'center',
+    });
+    const [userErrors, setUserErrors] = useState('');
+    const [errUsername, setErrUsername] = useState('');
+    const [errFullName, setErrFullName] = useState('');
+    const [errPassword, setErrPassword] = useState('');
+    const [errConfirmPassword, setErrConfirmPassword] = useState('');
+    const { vertical, horizontal, open } = state;
     // const user = AuthService.getCurrentUser();
-    const showErrors = () => {
-        if (newUser.errors) {
-            return (
-                <FormHelperText error>
-                    {Object.values(JSON.stringify(newUser.errors)).map((error, i) => {
-                        return <p key={i}>{error}</p>
-                    })}
-                </FormHelperText>
-            )
+    // const showErrors = (event) => {
+    //     handleClick({
+    //         vertical: 'top',
+    //         horizontal: 'center',
+    //     });
+    // }
+    useEffect((props) => (event) => {
+        if (userErrors) {
+            setState({
+                ...state,
+                vertical: 'top',
+                horizontal: 'center',
+                open: true,
+            });
+            if (userErrors.username) {
+                setErrUsername(userErrors.username);
+            }
+            if (userErrors.fullName) {
+                setErrFullName(userErrors.fullName);
+            }
+            if (userErrors.password) {
+                setErrPassword(userErrors.password);
+            }
+            if (userErrors.confirmPassword) {
+                setErrConfirmPassword(userErrors.confirmPassword);
+            }
         }
-    }
+    }, [userErrors]);
+
     const handleChange = (props) => (event) => {
         setNewUser({ ...newUser, [props]: event.target.value });
     };
@@ -52,9 +81,9 @@ export default function Register() {
                 window.location.reload();
             },
             (err) => {
-                setNewUser({ ...newUser, errors: err.response.data });
-                console.log(JSON.stringify(newUser.errors));
-                showErrors();
+                // setNewUser({ ...newUser, errors: err.response.data });
+                // userErrors.push(err.response.data);
+                setUserErrors(err.response.data);
             }
         );
     };
@@ -76,6 +105,15 @@ export default function Register() {
     const handleMouseDownConfirmPassword = (event) => {
         event.preventDefault();
     };
+
+
+    const handleClose = () => {
+        setState({ ...state, open: false });
+        setErrUsername('');
+        setErrFullName('');
+        setErrPassword('');
+        setErrConfirmPassword('');
+    };
     return (
         <>
             <Box sx={{ display: 'flex', justifyContent: 'center' }}>
@@ -88,8 +126,7 @@ export default function Register() {
                         value={newUser.username}
                         onChange={handleChange('username')}
                         label="Username"
-                        // error
-                        // helperText={JSON.stringify(newUser.errors) }
+
                         sx={{ borderRadius: 15 }}
                     />
                 </FormControl>
@@ -100,14 +137,13 @@ export default function Register() {
                     <OutlinedInput
                         id='outlined-adornment-fullname'
                         value={newUser.fullName}
-                        // error
+
                         onChange={handleChange('fullName')}
                         label="fullName"
-                        // helperText={JSON.stringify(newUser.errors)}
+
                         sx={{ borderRadius: 15 }}
                     />
                 </FormControl>
-
                 <FormControl sx={{ m: 1, width: '30ch' }} variant="outlined">
                     <InputLabel htmlFor="standard-adornment-password">
                         Password
@@ -142,7 +178,7 @@ export default function Register() {
                         onChange={handleChange('confirmPassword')}
                         type={newUser.showConfirmPassword ? 'text' : 'password'}
                         label="Confirm Password"
-                        onKeyPress={(e) => {if (e.key === 'Enter') {onSubmit();}}}
+                        onKeyPress={(e) => { if (e.key === 'Enter') { onSubmit(); } }}
                         sx={{ borderRadius: 15 }}
                         endAdornment={
                             <InputAdornment position="end">
@@ -165,6 +201,23 @@ export default function Register() {
                     sx={{ color: 'antiquewhite', bgcolor: 'cornflowerblue', height: 35, alignSelf: 'center' }}>
                     Submit
                 </ColorButton>
+                <Snackbar
+                    anchorOrigin={{ vertical, horizontal }}
+                    open={open}
+                    onClose={handleClose}
+                    key={vertical + horizontal}>
+                    <Alert onClose={handleClose} severity="warning">
+                        <Box width='fit-content'>
+                            {errUsername}
+                            <br />
+                            {errFullName}
+                            <br />
+                            {errPassword}
+                            <br />
+                            {errConfirmPassword}
+                        </Box>
+                    </Alert>
+                </Snackbar>
             </Box>
         </>
     )

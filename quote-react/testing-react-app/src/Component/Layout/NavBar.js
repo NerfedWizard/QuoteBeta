@@ -1,8 +1,7 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import { AppBar, Box, Toolbar, Button, Typography, Menu, MenuItem, IconButton } from '@mui/material';
-import MenuIcon from '@mui/icons-material/Menu';
 import AccountCircle from '@mui/icons-material/AccountCircle';
-import { Link, Navigate, useNavigate, NavLink, Outlet } from 'react-router-dom';
+import { useNavigate, NavLink } from 'react-router-dom';
 import { linkStyle } from './../../Style/styles';
 import AuthService from './../../services/auth.service';
 import jwtDecode from 'jwt-decode';
@@ -18,11 +17,11 @@ const pages = [
 export default function NavBar() {
     const [authed, setAuthed] = useState(false);
     const [anchorEl, setAnchorEl] = useState(null);
-    const [anchorElNav, setAnchorElNav] = useState(null);
+    const [setAnchorElNav] = useState(null);
     const [greeting, setGreeting] = useState("It's a beautiful day!");
-    const userRef = useRef();
     const navigate = useNavigate();
     const user = AuthService.getCurrentUser();
+
     useEffect(() => {
         if (user && user.token) {
             setGreeting('Welcome ' + jwtDecode(user.token).username + ', it\'s time for quotes!');
@@ -32,6 +31,7 @@ export default function NavBar() {
     const handleMenu = (event) => {
         setAnchorEl(event.currentTarget);
     };
+
     const handleLogout = () => {
         setAuthed(false);
         AuthService.logout();
@@ -49,47 +49,11 @@ export default function NavBar() {
         setAnchorElNav(null);
     };
     return (
-        <AppBar position="static" sx={{ bgcolor: 'transparent' }}>
-            <Box sx={{
-                flexGrow: 1
-            }}>
+
+        <Box sx={{
+            flexGrow: 2
+        }}> <AppBar position="static" sx={{ bgcolor: 'transparent' }}>
                 <Toolbar>
-                    <IconButton
-                        size="medium"
-                        edge="start"
-                        color="inherit"
-                        aria-label="menu"
-                        sx={{ mr: 2 }}
-                    >
-                        {/* <MenuIcon /> */}
-                    </IconButton>
-                    <Box>
-                        <Menu
-                            id="menu-appbar"
-                            anchorEl={anchorElNav}
-                            anchorOrigin={{
-                                vertical: 'bottom',
-                                horizontal: 'left',
-                            }}
-                            keepMounted
-                            transformOrigin={{
-                                vertical: 'top',
-                                horizontal: 'left',
-                            }}
-                            open={Boolean(anchorElNav)}
-                            onClose={handleCloseNavMenu}
-                            sx={{
-                                display: { xs: 'block', md: 'none' },
-                                textAlign: 'left',
-                            }}
-                        >
-                            {/* {pages.map((page) => (
-                                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                                    <Typography textAlign="left">{page}</Typography>
-                                </MenuItem>
-                            ))} */}
-                        </Menu>
-                    </Box>
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1, fontweight: 'bold', textShadow: '1px 1px 2px rgb(117, 31, 64), 0 0 25px rgb(255, 77, 86),0 0 5px rgb(202, 173, 77)', color: 'black', fontFamily: 'Dancing Script', fontSize: '2.5rem' }}>
                         {greeting}
                     </Typography>
@@ -137,7 +101,7 @@ export default function NavBar() {
                             <MenuItem onClick={handleLogout}>Logout</MenuItem>)}
                     </Menu>
                 </Toolbar>
-            </Box>
-        </AppBar>
+            </AppBar>
+        </Box>
     );
 }

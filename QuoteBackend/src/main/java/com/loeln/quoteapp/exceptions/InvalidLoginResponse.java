@@ -8,7 +8,7 @@ public class InvalidLoginResponse {
 	private String password;
 
 	public InvalidLoginResponse() {
-		this.username = "You got something wrong pal";
-		this.password = "Yep something is wrong bud";
+		this.username = "Check Username";
+		this.password = "Check Password";
 	}
 }

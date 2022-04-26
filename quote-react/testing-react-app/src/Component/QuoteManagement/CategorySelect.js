@@ -1,14 +1,9 @@
 import { useState } from 'react';
-import { Stack, Box, Button, Paper, styled, Autocomplete, TextField } from '@mui/material';
-// import axios from 'axios';
-import { ColorButton, QuoteItem, linkStyle } from './../../Style/styles';
+import { Stack, styled, Autocomplete, TextField } from '@mui/material';
+import { ColorButton, QuoteItem, MyBox } from './../../Style/styles';
 import UserService from './../../services/user.service';
 import { Outlet } from 'react-router-dom';
 import RandomNumber from './../../Actions/RandomNumber';
-// import NavButtons from '../Layout/NavButtons';
-
-
-
 
 
 const CustomAutoComplete = styled(Autocomplete)(({ theme }) => ({
@@ -22,24 +17,13 @@ const CustomAutoComplete = styled(Autocomplete)(({ theme }) => ({
         backgroundColor: "lightgreen",
     },
 }));
-// function RandomNum(length) {
-//     const min = 0;
-//     const max = length;
-//     const rand = Math.floor(Math.random() * (max - min)) + min;
-//     return (rand);
-// }
+
 export default function SelectVariants() {
     const [choice, setChoice] = useState('');
-    const [history, setHistory] = useState([{}]);
+    const [history] = useState([{}]);
     const [count, setCount] = useState(history.length);
     const [quotes, setQuotes] = useState({ quote: '', author: 'Choose a Category' });
-    // eslint-disable-next-line
-    const handleChange = (props) => (event) => {
-        setChoice(event.target.value);
-        setQuotes([{
-            ...quotes, [props]: event.target.value
-        }]);
-    };
+   
     const handleClick = (event) => {
         GetQuoteByCategory(choice);
     };
@@ -61,21 +45,15 @@ export default function SelectVariants() {
     }
     const prevQuote = async () => {
         if (history.length > 1) {
-            // console.log(history.length);
             setQuotes(history[count]);
             prevIndex();
         }
     }
     return (
         <>
-            <Box sx={{
+            <MyBox sx={{
                 boxShadow: 5,
                 borderRadius: 10,
-                p: 2,
-                m: 'auto',
-                maxWidth: 'fit-content',
-                minWidth: 'fit-content',
-                justifyContent: 'center',
             }}>
                 <Stack spacing={2} direction="row" justifyContent="flex-start" >
                     <CustomAutoComplete
@@ -94,17 +72,20 @@ export default function SelectVariants() {
                     <ColorButton onClick={prevQuote}>Previous Quote</ColorButton>
                 </Stack>
                 <br />
-                <QuoteItem>
-                    <QuoteItem variant='contained' sx={{ fontSize: 20 }}>{quotes.author}</QuoteItem>
-                    <QuoteItem variant='contained' sx={{ fontFamily: 'Caveat', color: 'darkslategrey', fontSize: 40, p: 0 }}>{quotes.quote}</QuoteItem>
+                
+                <QuoteItem variant='contained'>
+                    <span class='author-span' style={{ color: 'slateBlue' }}>{quotes.author}</span>
+                    <br />
+                    {quotes.quote}
                 </QuoteItem>
+                
                 <Stack direction="row"
                     justifyContent="space-evenly"
                     alignItems="center"
                     spacing={5}>
-                    {/* {NavButtons('category')} */}
+                    
                 </Stack>
-            </Box>
+            </MyBox>
             <Outlet />
         </>
     );

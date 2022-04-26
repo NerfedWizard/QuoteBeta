@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState } from 'react';
-import { styled, Box, Paper, CssBaseline, Button, Stack, Autocomplete, TextField } from '@mui/material';
-import { ColorButton, linkStyle, QuoteItem } from './../../Style/styles';
+import { styled, CssBaseline, Stack, Autocomplete, TextField } from '@mui/material';
+import { ColorButton, QuoteItem, MyBox } from './../../Style/styles';
 import UserService from './../../services/user.service';
 import { Outlet } from 'react-router-dom';
 import RandomNumber from './../../Actions/RandomNumber';
@@ -18,44 +18,26 @@ const CustomInput = styled(Autocomplete)(({ theme }) => ({
         backgroundColor: "lightgreen",
     },
 }));
-/**
- * Need to Refactor this and slim it down
- * Pretty sure I could combine this with the category select
- * and maybe even just use the whole same component for random 
- * too and just and some sort of search bar somewhere in the navbar 
-*/
+
 export default function AuthorSelect() {
 
-    const [category, setCategory] = useState([]);
     const [choice, setChoice] = useState('');
-    const [history, setHistory] = useState([{}]);
-    const [quotes, setQuotes] = useState({ quote: '', author: 'Select an Author' });
+    const [history] = useState([{}]);
+    const [quotes, setQuotes] = useState({ quote: '', category: 'Select an Author' });
     const [count, setCount] = useState(history.length);
-    // eslint-disable-next-line
-    const handleChange = (props) => (event) => {
-        setChoice(event.target.value);
-        setQuotes([{
-            ...quotes, [props]: event.target.value
-        }]);
-    };
+
     const handleClick = (event) => {
         GetQuoteByAuthor(choice);
     };
 
-    const changeCategory = () => {
-        if (category !== '') {
-            return category;
-        }
-        return "";
-    }
     async function GetQuoteByAuthor(event) {
-        let category = await UserService.getQuoteByAuthor(event);
-        const num = RandomNumber.getRandomNumSet(category.data.length);
+        let quoteOBJ = await UserService.getQuoteByAuthor(event);
+        const num = RandomNumber.getRandomNumSet(quoteOBJ.data.length);
         setQuotes({
-            ...quotes, quote: category.data[num].quoted, author: category.data[num].quoteAuthor
+            ...quotes, quote: quoteOBJ.data[num].quoted, category: quoteOBJ.data[num].quoteCategory
         });
         history.push({
-            ...quotes, quote: category.data[num].quoted, author: category.data[num].quoteAuthor
+            ...quotes, quote: quoteOBJ.data[num].quoted, author: quoteOBJ.data[num].quoteCategory
         })
         setCount(history.length - 2);
     }
@@ -66,7 +48,6 @@ export default function AuthorSelect() {
     }
     const prevQuote = async () => {
         if (history.length > 1) {
-            // console.log(history.length);
             setQuotes(history[count]);
             prevIndex();
         }
@@ -74,14 +55,10 @@ export default function AuthorSelect() {
 
     return (
         <>
-            <Box sx={{
+            <MyBox sx={{
                 boxShadow: 5,
                 borderRadius: 10,
-                p: 2,
-                m: 'auto',
-                maxWidth: '800px',
-                minWidth: 'fit-content',
-                justifyContent: 'center'
+
             }}>
                 <CssBaseline />
                 <Stack spacing={3} direction="row" >
@@ -101,17 +78,14 @@ export default function AuthorSelect() {
                     <ColorButton onClick={prevQuote}>Previous Quote</ColorButton>
                 </Stack>
                 <br />
-                <QuoteItem>
-                    <QuoteItem variant='contained' sx={{ fontSize: 20 }}>{quotes.author}</QuoteItem>
-                    <QuoteItem variant='contained' sx={{ fontFamily: 'Caveat', color: 'darkslategrey', fontSize: 40, fontWeight: 'bold', maxWidth: 800, p: 0 }}>{quotes.quote}</QuoteItem>
-                    <QuoteItem variant='contained' sx={{ fontFamily: 'Bitter', fontWeight: 'bold', color: 'slateblue', fontSize: 20, maxWidth: 800 }}>{changeCategory()}</QuoteItem>
+                <QuoteItem variant='contained'>
+                    {quotes.quote}
+                    <br />
+                    <span class='author-span' style={{ color: 'slateblue' }}>
+                        {quotes.category}
+                    </span>
                 </QuoteItem>
-                <Stack direction="row"
-                    justifyContent="space-between"
-                    alignItems="center"
-                    spacing={5}>
-                </Stack>
-            </Box>
+            </MyBox>
             <Outlet />
         </>
     );

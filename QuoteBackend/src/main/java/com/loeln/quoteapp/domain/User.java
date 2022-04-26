@@ -47,20 +47,13 @@ public class User implements UserDetails {
 	@Transient
 	private String confirmPassword;
 
-//	private String[] favoriteQuoteIDs;
 	private Date created_At;
-//	private Date updated_At;
 	private Date signed_In;
 
 	@PrePersist
 	protected void onCreate() {
 		this.created_At = new Date();
 	}
-
-//	@PostPersist
-//	protected void onUpdate() {
-//		this.updated_At = new Date();
-//	}
 
 	@PostPersist
 	protected void onSignIn() {

@@ -1,4 +1,4 @@
-import { Button, styled, Stack, Box, Paper } from '@mui/material';
+import { Button, styled,Box, Paper } from '@mui/material';
 
 /**Eventually move all styled components to here */
 
@@ -38,13 +38,26 @@ export const Item = styled(Paper)(({ theme }) => ({
 }));
 export const QuoteItem = styled(Paper)(({ theme }) => ({
     backgroundColor: 'oldlace',
-    ...theme.typography.body2,
-    padding: theme.spacing(1),
-    fontFamily: 'Bitter',
+    padding: 10,
+    lineHeight: 1.5,
+    fontSize: '2.5rem',
+    fontFamily: 'Caveat',
     textAlign: 'left',
     color: 'darkslategrey',
     fontWeight: 'bold',
     borderRadius: 25,
-    maxWidth: 800,
-    minWidth: 200,
+    width: 'fit-content',
+
+}));
+
+export const MyBox = styled(Box)(({ theme }) => ({
+    marginLeft: '0',
+    marginRight: '50',
+    marginTop: 0,
+    marginBottom: 0,
+    lineHeight: 1,
+    padding: 5,
+    width: 'fit-content',
+    position: 'static',
+
 }));
