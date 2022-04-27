@@ -12,7 +12,6 @@ import {
 import MuiAlert from '@mui/material/Alert';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
-// import axios from 'axios';
 import AuthService from './../../services/auth.service';
 import { ColorButton } from '../../Style/styles';
 import { useNavigate } from "react-router-dom";
@@ -41,13 +40,6 @@ export default function Register() {
     const [errPassword, setErrPassword] = useState('');
     const [errConfirmPassword, setErrConfirmPassword] = useState('');
     const { vertical, horizontal, open } = state;
-    // const user = AuthService.getCurrentUser();
-    // const showErrors = (event) => {
-    //     handleClick({
-    //         vertical: 'top',
-    //         horizontal: 'center',
-    //     });
-    // }
     useEffect((props) => (event) => {
         if (userErrors) {
             setState({
@@ -81,8 +73,6 @@ export default function Register() {
                 window.location.reload();
             },
             (err) => {
-                // setNewUser({ ...newUser, errors: err.response.data });
-                // userErrors.push(err.response.data);
                 setUserErrors(err.response.data);
             }
         );

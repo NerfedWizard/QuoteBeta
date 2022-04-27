@@ -57,7 +57,6 @@ export default function RandomQuote() {
                     <ColorButton onClick={GetQuotes}>Next Quote</ColorButton>
                     <ColorButton onClick={prevQuote}>Previous Quote</ColorButton>
                 </Stack>
-                {/* <QuoteItem> */}
                 <QuoteItem variant='contained'>
                     <span class='author-span' style={{ color: 'slateBlue' }}>{quoteData.author}</span>
                     <br />
@@ -67,9 +66,6 @@ export default function RandomQuote() {
                         {quoteData.category}
                     </span>
                 </QuoteItem>
-                {/* <QuoteItem variant='contained' sx={{ fontFamily: 'Caveat', fontSize: '2.5rem', p: 0 }}>{quoteData.quoted}</QuoteItem>
-                    <QuoteItem variant='contained' sx={{ color: 'lightpink', fontSize: '1.5rem' }}>{quoteData.category}</QuoteItem> */}
-                {/* </QuoteItem> */}
             </MyBox>
             <Outlet />
         </>
