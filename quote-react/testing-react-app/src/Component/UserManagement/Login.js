@@ -22,15 +22,15 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 export default function Login() {
     const [user, setUser] = useState({ username: '', password: '', errors: {} });
     const navigate = useNavigate();
-    const [userErrors, setUserErrors] = useState('');
-    const [errUser, setErrUser] = useState('');
-    const [errPass, setErrPass] = useState('');
-    const [state, setState] = useState({
-        open: false,
-        vertical: 'top',
-        horizontal: 'center',
-    });
-    const { vertical, horizontal, open } = state;
+    // const [userErrors, setUserErrors] = useState('');
+    // const [errUser, setErrUser] = useState('');
+    // const [errPass, setErrPass] = useState('');
+    // const [state, setState] = useState({
+    //     open: false,
+    //     vertical: 'top',
+    //     horizontal: 'center',
+    // });
+    // const { vertical, horizontal, open } = state;
 
 
     // useEffect((props) => (event) => {
@@ -67,18 +67,18 @@ export default function Login() {
     async function onSubmit(event) {
         AuthService.login(user).then(
             () => {
-               
+
                 navigate("/random");
                 window.location.reload();
-            },
-            (err) => {
-                setUserErrors(err.response.data);
             }
+            // (err) => {
+            //     setUserErrors(err.response.data);
+            // }
         );
     };
-    const handleClose = () => {
-        setState({ ...state, open: false });
-    };
+    // const handleClose = () => {
+    //     setState({ ...state, open: false });
+    // };
     return (
         <>
             <Stack id='shine-background' sx={{ display: 'flex', justifyContent: 'center', borderRadius: 5 }}>
@@ -125,7 +125,7 @@ export default function Login() {
                     sx={{ color: 'antiquewhite', bgcolor: 'cornflowerblue', height: 35, alignSelf: 'center' }}>
                     Submit
                 </ColorButton>
-                <Snackbar
+                {/* <Snackbar
                     anchorOrigin={{ vertical, horizontal }}
                     open={open}
                     onClose={handleClose}
@@ -133,7 +133,7 @@ export default function Login() {
                     <Alert onClose={handleClose} severity="warning">
                         {errUser}<br />{errPass}
                     </Alert>
-                </Snackbar>
+                </Snackbar> */}
             </Stack>
         </>
     )

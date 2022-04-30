@@ -30,17 +30,17 @@ export default function Register() {
         password: '',
         confirmPassword: '',
     });
-    const [state, setState] = useState({
-        open: false,
-        vertical: 'top',
-        horizontal: 'center',
-    });
-    const [userErrors, setUserErrors] = useState('');
-    const [errUsername, setErrUsername] = useState('');
-    const [errFullName, setErrFullName] = useState('');
-    const [errPassword, setErrPassword] = useState('');
-    const [errConfirmPassword, setErrConfirmPassword] = useState('');
-    const { vertical, horizontal, open } = state;
+    // const [state, setState] = useState({
+    //     open: false,
+    //     vertical: 'top',
+    //     horizontal: 'center',
+    // });
+    // const [userErrors, setUserErrors] = useState('');
+    // const [errUsername, setErrUsername] = useState('');
+    // const [errFullName, setErrFullName] = useState('');
+    // const [errPassword, setErrPassword] = useState('');
+    // const [errConfirmPassword, setErrConfirmPassword] = useState('');
+    // const { vertical, horizontal, open } = state;
     // useEffect((props) => (event) => {
     //     if (userErrors) {
     //         setState({
@@ -73,9 +73,9 @@ export default function Register() {
                 navigate("/login");
                 window.location.reload();
             },
-            (err) => {
-                setUserErrors(err.response.data);
-            }
+            // (err) => {
+            //     setUserErrors(err.response.data);
+            // }
         );
     };
     const handleClickShowPassword = () => {
@@ -98,13 +98,13 @@ export default function Register() {
     };
 
 
-    const handleClose = () => {
-        setState({ ...state, open: false });
-        setErrUsername('');
-        setErrFullName('');
-        setErrPassword('');
-        setErrConfirmPassword('');
-    };
+    // const handleClose = () => {
+    //     setState({ ...state, open: false });
+    //     setErrUsername('');
+    //     setErrFullName('');
+    //     setErrPassword('');
+    //     setErrConfirmPassword('');
+    // };
     return (
         <>
             <Stack id='shine-background' sx={{ display: 'flex', justifyContent: 'center', borderRadius: 5 }}>
@@ -189,7 +189,7 @@ export default function Register() {
                     sx={{ color: 'antiquewhite', bgcolor: 'cornflowerblue', height: 35, alignSelf: 'center' }}>
                     Submit
                 </ColorButton>
-                <Snackbar
+                {/* <Snackbar
                     anchorOrigin={{ vertical, horizontal }}
                     open={open}
                     onClose={handleClose}
@@ -205,7 +205,7 @@ export default function Register() {
                             {errConfirmPassword}
                         </Box>
                     </Alert>
-                </Snackbar>
+                </Snackbar> */}
             </Stack>
         </>
     )
